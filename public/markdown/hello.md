@@ -1,11 +1,5 @@
 # Hello
 
-<aside>
-
-Well, this **should** be rendered somewhere
-
-</aside>
-
 this is *paragraph*
 
 <gallery name="foof"></gallery>
