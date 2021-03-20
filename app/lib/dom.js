@@ -37,26 +37,28 @@ export const toDom = (tree, preprocess=defaultPreprocess) => {
   }
 
   const toElement = node => {
-    node = preprocess(node);
     if(node) {
-      let { type } = node;
-      if(type === 'root') {
-        let el = createElement('div', node, 'root');
-        return toElements(el, node.children);
-      } else if(type === 'element') {
-        let el = createElement(node.tagName, node);
-        return toElements(el, node.children);
-      } else if(type === 'text') {
-        return document.createTextNode(node.value);
-      } else if(type === 'component') {
-        let el = createElement('div', node, 'component');
-        components.push({
-          el,
-          node
-        });
-        return toElements(el, node.children);
+      node = preprocess(node);
+      if(node) {
+        let { type } = node;
+        if(type === 'root') {
+          let el = createElement('div', node, 'root');
+          return toElements(el, node.children);
+        } else if(type === 'element') {
+          let el = createElement(node.tagName, node);
+          return toElements(el, node.children);
+        } else if(type === 'text') {
+          return document.createTextNode(node.value);
+        } else if(type === 'component') {
+          let el = createElement('div', node, 'component');
+          components.push({
+            el,
+            node
+          });
+          return toElements(el, node.children);
+        }
+        assert(`Unsupported node '${type}'`, false);
       }
-      assert(`Unsupported node '${type}'`, false);
     }
   }
 
