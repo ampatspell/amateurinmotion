@@ -4,7 +4,7 @@ import { localCopy } from "tracked-toolbox";
 
 export default class RouteIndexComponent extends Component {
 
-  @localCopy('args.content') content;
+  @localCopy('args.model.file.body') content;
 
   @action
   onInput(e) {

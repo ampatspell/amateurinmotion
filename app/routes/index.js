@@ -1,15 +1,14 @@
 import Route from '@ember/routing/route';
-import { fetchMarkdown } from '../lib/fetch';
-import { matter } from '../lib/matter';
+import { inject as service } from "@ember/service";
 
 export default class IndexRoute extends Route {
 
+  @service files;
+
   async model() {
-    let content = await fetchMarkdown('hello');
-    let { attributes, body } = matter(content);
+    let file = await this.files.load('markdown', 'markdown/hello.md');
     return {
-      attributes,
-      body
+      file
     };
   }
 
