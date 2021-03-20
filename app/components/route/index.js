@@ -1,24 +1,15 @@
 import Component from '@glimmer/component';
-import outdent from 'outdent';
+import { action } from "@ember/object";
+import { localCopy } from "tracked-toolbox";
 
 export default class RouteIndexComponent extends Component {
 
-  content = outdent`
-  # Hello
+  @localCopy('args.content') content;
 
-  this is *paragraph*
-
-  <Gallery name="foof"></Gallery>
-
-  \`\`\` javascript
-  let foo = { ok: true };
-  \`\`\`
-
-  another paragraph
-
-  ![](one.png)
-
-  `;
+  @action
+  onInput(e) {
+    this.content = e.target.value;
+  }
 
   onPreprocess(node) {
     if(node.tagName === 'gallery') {
