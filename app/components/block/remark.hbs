@@ -1,0 +1,10 @@
+<div class="block-remark" ...attributes {{did-update this.didUpdateContent @content}}>
+  {{#if this.content}}
+    {{this.content.root}}
+    {{#each this.content.components as |hash|}}
+      {{#in-element hash.el}}
+        {{component hash.node.name model=hash.node.model}}
+      {{/in-element}}
+    {{/each}}
+  {{/if}}
+</div>
