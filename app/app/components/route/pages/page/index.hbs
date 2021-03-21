@@ -1,0 +1,15 @@
+<div class="route-pages-page-index">
+
+  <Block::Header/>
+
+  <div class="page">
+    <div class="header">
+      <div class="title">{{@model.title}}</div>
+      {{#if @model.date}}
+        <div class="date">{{@model.date}}</div>
+      {{/if}}
+    </div>
+    <Block::Remark class="content" @content={{@model.body}}/>
+  </div>
+
+</div>

@@ -4,7 +4,7 @@ import { reads } from "macro-decorators";
 const file = key => reads(`file.${key}`);
 const attr = key => file(`attributes.${key}`);
 
-export default class Post extends Model {
+export default class Page extends Model {
 
   constructor(owner, { file }) {
     super(owner);
@@ -13,7 +13,6 @@ export default class Post extends Model {
 
   @attr('slug') slug;
   @attr('title') title;
-  @attr('intro') intro;
   @attr('date') date;
   @file('body') body;
 

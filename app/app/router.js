@@ -15,4 +15,9 @@ Router.map(function () {
     });
   });
 
+  this.route('pages', function() {
+    this.route('page', { path: '/:page_id' }, function() {
+    });
+  });
+
 });
