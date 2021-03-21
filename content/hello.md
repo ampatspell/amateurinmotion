@@ -6,17 +6,10 @@ title: Hello
 
 this is *paragraph* with words.
 
-custom `<gallery name="foof"/>` component.
-
-<gallery name="foof"></gallery>
-
 ``` javascript
-// some javascript
-let foo = { ok: true };
+export default class RouteIndexComponent extends Component {
+
+  @reads('args.model.file.body') body;
+
+}
 ```
-
-another **paragraph**, imagine.
-
-and a picture
-
-![](/picture.jpg)

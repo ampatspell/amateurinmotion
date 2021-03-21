@@ -17,9 +17,6 @@
     font-size: 18px;
     @include header-code();
   }
-  h1 + h2 {
-    margin-top: 40px;
-  }
   h3 {
     font-weight: 400;
     font-size: 17px;
@@ -39,9 +36,6 @@
       padding: 0;
     }
   }
-  > *:first-child {
-    margin-top: 15px;
-  }
   code {
     font-family: $font-code;
     display: inline-block;
@@ -49,5 +43,11 @@
   }
   pre code {
     font-weight: 400;
+  }
+  *:first-child {
+    margin-top: 0;
+  }
+  *:last-child {
+    margin-bottom: 0;
   }
 }
