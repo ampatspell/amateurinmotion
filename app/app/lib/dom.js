@@ -27,6 +27,11 @@ export const toDom = (tree, preprocess=defaultPreprocess) => {
         if(attributes.includes(key)) {
           let value = properties[key];
           el[key] = value;
+        } else {
+          // temporary
+          if(key !== 'className') {
+            console.warn('Unmapped node property', key);
+          }
         }
       }
     }
