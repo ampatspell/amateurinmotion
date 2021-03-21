@@ -41,9 +41,7 @@ let build = async (dir, extensions) => {
     hash[file] = meta;
   }));
 
-  let string = JSON.stringify(hash, null, 2);
-  console.log(string);
-  return `${string}\n`;
+  return JSON.stringify(hash);
 }
 
 module.exports = build;

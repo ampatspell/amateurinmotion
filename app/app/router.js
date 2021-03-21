@@ -1,5 +1,5 @@
 import EmberRouter from '@ember/routing/router';
-import config from 'thingie/config/environment';
+import config from 'amateurinmotion/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

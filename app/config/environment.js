@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   let ENV = {
-    modulePrefix: 'thingie',
+    modulePrefix: 'amateurinmotion',
     environment,
     rootURL: '/',
     locationType: 'auto',

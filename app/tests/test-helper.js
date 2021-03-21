@@ -1,5 +1,5 @@
-import Application from 'thingie/app';
-import config from 'thingie/config/environment';
+import Application from 'amateurinmotion/app';
+import config from 'amateurinmotion/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

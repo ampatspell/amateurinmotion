@@ -2,11 +2,11 @@
 title: Hello
 ---
 
-# Hello
+# Hey there
 
 this is *paragraph* with words.
 
-custom `<gallery/>` component.
+custom `<gallery name="foof"/>` component.
 
 <gallery name="foof"></gallery>
 
