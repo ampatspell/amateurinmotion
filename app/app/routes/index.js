@@ -6,11 +6,7 @@ export default class IndexRoute extends Route {
   @service files;
 
   async model() {
-    let index = await this.files.metadata.load('metadata.json');
-    console.log(index);
-
-    let file = await this.files.markdown.load('hello.md');
-
+    let file = await this.files.file('hello.md').load();
     return {
       file
     };

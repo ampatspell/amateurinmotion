@@ -25,6 +25,7 @@ let markdown = async (dir, file) => {
   let content = await readFile(dir, file, 'utf-8');
   let { attributes } = matter(content);
   return {
+    type: 'markdown',
     attributes
   };
 }
@@ -37,6 +38,10 @@ let build = async (dir, extensions) => {
     let meta = null;
     if(file.endsWith('.md')) {
       meta = await markdown(dir, file);
+    } else {
+      meta = {
+        type: 'binary'
+      };
     }
     hash[file] = meta;
   }));
