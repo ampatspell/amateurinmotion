@@ -1,0 +1,21 @@
+.block-header {
+  padding: 25px 50px;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  > .logo {
+    flex: 1;
+  }
+  > .links {
+    display: flex;
+    flex-direction: row;
+    > a {
+      display: block;
+      margin-left: 25px;
+      text-decoration: none;
+      &.active {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -5,8 +5,12 @@ const defaultFingerprintExtensions = require('broccoli-asset-rev/lib/default-opt
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
+    sassOptions: {
+      includePaths: [
+        'app/components'
+      ]
+    },
     fingerprint: {
-      // enabled: true,
       extensions: [ ...defaultFingerprintExtensions, 'md', 'json' ],
       generateAssetMap: true
     }

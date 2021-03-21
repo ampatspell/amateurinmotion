@@ -50,6 +50,7 @@ export default class FilesService extends Service {
     await model._load(res);
   }
 
+  // let file = await this.files.file('hello.md').load();
   file(name) {
     return this.all.find(file => file.name === name);
   }

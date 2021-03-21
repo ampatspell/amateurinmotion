@@ -1,0 +1,9 @@
+.block-page {
+  height: 100vh;
+  border-bottom: 1px solid fade-out(#000, 0.95);
+  display: flex;
+  flex-direction: column;
+  &.type-dark {
+    background: fade-out(#000, 0.97);
+  }
+}
