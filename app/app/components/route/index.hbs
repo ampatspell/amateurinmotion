@@ -1,11 +1,7 @@
 <div class="route-index">
 
-  <div class="editor">
-    <textarea class="textarea" value={{this.content}} {{on 'input' this.onInput}}/>
-  </div>
-
-  <Block::Remark class="preview"
-    @content={{this.content}}
+  <Block::Remark class="content"
+    @content={{this.body}}
     @onPreprocess={{this.onPreprocess}}
   />
 

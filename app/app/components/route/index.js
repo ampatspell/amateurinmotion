@@ -1,15 +1,9 @@
 import Component from '@glimmer/component';
-import { action } from "@ember/object";
-import { localCopy } from "tracked-toolbox";
+import { reads } from "macro-decorators";
 
 export default class RouteIndexComponent extends Component {
 
-  @localCopy('args.model.file.body') content;
-
-  @action
-  onInput(e) {
-    this.content = e.target.value;
-  }
+  @reads('args.model.file.body') body;
 
   onPreprocess(node) {
     if(node.tagName === 'gallery') {

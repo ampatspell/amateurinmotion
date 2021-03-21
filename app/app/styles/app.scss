@@ -9,19 +9,11 @@ $font-size-smaller: 12px;
 @import "remark";
 
 .route-index {
-  padding: 5px;
+  padding: 10px;
   flex: 1;
   display: flex;
-  flex-direction: row;
-  > .editor {
-    width: 50%;
-    > .textarea {
-      height: 100%;
-    }
-  }
-  > .preview {
-    width: 50%;
-  }
+  flex-direction: column;
+  max-width: 600px;
 }
 
 .block-remark-gallery {
