@@ -28,11 +28,7 @@ export default class AssetMapService extends Service {
     if(!json) {
       return name;
     }
-    let resolved = json.assets[name];
-    if(!resolved) {
-      throw new Error(`'${name}' was not found in assetMap.json`);
-    }
-    return resolved;
+    return json.assets[name] || name;
   }
 
 }
