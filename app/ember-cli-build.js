@@ -7,7 +7,7 @@ module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     fingerprint: {
       // enabled: true,
-      extensions: [ ...defaultFingerprintExtensions, 'md' ],
+      extensions: [ ...defaultFingerprintExtensions, 'md', 'json' ],
       generateAssetMap: true
     }
   });
