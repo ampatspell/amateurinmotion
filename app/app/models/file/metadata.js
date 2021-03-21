@@ -1,6 +1,6 @@
 import File from '../file';
 
-export default class IndexFile extends File {
+export default class MetadataFile extends File {
 
   constructor(owner, { text }) {
     super(owner);
