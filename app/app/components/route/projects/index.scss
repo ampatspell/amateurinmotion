@@ -2,23 +2,34 @@
   flex: 1;
   > .projects {
     > .project {
-      padding: 25px 50px;
-      border-bottom: 1px solid fade-out(#000, 0.9);
+      $c: fade-out(#000, 0.95);
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid $c;
       &:last-child {
-        border-bottom: none;
+        border-bottom-color: transparent;
       }
-      > .title {
-        font-weight: 600;
-        font-size: 28px;
-      }
-      > .content {
-        margin: 15px 0 25px 0;
-      }
-      > .actions {
-        font-size: 16px;
-        > a {
-          text-decoration: none;
+      > a {
+        display: block;
+        text-decoration: none;
+        padding: 25px 50px;
+        > .title {
           font-weight: 600;
+          font-size: 28px;
+        }
+        > .content {
+          margin: 15px 0 25px 0;
+        }
+      }
+      transition:
+        0.3s ease-in-out background-color,
+        0.3s ease-in-out border-color;
+      &:hover {
+        background: fade-out(#000, 0.97);
+        &:first-child {
+          border-top-color: $c;
+        }
+        &:last-child {
+          border-bottom-color: $c;
         }
       }
     }
