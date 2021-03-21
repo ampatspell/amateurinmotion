@@ -11,10 +11,8 @@ Router.map(function () {
   });
 
   this.route('blog', function() {
+    this.route('post', { path: '/:post_id' }, function() {
+    });
   });
 
-  this.route('route', function() {
-    this.route('projects', function() {});
-    this.route('blog', function() {});
-  });
 });

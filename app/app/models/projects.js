@@ -17,6 +17,4 @@ export default class Projects extends Model {
     return this;
   }
 
-
-
 }

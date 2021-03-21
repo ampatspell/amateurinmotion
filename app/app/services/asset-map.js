@@ -25,10 +25,10 @@ export default class AssetMapService extends Service {
 
   resolve(name) {
     let { json } = this;
-    if(!json) {
-      return name;
+    if(json) {
+      name = json.assets[name] || name;
     }
-    return json.assets[name] || name;
+    return `/${name}`;
   }
 
 }

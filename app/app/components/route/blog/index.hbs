@@ -2,4 +2,11 @@
 
   <Block::Header/>
 
+  <Block::Rows @models={{@model.posts}} as |post|>
+    <LinkTo @route="blog.post" @model={{post.slug}}>
+      <div class="title">{{post.title}}</div>
+      <div class="intro">{{post.intro}}</div>
+    </LinkTo>
+  </Block::Rows>
+
 </div>
