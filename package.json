@@ -1,0 +1,7 @@
+{
+  "name": "amateurinmotion",
+  "private": true,
+  "scripts": {
+    "start": "(cd app && ember s)"
+  }
+}

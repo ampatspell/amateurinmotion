@@ -2,13 +2,22 @@ import Service from '@ember/service';
 import { inject as service } from "@ember/service";
 import { getOwner } from '@ember/application';
 import { assert } from '@ember/debug';
+import { tracked } from "@glimmer/tracking";
+import { cached } from "tracked-toolbox";
+import { sortedBy } from '../util/array';
 
 export default class FilesService extends Service {
 
   @service assetMap;
+  @service models;
 
   prefix = 'content';
-  all = null;
+  @tracked all = null;
+
+  @cached
+  get sorted() {
+    return sortedBy(this.all, file => file.metadata?.position);
+  }
 
   async _loadModels() {
     let { json } = await this._createModel('metadata', 'metadata.json').load();
@@ -28,10 +37,7 @@ export default class FilesService extends Service {
   }
 
   _createModel(type, name) {
-    let owner = getOwner(this);
-    let factory = owner.factoryFor(`model:files/${type}`)?.class;
-    assert(`Model for type '${type}' not registered`, !!factory);
-    return new factory(owner, { files: this, name, type });
+    return this.models.create(`files/${type}`, { files: this, name, type });
   }
 
   async _fetch(name) {
@@ -53,6 +59,10 @@ export default class FilesService extends Service {
   // let file = await this.files.file('hello.md').load();
   file(name) {
     return this.all.find(file => file.name === name);
+  }
+
+  filter(cb) {
+    return this.sorted.filter(cb);
   }
 
 }

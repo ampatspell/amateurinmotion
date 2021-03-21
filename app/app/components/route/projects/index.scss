@@ -1,0 +1,26 @@
+.route-projects-index {
+  flex: 1;
+  > .projects {
+    > .project {
+      padding: 25px 50px;
+      border-bottom: 1px solid fade-out(#000, 0.9);
+      &:last-child {
+        border-bottom: none;
+      }
+      > .title {
+        font-weight: 600;
+        font-size: 28px;
+      }
+      > .content {
+        margin: 15px 0 25px 0;
+      }
+      > .actions {
+        font-size: 16px;
+        > a {
+          text-decoration: none;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

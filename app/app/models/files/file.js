@@ -7,6 +7,7 @@ export default class File {
     this.files = files;
     this.name = name;
     this.type = type;
+    this.directory = this.name.split('/').slice(0, -1).join('/');
   }
 
   _load() {}

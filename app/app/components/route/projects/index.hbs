@@ -2,4 +2,16 @@
 
   <Block::Header/>
 
+  <div class="projects">
+    {{#each @model.all as |project|}}
+      <div class="project">
+        <div class="title">{{project.title}}</div>
+        <Block::Remark class="content" @content={{project.body}}/>
+        <div class="actions">
+          <a href={{project.website}} target="top">Visit website →</a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
 </div>
