@@ -22,6 +22,7 @@ export default class Base extends Model {
 
   async load() {
     await this.file.load();
+    await this.tree?.promise;
     return this;
   }
 

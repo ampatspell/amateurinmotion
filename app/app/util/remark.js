@@ -58,6 +58,7 @@ export const visit = (node, visitor) => {
 }
 
 class RemarkContent {
+  promise = null;
   @tracked isLoading = true;
   @tracked isLoaded = false;
   @tracked content = null;
@@ -68,10 +69,12 @@ export const remark = bodyKey => (target, key, descriptor) => cached(target, key
     let body = this[bodyKey];
     let visitor = descriptor.value?.bind(this);
     let tree = new RemarkContent();
-    toTree(body, visitor).then(content => {
+    let promise = toTree(body, visitor);
+    promise.then(content => {
       tree.isLoaded = true;
       tree.isLoading = false;
       tree.content = content;
+      tree.promise = promise;
     });
     return tree;
   }
