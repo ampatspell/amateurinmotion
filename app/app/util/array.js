@@ -9,3 +9,7 @@ export const sortedBy = (array, arg) => {
     return a < b ? -1 : a > b ? 1 : 0;
   });
 }
+
+export const lastObject = array => {
+  return array && array[array.length - 1];
+}

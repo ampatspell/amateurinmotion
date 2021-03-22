@@ -17,6 +17,10 @@ export default class Post extends Model {
   @attr('date') date;
   @file('body') body;
 
+  get isHidden() {
+    return this.file.filename.startsWith('-');
+  }
+
   async load() {
     await this.file.load();
     return this;

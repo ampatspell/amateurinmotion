@@ -1,13 +1,16 @@
 import { setOwner } from '@ember/application';
+import { lastObject } from '../../util/array';
 
 export default class File {
 
   constructor(owner, { files, name, type }) {
     setOwner(this, owner);
+    let components = name.split('/');
     this.files = files;
     this.name = name;
     this.type = type;
-    this.directory = this.name.split('/').slice(0, -1).join('/');
+    this.filename = lastObject(components);
+    this.directory = components.slice(0, -1).join('/');
   }
 
   _load() {}

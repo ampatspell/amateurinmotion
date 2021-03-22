@@ -13,6 +13,14 @@
       > .title {
         font-weight: 600;
         font-size: 28px;
+        position: relative;
+        > .marker {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 11px;
+          font-weight: normal;
+        }
       }
       > .content {
         margin: 15px 0 5px 0;
