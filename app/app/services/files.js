@@ -1,7 +1,5 @@
 import Service from '@ember/service';
 import { inject as service } from "@ember/service";
-import { getOwner } from '@ember/application';
-import { assert } from '@ember/debug';
 import { tracked } from "@glimmer/tracking";
 import { cached } from "tracked-toolbox";
 import { sortedBy } from '../util/array';
@@ -16,7 +14,7 @@ export default class FilesService extends Service {
 
   @cached
   get sorted() {
-    return sortedBy(this.all, file => file.metadata?.position);
+    return sortedBy(this.all, file => file.attributes?.position);
   }
 
   async _loadModels() {

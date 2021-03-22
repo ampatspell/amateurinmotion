@@ -11,7 +11,7 @@ export default class Projects extends Model {
   async load() {
     this.all = await Promise.all(this.files.filter(file => {
       return file.directory === 'projects' && file.type === 'markdown';
-    }).reverse().map(file => {
+    }).map(file => {
       return this.models.create('project', { file }).load();
     }));
     return this;

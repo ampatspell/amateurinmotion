@@ -5,6 +5,7 @@
   <Block::Rows @models={{@model.all}} as |project|>
     <a href={{project.website}} target="top">
       <div class="title">{{project.title}}</div>
+      {{!-- <div class="pos">#{{project.file.attributes.position}}</div> --}}
       <Block::Remark class="content" @content={{project.body}}/>
     </a>
   </Block::Rows>
