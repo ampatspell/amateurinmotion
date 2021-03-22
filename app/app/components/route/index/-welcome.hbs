@@ -1,6 +1,8 @@
 <Block::Page @type="dark">
   <div class="route-index-welcome">
-    <Block::Header class="header"/>
+    <div class="header">
+      <Block::Header/>
+    </div>
     <Block::Remark class="content" @content={{@hello.body}} @onPreprocess={{this.onPreprocess}}/>
   </div>
 </Block::Page>
