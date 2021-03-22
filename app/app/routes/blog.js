@@ -6,7 +6,7 @@ export default class BlogRoute extends Route {
   @service models;
 
   async model() {
-    return this.models.create('blog').load();
+    return this.models.create('content/blog').load();
   }
 
 }

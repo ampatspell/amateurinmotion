@@ -1,11 +1,10 @@
-import Component from '@glimmer/component';
-import { action } from "@ember/object";
-import { widow } from '../../../util/string';
+import Base, { remark } from './-base';
+import { widow } from '../../util/string';
 
-export default class RouteIndexWelcomeComponent extends Component {
+export default class Basic extends Base {
 
-  @action
-  onPreprocess(node) {
+  @remark('body')
+  tree(node) {
     let { type, tagName } = node;
     if(type === 'text') {
       node.value = widow(node.value);

@@ -6,7 +6,7 @@ export default class PagesRoute extends Route {
   @service models;
 
   async model() {
-    return this.models.create('pages').load();
+    return this.models.create('content/pages').load();
   }
 
 }
