@@ -83,6 +83,7 @@
   },
   "ember-addon": {
     "paths": [
+      "lib/analytics",
       "lib/content"
     ]
   }

@@ -23,6 +23,9 @@ module.exports = function (environment) {
     pageTitle: {
       separator: ' • '
     },
+    analytics: {
+      ga: 'G-PSYX61QYLT'
+    }
   };
 
   if (environment === 'development') {
