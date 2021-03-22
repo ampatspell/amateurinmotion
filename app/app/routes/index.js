@@ -6,9 +6,9 @@ export default class IndexRoute extends Route {
   @service files;
 
   async model() {
-    let file = await this.files.file('hello.md').load();
+    let hello = await this.files.file('hello.md').load();
     return {
-      file
+      hello
     };
   }
 

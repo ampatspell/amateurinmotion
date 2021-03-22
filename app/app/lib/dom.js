@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 
 const defaultPreprocess = node => node;
-const attributes = [ 'src', 'alt' ];
+const attributes = [ 'src', 'alt', 'href', 'target' ];
 
 export const toDom = (tree, preprocess=defaultPreprocess) => {
   let components = [];

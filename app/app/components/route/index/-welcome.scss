@@ -7,17 +7,18 @@
     rgba(187,254,255,0.8) 0%,
     rgba(255,247,179,0.8) 100%
   );
-  > .top {
+  > .header {
     flex: 1;
   }
-  > .bottom {
+  > .content {
     padding: 50px;
-    > .name {
-      font-size: 18px;
+    font-size: 18px;
+    ul {
+      padding: 0;
     }
-    > .occupation {
-      font-size: 18px;
-      font-weight: 600;
+    li {
+      display: block;
+      padding: 0;
     }
   }
 }
