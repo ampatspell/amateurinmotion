@@ -1,9 +1,8 @@
 import { assert } from '@ember/debug';
 
-const defaultPreprocess = node => node;
 const attributes = [ 'src', 'alt', 'href', 'target' ];
 
-export const toDom = (tree, preprocess=defaultPreprocess) => {
+export const toDom = (tree) => {
   let components = [];
 
   const toElements = (parent, nodes=[]) => {
@@ -43,27 +42,24 @@ export const toDom = (tree, preprocess=defaultPreprocess) => {
 
   const toElement = node => {
     if(node) {
-      node = preprocess(node);
-      if(node) {
-        let { type } = node;
-        if(type === 'root') {
-          let el = createElement('div', node, 'root');
-          return toElements(el, node.children);
-        } else if(type === 'element') {
-          let el = createElement(node.tagName, node);
-          return toElements(el, node.children);
-        } else if(type === 'text') {
-          return document.createTextNode(node.value);
-        } else if(type === 'component') {
-          let el = createElement('div', node, 'component');
-          components.push({
-            el,
-            node
-          });
-          return toElements(el, node.children);
-        }
-        assert(`Unsupported node '${type}'`, false);
+      let { type } = node;
+      if(type === 'root') {
+        let el = createElement('div', node, 'root');
+        return toElements(el, node.children);
+      } else if(type === 'element') {
+        let el = createElement(node.tagName, node);
+        return toElements(el, node.children);
+      } else if(type === 'text') {
+        return document.createTextNode(node.value);
+      } else if(type === 'component') {
+        let el = createElement('div', node, 'component');
+        components.push({
+          el,
+          node
+        });
+        return toElements(el, node.children);
       }
+      assert(`Unsupported node '${type}'`, false);
     }
   }
 
