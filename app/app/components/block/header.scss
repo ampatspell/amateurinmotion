@@ -5,7 +5,9 @@
   font-size: 18px;
   > .logo {
     flex: 1;
-    text-decoration: none;
+    > a {
+      text-decoration: none;
+    }
   }
   > .links {
     display: flex;
