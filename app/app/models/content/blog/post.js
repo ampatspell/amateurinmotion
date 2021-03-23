@@ -7,7 +7,17 @@ export default class Post extends Base {
   @attr('intro') intro;
   @attr('date') date;
 
-  @remark('body') tree;
+  @remark('body')
+  tree(node) {
+    let { type, tagName } = node;
+    if(type === 'element' && tagName === 'a') {
+      let href = node.properties.href;
+      if(href.startsWith('http') || href.startsWith('mailto')) {
+        node.properties.target = 'top';
+      }
+    }
+    return node;
+  }
 
   get isHidden() {
     return this.file.filename.startsWith('-');
