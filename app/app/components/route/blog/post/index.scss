@@ -31,4 +31,11 @@
       }
     }
   }
+  > .footer {
+    border-top: 1px solid fade-out(#000, 0.95);
+    padding: 25px 50px;
+    @include print() {
+      display: none;
+    }
+  }
 }
