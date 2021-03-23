@@ -14,11 +14,17 @@
           font-size: 18px;
         }
       }
+      @include print() {
+        padding: 0 0 20px 0;
+      }
     }
     > .content {
       padding: 25px 50px 50px 50px;
       @include mobile() {
         padding: 20px;
+      }
+      @include print() {
+        padding: 0;
       }
     }
   }

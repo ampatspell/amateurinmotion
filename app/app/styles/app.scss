@@ -11,5 +11,11 @@ $font-size-smaller: 12px;
   }
 }
 
+@mixin print() {
+  @media only print {
+    @content;
+  }
+}
+
 @import "body";
 @import "components";

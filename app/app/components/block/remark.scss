@@ -24,6 +24,17 @@
     font-size: 17px;
     @include header-code();
   }
+  h1, h2, h3 {
+    @include print() {
+      page-break-inside: avoid;
+      &:after {
+        content: '';
+        display: block;
+        height: 100px;
+        margin-bottom: -100px;
+      }
+    }
+  }
   blockquote {
     margin: 0;
     border-left: 2px solid #ddd;
@@ -45,6 +56,11 @@
     font-family: $font-code;
     display: inline-block;
     font-weight: 600;
+  }
+  pre {
+    @include print() {
+      page-break-inside: avoid;
+    }
   }
   pre code {
     font-weight: 400;
