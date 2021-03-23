@@ -5,13 +5,13 @@ intro: Quick tip on how to render Ember.js components inside markdown using in-e
 date: 21.03.2021
 ---
 
-Ever wanted to have Ember.js components in your rendered markdown?
+Ever wanted to have Ember.js components in your rendered markdown? I mean, something like this rendered as Ember.js component which receives `value`, inner text content and does something with it:
 
 ``` html
 <Counter value="0">How many times you clicked?</Counter>
 ```
 
-Which is rendered like this:
+Like this [useless counter component](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/remark/blog/counter.hbs):
 
 <Counter value="0">How many times you clicked?</Counter>
 
@@ -19,34 +19,36 @@ Turns out it's quite easy to do with Ember's recently introduced `{{in-element}}
 
 # {{in-element}} what?
 
-Here is [official documentation](https://api.emberjs.com/ember/3.25/classes/Ember.Templates.helpers/methods/in-element?anchor=in-element):
+Here is the [official documentation](https://api.emberjs.com/ember/3.25/classes/Ember.Templates.helpers/methods/in-element?anchor=in-element):
 
 > The `in-element` helper renders its block content outside of the regular flow, into a DOM element given by its `destinationElement` positional argument.
 
-So, let's say you have this `<Blog::Thing/>` component and you want to render that `<Block::Something/>` component somewhere outside:
+So, let's say you have this `<Blog::Beach/>` component and you want to render your `<Block::Hamster/>` component on the moon because hamsters doesn't like beaches:
 
 ``` hbs
-<!-- components/block/thing.hbs -->
-<div class="block-thing">
-  {{#in-element this.destinationElement}}
-    <Block::Something/>
+<!-- components/block/beach.hbs -->
+<div class="block-beach">
+  {{#in-element this.moonElement}}
+    <Block::Hamster/>
   {{/in-element}}
 </div>
 ```
 
 ``` js
-// components/block/thing.js
-export default class BlockThingComponent extends Component {
+// components/block/beach.js
+export default class BlockBeachComponent extends Component {
 
-  get destinationElement() {
+  get moonElement() {
     // or better yet ask some kind of service for an element
-    return document.querySelector('.somewhere-else');
+    return document.querySelector('.moon');
   }
 
 }
 ```
 
-And that's it, `<Block::Something/>` will be rendered inside `.somewhere-else` element. Pretty nifty feature if you ask me.
+And that's it, `<Block::Hamster/>` will be rendered inside `moon` element which certainly is not the beach.
+
+Pretty nifty if you ask me.
 
 # But Markdown?
 
@@ -54,7 +56,7 @@ Well, markdown is just a DOM you insert into the app by using `innerHTML`, `el.a
 
 ## Parsing
 
-For this blog I'm using [Remark](https://remark.js.org/) and list of plugins to parse markdown files into tree of objects:
+For this blog I'm using [Unified](https://unifiedjs.com/), [Remark](https://remark.js.org/) and bunch of other plugins to parse markdown into tree of objects:
 
 ``` javascript
 import unified from 'unified';
@@ -70,7 +72,7 @@ let pipe = unified()
   .use(highlight)
   .use(remarkrehype, { allowDangerousHtml: true })
   .use(raw)
-  .use(compiler); // compiler just returns raw tree
+  .use(compiler); // this compiler just returns raw tree
 ```
 
 and the result of that is:
