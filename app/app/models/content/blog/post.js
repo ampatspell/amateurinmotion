@@ -15,6 +15,17 @@ export default class Post extends Base {
       if(href.startsWith('http') || href.startsWith('mailto')) {
         node.properties.target = 'top';
       }
+    } else if(tagName === 'counter') {
+      let value = parseInt(node.properties.value);
+      let text = node.children[0]?.value;
+      return {
+        type: 'component',
+        name: 'remark/blog/counter',
+        model: {
+          value,
+          text
+        }
+      };
     }
     return node;
   }
