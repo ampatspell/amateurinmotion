@@ -79,7 +79,7 @@ Overall, the idea is as simple as this:
 {{/each}}
 ```
 
-Now let's look at how I got there in this blog as an example.
+Now let's look at implementation for this blog as an example.
 
 ## Parsing
 
