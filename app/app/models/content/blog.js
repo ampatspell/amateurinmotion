@@ -1,6 +1,7 @@
 import Model from '../-model';
 import { inject as service } from "@ember/service";
 import config from '../../config/environment';
+import { sortedBy } from '../../util/array';
 
 export default class Blog extends Model {
 
@@ -17,11 +18,11 @@ export default class Blog extends Model {
   }
 
   async load() {
-    this.all = this.files.filter(file => {
+    this.all = sortedBy(this.files.filter(file => {
       return file.directory === 'blog' && file.type === 'markdown';
-    }).reverse().map(file => {
+    }).map(file => {
       return this.models.create('content/blog/post', { file });
-    });
+    }), model => model.date?.getTime()).reverse();
     return this;
   }
 
