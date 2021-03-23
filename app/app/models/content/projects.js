@@ -14,6 +14,7 @@ export default class Projects extends Model {
     }).map(file => {
       return this.models.create('content/projects/project', { file }).load();
     }));
+    debugger;
     return this;
   }
 
