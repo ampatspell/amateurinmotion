@@ -5,7 +5,7 @@ export default class ProjectsRoute extends Route {
 
   @service models;
 
-  async model() {
+  model() {
     return this.models.create('content/projects').load();
   }
 
