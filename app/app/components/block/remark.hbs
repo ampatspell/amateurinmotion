@@ -1,10 +1,14 @@
-<div class="block-remark" ...attributes {{did-update this.didUpdateContent @content}}>
-  {{#if this.content}}
-    {{this.content.root}}
-    {{#each this.content.components as |hash|}}
-      {{#in-element hash.el}}
-        {{component hash.node.name model=hash.node.model}}
+<div class="block-remark" ...attributes {{did-update this.didUpdateContent this.content}}>
+  {{#if this.dom}}
+    {{this.dom.element}}
+    {{#each this.dom.components as |hash|}}
+      {{#in-element hash.element}}
+        {{component hash.name model=hash.model}}
       {{/in-element}}
     {{/each}}
+  {{else if this.isLoading}}
+    <div class="placeholder">Loading…</div>
+  {{else if this.isError}}
+    <div class="placeholder">{{this.error.message}}</div>
   {{/if}}
 </div>

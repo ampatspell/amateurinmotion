@@ -6,7 +6,7 @@
     <a href={{project.website}} target="top">
       <div class="title">{{project.title}}</div>
       {{!-- <div class="pos">#{{project.file.attributes.position}}</div> --}}
-      <Block::Remark class="content" @content={{project.tree.content}}/>
+      <Block::Remark class="content" @tree={{project.tree}}/>
     </a>
   </Block::Rows>
 

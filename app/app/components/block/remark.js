@@ -1,11 +1,25 @@
 import Component from '@glimmer/component';
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
-import { toDom } from '../../util/dom';
+import { reads } from "macro-decorators";
+import { toDOM } from '../../util/remark';
+
+const tree = (_target, key) => ({
+  get() {
+    return this.tree?.[key];
+  }
+})
 
 export default class BlockRemarkComponent extends Component {
 
-  @tracked content;
+  @reads('args.tree') tree;
+
+  @tree content;
+  @tree isLoading;
+  @tree isError;
+  @tree error;
+
+  @tracked dom;
 
   constructor() {
     super(...arguments);
@@ -18,7 +32,10 @@ export default class BlockRemarkComponent extends Component {
   }
 
   render() {
-    this.content = toDom(this.args.content);
+    let content = this.content;
+    if(content) {
+      this.dom = toDOM(content);
+    }
   }
 
 }
