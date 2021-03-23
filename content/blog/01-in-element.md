@@ -18,7 +18,7 @@ Ever wanted to have live Ember.js components in your rendered markdown? I mean, 
 * else
 ```
 
-Rendered with Ember.js component which receives attribute values, inner content and does something with it:
+…rendered using Ember.js component which receives attribute values, inner content and does something with it:
 
 <Counter value="0">How many times you clicked?</Counter>
 
