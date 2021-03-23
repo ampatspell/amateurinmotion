@@ -5,17 +5,24 @@ intro: Quick tip on how to render Ember.js components inside markdown using in-e
 date: 21.03.2021
 ---
 
-Ever wanted to have Ember.js components in your rendered markdown? I mean, something like this rendered as Ember.js component which receives `value`, inner text content and does something with it:
+Ever wanted to have live Ember.js components in your rendered markdown? I mean, something like this `Counter`:
 
-``` html
+``` markdown
+# Plain markdown
+
 <Counter value="0">How many times you clicked?</Counter>
+
+* something
+* else
 ```
 
-Like this [useless counter component](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/remark/blog/counter.hbs):
+Rendered with Ember.js component which receives attribute values, inner content and does something with it:
 
 <Counter value="0">How many times you clicked?</Counter>
 
-Turns out it's quite easy to do with Ember's recently introduced `{{in-element}}` helper.
+> [counter.hbs](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/remark/blog/counter.hbs), [counter.js](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/remark/blog/counter.js)
+
+Well, it turns out its quite easy to do with Ember's recently introduced `{{in-element}}` helper.
 
 # {{in-element}} what?
 
@@ -23,7 +30,7 @@ Here is the [official documentation](https://api.emberjs.com/ember/3.25/classes/
 
 > The `in-element` helper renders its block content outside of the regular flow, into a DOM element given by its `destinationElement` positional argument.
 
-So, let's say you have this `<Blog::Beach/>` component and you want to render your `<Block::Hamster/>` component on the moon because hamsters doesn't like beaches:
+So, let's say you have this `<Block::Beach/>` component and you want to render your `<Block::Hamster/>` component on the moon because hamsters doesn't like beaches:
 
 ``` hbs
 <!-- components/block/beach.hbs -->
@@ -50,13 +57,31 @@ And that's it, `<Block::Hamster/>` will be rendered inside `moon` element which 
 
 Pretty nifty if you ask me.
 
-# But Markdown?
+# But the markdown part?
 
-Well, markdown is just a DOM you insert into the app by using `innerHTML`, `el.appendChild` or `{{this.markdownRootElement}}`. Might as well do some figuring out which Ember components should go where and just do `in-element` in a for loop right after static content is inserted.
+Well, markdown is just a DOM you insert into the app by using `innerHTML` or `{{this.markdownRootElement}}`. Might as well do some figuring out which Ember components should go where and just do `in-element` in a for loop right after static content is inserted.
+
+Overall, the idea is as simple as this:
+
+``` hbs
+{{!-- insert markdown built as tree of DOM elements --}}
+{{this.content.element}}
+
+{{!-- iterate through all components we need to insert --}}
+{{#each this.content.components as |hash|}}
+  {{!-- in-element target is somewhere in inserted this.content.element above --}}
+  {{#in-element hash.element}}
+    {{!-- render component --}}
+    {{component hash.name model=hash.model}}
+  {{/in-element}}
+{{/each}}
+```
+
+Now let's look at how I got there in this blog as an example.
 
 ## Parsing
 
-For this blog I'm using [Unified](https://unifiedjs.com/), [Remark](https://remark.js.org/) and bunch of other plugins to parse markdown into tree of objects:
+For markdown parsing I use [Unified](https://unifiedjs.com/), [Remark](https://remark.js.org/) and bunch of other plugins to create a tree of javacript objects where each represents a single DOM element.
 
 ``` javascript
 import unified from 'unified';
@@ -75,7 +100,7 @@ let pipe = unified()
   .use(compiler); // this compiler just returns raw tree
 ```
 
-and the result of that is:
+and the result is object like this:
 
 ``` json
 {
@@ -88,19 +113,17 @@ and the result of that is:
       "children": [
         {
           "type": "text",
-          "value": "Ever wanted to have Ember.js components in your rendered markdown?…",
+          "value": "Ever wanted to have live Ember.js components in your rendered markdown?…",
         }
 ```
 
-This tree can be easily walked and modified.
-
-For example, if markdown file has the following:
+Also, if `allowDangerousHtml` is set to `true` for `remark-rehype`, this tree will include non-standard HTML elements. For example:
 
 ``` html
 <Counter value="0">How many clicks?</Counter>
 ```
 
-It will be parsed to:
+Will be parsed to:
 
 ``` json
 {
@@ -118,7 +141,26 @@ It will be parsed to:
 }
 ```
 
-And tree walker can take all the relevant data and replace it with:
+Using simple helper to walk nodes recursively, we can selectively replace non-standard elements with generic `"type": "component"`:
+
+``` js
+root = walk(root, node => {
+  let { type, tagName } = node;
+  if(tagName === 'counter') {
+    let value = parseInt(node.properties.value);
+    let text = node.children[0]?.value;
+    return {
+      type: 'component',
+      name: 'remark/blog/counter',
+      model: {
+        value,
+        text
+      }
+    };
+  }
+  return node;
+});
+```
 
 ``` json
 {
@@ -131,44 +173,49 @@ And tree walker can take all the relevant data and replace it with:
 }
 ```
 
-Now we have generic tree with `component` nodes sprinkled in.
+Now we have generic tree with `component` nodes sprinkled in and we're ready to create DOM.
 
-## Rendering
+## DOM
 
-For rendering I went with basic node to `document.createElement` implementation which just goes through all nodes and creates DOM elements or text nodes. And for `component` nodes it creates `<div class="component">…</div>`
+For this I went with a basic `node` to `document.createElement` implementation which just goes through all nodes, creates DOM elements or text nodes. If it encounters `component` node, it just creates `div` element and adds `{ element, node }` to an array.
 
-> …
-
-Now we have the mapping of DOM elements and nodes:
+So, the result is root element for static markdown content which also includes placeholder `div` elements where Ember components will be rendered into. And also an array of component placeholders to node mapping:
 
 ``` js
-[
-  {
-    el: HTMLDivElement
-    node: {
-      type: "component",
+let dom = {
+  element, // HTMLDivElement with all the content as children
+  components: [
+    {
+      element, // HTMLDivElement
       name: "remark/blog/counter",
       model: {
         value: "0",
         text: "How many clcks?"
       }
-    }
-  },
-  …
-]
+    },
+    …
+  ]
+}
 ```
 
+## Rendering
+
+Now we can render.
+
+First – static HTML and then components:
+
 ``` hbs
-<div class="block-remark" ...attributes {{did-update this.didUpdateContent @content}}>
-  {{#if this.content}}
+<div class="block-remark" ...attributes {{did-update this.didUpdateContent this.content}}>
+  {{#if this.dom}}
 
     {{!-- inserts root DOM element --}}
-    {{this.content.root}}
+    {{this.dom.element}}
 
-    {{#each this.content.components as |hash|}}
-      {{#in-element hash.el}}
+    {{!-- render components into placeholders --}}
+    {{#each this.dom.components as |hash|}}
+      {{#in-element hash.element}}
         {{!-- inserts component into previously inserted dom node above --}}
-        {{component hash.node.name model=hash.node.model}}
+        {{component hash.name model=hash.model}}
       {{/in-element}}
     {{/each}}
 
@@ -178,7 +225,7 @@ Now we have the mapping of DOM elements and nodes:
 
 ## Component
 
-From there, for each custom component we're in Ember.js space
+And for each component we're in our cosy Ember.js space:
 
 ``` hbs
 {{!-- components/remark/blog/counter.hbs --}}
@@ -213,9 +260,11 @@ export default class RemarkBlogCounterComponent extends Component {
 
 # Implementation details
 
-Here are links to classes and utils I referred previously:
+Here are links to all the moving parts I'm using for this blog:
 
-* [`remark.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/util/remark.js) → parses markdown to rehype raw tree
-* [`post.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/models/content/blog/post.js) → transform raw tree nodes
-* [`dom.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/util/dom.js) → raw tree nodes to DOM and component mapping
-* [`<Block::Remark/>`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/block/remark.hbs) → render DOM and components
+* [`util/remark.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/util/remark.js)
+  * `toTree` → parses markdown to rehype
+  * `remark` → decorator that creates rehype from string and transforms raw tree nodes
+  * `toDOM` → creates DOM and component mapping from rehype
+* [`blog/post.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/models/content/blog/post.js) → example `remark` decorator usage
+* [`<Block::Remark/>`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/block/remark.hbs) → renders DOM and components in placeholders
