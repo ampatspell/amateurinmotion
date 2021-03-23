@@ -52,7 +52,7 @@ Pretty nifty if you ask me.
 
 # But Markdown?
 
-Well, markdown is just a DOM you insert into the app by using `innerHTML`, `el.appendChild` or `{{this.markdownRootElement}}`, might as well do some figuring out which ember components should go where and just do `in-element` in for loop right after static content is inserted.
+Well, markdown is just a DOM you insert into the app by using `innerHTML`, `el.appendChild` or `{{this.markdownRootElement}}`. Might as well do some figuring out which Ember components should go where and just do `in-element` in a for loop right after static content is inserted.
 
 ## Parsing
 
