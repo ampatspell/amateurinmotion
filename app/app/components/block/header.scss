@@ -19,6 +19,12 @@
       &.active {
         text-decoration: underline;
       }
+      @include mobile() {
+        margin-left: 15px;
+      }
     }
+  }
+  @include mobile() {
+    padding: 20px;
   }
 }
