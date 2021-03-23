@@ -1,0 +1,17 @@
+.remark-blog-counter {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  border: 1px solid fade-out(#000, 0.9);
+  border-radius: 3px;
+  padding: 10px;
+  > .details {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    > .value {
+      margin-left: 5px;
+      font-weight: 600;
+    }
+  }
+}
