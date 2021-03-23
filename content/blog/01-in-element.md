@@ -2,7 +2,7 @@
 slug: 01-render-comonents-inside-markdown
 title: Render Ember.js components inside markdown
 intro: Quick tip on how to render Ember.js components inside markdown using in-element helper.
-date: 21.03.2021
+date: 23.03.2021
 ---
 
 Ever wanted to have live Ember.js components in your rendered markdown? I mean, something like this `Counter`:
