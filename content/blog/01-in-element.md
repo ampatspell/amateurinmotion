@@ -7,19 +7,17 @@ date: 21.03.2021
 
 Ever wanted to have Ember.js components in your rendered markdown?
 
-I mean someting like this:
-
 ``` html
 <Counter value="0">How many times you clicked?</Counter>
 ```
 
-Which renders as this:
+Which is rendered like this:
 
 <Counter value="0">How many times you clicked?</Counter>
 
 Turns out it's quite easy to do with Ember's recently introduced `{{in-element}}` helper.
 
-# in-element what?
+# {{in-element}} what?
 
 Here is [official documentation](https://api.emberjs.com/ember/3.25/classes/Ember.Templates.helpers/methods/in-element?anchor=in-element):
 
@@ -50,7 +48,7 @@ export default class BlockThingComponent extends Component {
 
 And that's it, `<Block::Something/>` will be rendered inside `.somewhere-else` element. Pretty nifty feature if you ask me.
 
-# but markdown?
+# But Markdown?
 
 Well, markdown is just a DOM you insert into the app by using `innerHTML`, `el.appendChild` or `{{this.markdownRootElement}}`, might as well do some figuring out which ember components should go where and just do `in-element` in for loop right after static content is inserted.
 
@@ -161,20 +159,27 @@ Now we have the mapping of DOM elements and nodes:
 ``` hbs
 <div class="block-remark" ...attributes {{did-update this.didUpdateContent @content}}>
   {{#if this.content}}
-    {{this.content.root}} {{!-- inserts root DOM element --}}
+
+    {{!-- inserts root DOM element --}}
+    {{this.content.root}}
+
     {{#each this.content.components as |hash|}}
       {{#in-element hash.el}}
         {{!-- inserts component into previously inserted dom node above --}}
         {{component hash.node.name model=hash.node.model}}
       {{/in-element}}
     {{/each}}
+
   {{/if}}
 </div>
 ```
 
+## Component
+
 From there, for each custom component we're in Ember.js space
 
 ``` hbs
+{{!-- components/remark/blog/counter.hbs --}}
 <div class="remark-blog-counter">
   <div class="action">
     <input type="button" value="Click" {{on "click" this.onClick}}/>
@@ -187,6 +192,7 @@ From there, for each custom component we're in Ember.js space
 ```
 
 ``` js
+// components/remark/blog/counter.js
 import Component from '@glimmer/component';
 import { action } from "@ember/object";
 import { localCopy  } from "tracked-toolbox";
@@ -202,3 +208,12 @@ export default class RemarkBlogCounterComponent extends Component {
 
 }
 ```
+
+# Implementation details
+
+Here are links to classes and utils I referred previously:
+
+* [`remark.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/util/remark.js) → parses markdown to rehype raw tree
+* [`post.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/models/content/blog/post.js) → transform raw tree nodes
+* [`dom.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/util/dom.js) → raw tree nodes to DOM and component mapping
+* [`<Block::Remark/>`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/block/remark.hbs) → render DOM and components
