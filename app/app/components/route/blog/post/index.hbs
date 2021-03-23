@@ -6,6 +6,13 @@
     <div class="header">
       <div class="title">{{@model.title}}</div>
       <div class="date">{{dt @model.datetime}}</div>
+      {{#if @model.notes}}
+        <div class="notes">
+          {{#each @model.notes as |note|}}
+            <div class="note">{{note}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
     </div>
     <Block::Remark class="content" @tree={{@model.tree}}/>
   </div>

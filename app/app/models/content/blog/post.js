@@ -7,6 +7,7 @@ export default class Post extends Base {
   @attr('title') title;
   @attr('intro') intro;
   @attr('date') _date;
+  @attr('notes') notes;
 
   @datetime('_date', 'dd.MM.yyyy') datetime;
   @date('datetime') date;

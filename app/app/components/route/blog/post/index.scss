@@ -14,6 +14,9 @@
           font-size: 18px;
         }
       }
+      > .notes {
+        margin-top: 5px;
+      }
       @include print() {
         padding: 0 0 20px 0;
       }
