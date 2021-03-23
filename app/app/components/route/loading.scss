@@ -1,5 +1,8 @@
 .route-loading {
   > .label {
     margin: 25px 50px;
+    @include mobile() {
+      margin: 20px;
+    }
   }
 }
