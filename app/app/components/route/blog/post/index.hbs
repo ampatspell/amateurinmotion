@@ -7,7 +7,7 @@
       <div class="title">{{@model.title}}</div>
       <div class="date">{{dt @model.datetime}}</div>
     </div>
-    <Block::Remark class="content" @content={{@model.tree.content}}/>
+    <Block::Remark class="content" @tree={{@model.tree}}/>
   </div>
 
 </div>
