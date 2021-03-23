@@ -5,5 +5,11 @@ $font-text: 'Ubuntu Mono';
 $font-size: 14px;
 $font-size-smaller: 12px;
 
+@mixin mobile() {
+  @media only screen and (max-width: 480px) {
+    @content;
+  }
+}
+
 @import "body";
 @import "components";
