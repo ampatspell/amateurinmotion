@@ -7,6 +7,17 @@ notes:
   - Ember.js v3.25.1
 ---
 
+* Lazy initialized
+* Constructor can start async work
+* alternative to classes instantiated in constructor
+
+``` js
+constructor() {
+  super(...arguments);
+  this.hamster = new Hamster(this);
+}
+```
+
 ``` javascript
 let INSTANCES = new WeakMap();
 
@@ -22,33 +33,66 @@ export const getInstance = (target, key, cb) => {
     instances[key] = instance;
   }
   return instance;
-}
+};
 ```
 
 ``` javascript
 class Hamster {
 
-  constructor(target) {
+  @tracked isLoading = true;
+  @tracked isLoaded = false;
+  @tracked isError = false;
+  @tracked error = null;
+  @tracked data = null;
+
+  constructor(target, opts) {
     this.target = target;
+    this.opts = opts;
+    this.promise = this._load();
   }
 
-}
+  get url() {
+    let { opts: { path }, target } = this;
+    let components = path.split('/');
+    // …
+    return components.join('/');
+  }
 
-const getHamster = (target, key) => getInstance(target, key, () => new Hamster(target));
-
-export const hamster = (_, key) => {
-  return {
-    get() {
-      return getHamster(this, key);
+  async _load() {
+    try {
+      let res = await fetch(this.url);
+      let data = await res.json();
+      assign(this, { isLoaded: true, isLoading: false, data });
+    } catch(error) {
+      assign(this, { isLoaded: false, isLoading: false, isError: true, error });
+      throw error;
     }
   }
+
+  // set(value) {
+  // }
+
 }
+
+export const hamster = path => (_, key) => {
+  let getHamster => target => getInstance(target, key, () => new Hamster(target, { path }));
+  return {
+    get() {
+      return getHamster(this);
+    },
+    // set(value) {
+    //   getHamster(this).set(value);
+    // }
+  }
+};
 ```
 
 ``` javascript
-export default class Thing {
+export default class Article {
 
-  @hamster hamster;
+  @fetch('/articles/:id') resource;
+
+  @reads('resource.data.title') title;
 
 }
 ```
