@@ -1,17 +1,12 @@
 import Route from '@ember/routing/route';
-import { inject as service } from "@ember/service";
+import { file } from './-basic';
 
 export default class IndexRoute extends Route {
 
-  @service models;
-  @service files;
-
   async model() {
-    let file = this.files.file('hello.md');
-    let model = this.models.create('content/basic', { file });
-    await model.load();
+    let hello = await file(this, 'hello.md');
     return {
-      hello: model
+      hello
     };
   }
 
