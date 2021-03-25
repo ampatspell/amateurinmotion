@@ -1,14 +1,18 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'amateurinmotion/config/environment';
 
-const sendPageView = url => {
+let first = true;
+
+const sendPageView = () => {
+  if(first) {
+    first = false;
+    return;
+  }
   let key = config.analytics?.ga;
     if(!key || typeof window.gtag === 'undefined') {
     return;
   }
-  window.gtag('config', key, {
-    'page_path': url
-  });
+  window.gtag('config', key);
 };
 
 export default class Router extends EmberRouter {
@@ -18,7 +22,7 @@ export default class Router extends EmberRouter {
 
   constructor() {
     super(...arguments);
-    this.on('routeDidChange', () => sendPageView(this.currentURL));
+    this.on('routeDidChange', () => sendPageView());
   }
 
 }
