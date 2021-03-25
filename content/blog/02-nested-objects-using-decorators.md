@@ -45,7 +45,7 @@ While this works just fine, it has some drawbacks:
 * parent instance always needs constructor
 * there is no something like a lifecycle hook for 1st access which can trigger async work
 
-One of alternatives to this is lazy initialized getter:
+One of the alternatives is lazy initialized getter:
 
 ``` js
 class Room {
@@ -60,7 +60,7 @@ class Room {
 }
 ```
 
-Drawback are verbosity and additional `_hamster` property.
+But the drawback are verbosity and additional `_hamster` property.
 
 We can do better.
 
@@ -99,9 +99,9 @@ export const hamster = (target, key, descriptor) => {
 };
 ```
 
-With this we're still adding `_hamster` property which we'll get rid of in a bit, but one of the benefits are already there – when `Hamster` is instantiated, it's being accessed for the first time, so that can be a perfect place to start any necessary async work.
+With that we're still setting `_hamster` property which we'll get rid of in a bit, but one of the benefits are already there – when `Hamster` is instantiated, it's has been accessed for the first time, so that can be a perfect place to start any necessary async work.
 
-But we can do better.
+But we can do even better.
 
 # getInstance helper
 
@@ -147,7 +147,7 @@ export const hamster = (_target, key, _descriptor) => {
 };
 ```
 
-And that's basically it. `Hamster` instance will go out of scope when `Room` goes out of scope.
+Clean, isn't it? And we're basically done.
 
 ``` js
 class Room {
@@ -160,11 +160,11 @@ room.parent === room // → true
 room.hamster.squeek();
 ```
 
-Also if necessary, use [`associateDestroyableChild`](https://api.emberjs.com/ember/3.25/functions/@ember%2Fdestroyable/associateDestroyableChild) in `get-instance` to call `hamster.destroy()` when `Room` is destroyed.
+`Hamster` instance will go out of scope when `Room` goes. If necessary, use [`associateDestroyableChild`](https://api.emberjs.com/ember/3.25/functions/@ember%2Fdestroyable/associateDestroyableChild) in `get-instance` to call `hamster.destroy()` when `Room` is destroyed.
 
 # Async fetch decorator example
 
-Here is a bit more elaborate example where this can be useful:
+And here is more elaborate example where this can be useful:
 
 ``` javascript
 class Fetch {
