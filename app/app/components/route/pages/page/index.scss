@@ -7,10 +7,19 @@
       > .title {
         font-size: 28px;
         font-weight: 600;
+        @include mobile() {
+          font-size: 18px;
+        }
+      }
+      @include mobile() {
+        padding: 20px;
       }
     }
     > .content {
       padding: 25px 50px 50px 50px;
+      @include mobile() {
+        padding: 20px;
+      }
     }
   }
 }

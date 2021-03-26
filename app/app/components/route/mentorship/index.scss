@@ -1,0 +1,11 @@
+.route-mentorship-index {
+  > .content {
+    margin-top: 1px;
+    padding: 25px 50px 50px 50px;
+    font-size: 18px;
+    max-width: 800px;
+    @include mobile() {
+      padding: 20px;
+    }
+  }
+}

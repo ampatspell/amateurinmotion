@@ -3,7 +3,7 @@
     {{this.dom.element}}
     {{#each this.dom.components as |hash|}}
       {{#in-element hash.element}}
-        {{component hash.name model=hash.model}}
+        {{component hash.name model=hash.model content=hash.content}}
       {{/in-element}}
     {{/each}}
   {{else if this.isLoading}}

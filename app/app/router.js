@@ -39,4 +39,6 @@ Router.map(function () {
     this.route('page', { path: '/:page_id' }, function() {});
   });
 
+  this.route('mentorship', function() {});
+
 });

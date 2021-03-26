@@ -68,7 +68,7 @@ export const toDOM = tree => {
   let components = [];
 
   const toElements = (parent, nodes=[]) => {
-    nodes.forEach(node => {
+    nodes?.forEach(node => {
       let el = toElement(node);
       if(el) {
         parent.appendChild(el);
@@ -114,14 +114,16 @@ export const toDOM = tree => {
       } else if(type === 'text') {
         return document.createTextNode(node.value);
       } else if(type === 'component') {
-        let element = createElement('div', node, 'component');
+        let element = createElement(node.inline ? 'span' : 'div', node, 'component');
         let { name, model } = node;
+        let content = toElements(document.createElement('span'), node.children);
         components.push({
           element,
           name,
-          model
+          model,
+          content
         });
-        return toElements(element, node.children);
+        return element;
       }
       assert(`Unsupported node '${type}'`, false);
     }

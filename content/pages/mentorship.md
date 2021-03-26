@@ -1,13 +1,21 @@
 ---
 slug: mentorship
-title: I'll teach you web development with Ember.js and Firebase
+title: I'll teach you web development with Ember.js and Google Firebase
 ---
 
-# About me
+<Block title="Hey">
 
-Hey, I'm Arnis. I've been writing software for more than 15 years. Started with Java, moved to Ruby, back to Java, to Objective-C and iOS development, now for last five years been working with Javascript, Ember.js and more recently – Firebase.
+Hey, I'm Arnis, [@ampatspell](https://github.com/ampatspell/) on internets, and I'll teach you how to build webapps with [Ember.js](https://emberjs.com/) and [Google Firebase](https://firebase.google.com/).
 
-# Why Ember.js and Firebase
+</Block>
+
+<Block title="Me">
+
+I've been writing software for more than 15 years. Started with Java, moved to Ruby, back to Java, to Objective-C and iOS development, now for the last five years I've been working with Javascript, Ember.js and more recently – Firebase.
+
+</Block>
+
+<Block title="Why">
 
 [Ember.js](https://emberjs.com/) (Octane edition) is very good foundation for any web application. Starting with simple things like this website up to complex web applications.
 
@@ -15,14 +23,29 @@ Hey, I'm Arnis. I've been writing software for more than 15 years. Started with 
 
 [ember-cli-zuglet](https://www.ember-cli-zuglet.com/) is an addon which enables Ember.js developers to easily leverage all firebase services.
 
-# What we'll cover
+</Block>
 
-Depending on your skillset, we can start with basic HTML and CSS or immediately focus on Ember.js & Firebase, or look into specific areas you're interested in.
+<Block title="What">
 
-# Process
+Depending on your skillset, we will start with basic HTML and CSS or immediately focus on Ember.js & Firebase, or look into specific areas you're interested in.
+
+</Block>
+
+
+<Block title="Process">
 
 We'll use [VSCode](https://code.visualstudio.com/) with [LiveShare](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) addon to share a workspace and [Jitsi](https://jitsi.org/) for video conferencing.
 
-# Pricing
+</Block>
+
+<Block title="Pricing">
 
 My base hourly rate is €30/h.
+
+</Block>
+
+<Block title="Contact">
+
+[Say hi](mailto:ampatspell@gmail.com)?
+
+</Block>
