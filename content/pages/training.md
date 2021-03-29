@@ -1,7 +1,13 @@
 ---
-slug: mentorship
+slug: training
 title: I'll teach you web development with Ember.js and Google Firebase
 ---
+
+<Block>
+
+# [Ember.js](https://emberjs.com/), [Google Firebase](https://firebase.google.com/) and [ember-cli-zuglet](https://www.ember-cli-zuglet.com/) training.
+
+</Block>
 
 <Block title="Hey">
 
@@ -46,6 +52,6 @@ My base hourly rate is €30/h.
 
 <Block title="Contact">
 
-[Say hi](mailto:ampatspell@gmail.com)?
+[ampatspell@gmail.com](mailto:ampatspell@gmail.com)
 
 </Block>

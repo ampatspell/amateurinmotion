@@ -1,8 +1,10 @@
 <Block::Page @type="dark">
-  <div class="route-index-welcome" style={{this.style}}>
-    <div class="header">
-      <Block::Header/>
+  <Block::Background class="background">
+    <div class="route-index-welcome">
+      <div class="header">
+        <Block::Header/>
+      </div>
+      <Block::Remark class="content" @tree={{@hello.tree}}/>
     </div>
-    <Block::Remark class="content" @tree={{@hello.tree}}/>
-  </div>
+  </Block::Background>
 </Block::Page>
