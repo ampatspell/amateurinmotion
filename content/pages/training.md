@@ -1,6 +1,6 @@
 ---
 slug: training
-title: I'll teach you web development with Ember.js and Google Firebase
+# title: Training
 ---
 
 <Block>

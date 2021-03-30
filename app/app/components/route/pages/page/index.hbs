@@ -3,12 +3,16 @@
   <Block::Header/>
 
   <div class="page">
-    <div class="header">
-      <div class="title">{{widow @model.title}}</div>
-      {{#if @model.date}}
-        <div class="date">{{@model.date}}</div>
-      {{/if}}
-    </div>
+    {{#if (or @model.title @model.date)}}
+      <div class="header">
+        {{#if @model.title}}
+        <div class="title">{{widow @model.title}}</div>
+        {{/if}}
+        {{#if @model.date}}
+          <div class="date">{{@model.date}}</div>
+        {{/if}}
+      </div>
+    {{/if}}
     <Block::Remark class="content" @tree={{@model.tree}}/>
   </div>
 
