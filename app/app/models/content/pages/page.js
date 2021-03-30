@@ -18,6 +18,11 @@ export default class Page extends Base {
         },
         children: node.children
       }
+    } else if(node.tagName === 'a') {
+      let href = node.properties.href;
+      if(href.startsWith('http') || href.startsWith('mailto')) {
+        node.properties.target = 'top';
+      }
     }
     return node;
   }
