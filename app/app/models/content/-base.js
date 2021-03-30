@@ -13,9 +13,10 @@ export {
 
 export default class Base extends Model {
 
-  constructor(owner, { file }) {
+  constructor(owner, { file, opts }) {
     super(owner);
     this.file = file;
+    this.opts = opts ?? {};
   }
 
   @file('body') body;

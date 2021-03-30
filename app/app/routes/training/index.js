@@ -1,10 +1,10 @@
 import Route from '@ember/routing/route';
-import { file } from '../-basic';
+import { page } from '../-page';
 
 export default class TrainingIndexRoute extends Route {
 
   async model() {
-    let training = await file(this, 'pages/training.md', 'pages/page');
+    let training = await page(this, 'pages/training.md');
     return {
       training
     };
