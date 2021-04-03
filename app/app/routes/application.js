@@ -3,7 +3,7 @@ import { inject as service } from "@ember/service";
 
 export default class ApplicationRoute extends Route {
 
-  @service files;
+  @service('ember-remark@files') files;
 
   async beforeModel() {
     await this.files.load();

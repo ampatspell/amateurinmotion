@@ -1,6 +1,11 @@
-import fetch from 'fetch';
 import Service from '@ember/service';
-import config from '../config/environment';
+import { getOwner } from '@ember/application';
+import fetch from 'fetch';
+
+const isProduction = caller => {
+  let config = getOwner(caller).factoryFor('config:environment').class
+  return config.environment === 'production';
+};
 
 export default class AssetMapService extends Service {
 
@@ -9,7 +14,7 @@ export default class AssetMapService extends Service {
   }
 
   async load() {
-    if(config.environment !== 'production') {
+    if(!isProduction(this)) {
       this.didLoad(null);
       return;
     }

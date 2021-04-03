@@ -3,8 +3,8 @@ import { inject as service } from "@ember/service";
 
 export default class Pages extends Model {
 
-  @service files;
-  @service models;
+  @service('ember-remark@files') files;
+  @service('ember-remark@models') models;
 
   all = null;
 

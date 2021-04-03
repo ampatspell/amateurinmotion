@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { reads } from "macro-decorators";
-import { toDOM } from '../../util/remark';
+import { toDOM } from '../util/remark';
 
 const tree = (_target, key) => ({
   get() {
@@ -10,7 +10,7 @@ const tree = (_target, key) => ({
   }
 })
 
-export default class BlockRemarkComponent extends Component {
+export default class RemarkComponent extends Component {
 
   @reads('args.tree') tree;
 

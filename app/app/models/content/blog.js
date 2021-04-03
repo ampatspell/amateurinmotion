@@ -5,8 +5,8 @@ import { sortedBy } from '../../util/array';
 
 export default class Blog extends Model {
 
-  @service files;
-  @service models;
+  @service('ember-remark@files') files;
+  @service('ember-remark@models') models;
 
   all = null;
 

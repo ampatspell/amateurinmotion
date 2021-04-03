@@ -1,0 +1,1 @@
+export { default } from 'ember-remark/components/remark';

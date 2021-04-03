@@ -88,7 +88,7 @@
   "ember-addon": {
     "paths": [
       "lib/analytics",
-      "lib/content"
+      "lib/ember-remark"
     ]
   }
 }

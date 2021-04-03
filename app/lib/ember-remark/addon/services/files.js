@@ -6,8 +6,8 @@ import { sortedBy } from '../util/array';
 
 export default class FilesService extends Service {
 
-  @service assetMap;
-  @service models;
+  @service('ember-remark@asset-map') assetMap;
+  @service('ember-remark@models') models;
 
   prefix = 'content';
   @tracked all = null;
