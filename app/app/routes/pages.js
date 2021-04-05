@@ -3,7 +3,7 @@ import { inject as service } from "@ember/service";
 
 export default class PagesRoute extends Route {
 
-  @service('ember-remark@models') models;
+  @service models;
 
   async model() {
     return this.models.create('content/pages').load();

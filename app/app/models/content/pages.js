@@ -3,13 +3,13 @@ import { inject as service } from "@ember/service";
 
 export default class Pages extends Model {
 
-  @service('ember-remark@files') files;
-  @service('ember-remark@models') models;
+  @service content;
+  @service models;
 
   all = null;
 
   async load() {
-    this.all = this.files.filter(file => {
+    this.all = this.content.filter(file => {
       return file.directory === 'pages' && file.type === 'markdown';
     }).reverse().map(file => {
       return this.models.create('content/pages/page', { file });

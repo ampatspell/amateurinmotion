@@ -5,8 +5,8 @@ import { sortedBy } from '../../util/array';
 
 export default class Blog extends Model {
 
-  @service('ember-remark@files') files;
-  @service('ember-remark@models') models;
+  @service content;
+  @service models;
 
   all = null;
 
@@ -18,7 +18,7 @@ export default class Blog extends Model {
   }
 
   async load() {
-    this.all = sortedBy(this.files.filter(file => {
+    this.all = sortedBy(this.content.filter(file => {
       return file.directory === 'blog' && file.type === 'markdown';
     }).map(file => {
       return this.models.create('content/blog/post', { file });

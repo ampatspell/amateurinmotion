@@ -10,6 +10,11 @@ module.exports = function (defaults) {
         'app/components'
       ]
     },
+    'ember-remark': {
+      collections: {
+        content: '../content'
+      }
+    },
     fingerprint: {
       extensions: [ ...defaultFingerprintExtensions, 'md', 'json' ],
       generateAssetMap: true
