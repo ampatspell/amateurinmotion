@@ -33,9 +33,6 @@
     "@glimmer/tracking": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
-    "broccoli-file-creator": "^2.1.1",
-    "broccoli-funnel": "^3.0.3",
-    "broccoli-merge-trees": "^3.0.2",
     "ember-auto-import": "^1.10.1",
     "ember-cli": "~3.25.2",
     "ember-cli-app-version": "^4.0.0",
@@ -52,6 +49,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-page-title": "^6.2.1",
     "ember-qunit": "^5.1.2",
+    "ember-remark": "git+ssh://git@github.com:ampatspell/ember-remark.git",
     "ember-resolver": "^8.0.2",
     "ember-source": "~3.25.1",
     "ember-template-lint": "^2.18.1",
@@ -70,14 +68,8 @@
     "prettier": "^2.2.1",
     "qunit": "^2.14.0",
     "qunit-dom": "^1.6.0",
-    "rehype-raw": "^5.1.0",
-    "remark-breaks": "^2.0.1",
-    "remark-highlight.js": "^6.0.0",
-    "remark-parse": "^9.0.0",
-    "remark-rehype": "^8.0.0",
     "sass": "^1.32.8",
-    "tracked-toolbox": "^1.2.1",
-    "unified": "^9.2.1"
+    "tracked-toolbox": "^1.2.1"
   },
   "engines": {
     "node": "10.* || >= 12"
@@ -87,8 +79,7 @@
   },
   "ember-addon": {
     "paths": [
-      "lib/analytics",
-      "lib/content"
+      "lib/analytics"
     ]
   }
 }

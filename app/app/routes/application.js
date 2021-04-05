@@ -3,10 +3,10 @@ import { inject as service } from "@ember/service";
 
 export default class ApplicationRoute extends Route {
 
-  @service files;
+  @service content;
 
   async beforeModel() {
-    await this.files.load();
+    await this.content.load();
   }
 
 }

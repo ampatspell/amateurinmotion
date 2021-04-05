@@ -33,7 +33,7 @@ module.exports = {
         'config/**/*.js',
         'lib/*/index.js',
         'server/**/*.js',
-        'lib/content/metadata.js'
+        'lib/ember-remark/metadata.js'
       ],
       parserOptions: {
         sourceType: 'script',
