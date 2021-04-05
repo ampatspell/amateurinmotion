@@ -2,6 +2,7 @@
 # https://github.com/firebase/firebase-tools
 #
 # added: entrypoint
+# added: http auth
 
 name: Deploy to Firebase Hosting on merge
 'on':
