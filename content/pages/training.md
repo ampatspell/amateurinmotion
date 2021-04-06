@@ -1,6 +1,5 @@
 ---
 slug: training
-# title: Training
 ---
 
 <Block>
