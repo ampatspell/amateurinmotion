@@ -7,6 +7,12 @@ notes:
   - Ember.js v3.25.1
 ---
 
+<Note>
+
+**Update:** This is now available as an Ember.js addon [ember-cli-remark-static](https://github.com/ampatspell/ember-cli-remark-static) with FastBoot and assetMap.json support.
+
+</Note>
+
 Ever wanted to have live Ember.js components in your rendered markdown? I mean, something like this `Counter`:
 
 ``` markdown
