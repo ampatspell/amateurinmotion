@@ -10,11 +10,7 @@ slug: todo
 
 # ember-cli-remark-static
 
-* Move code from `ember-remark` to `ember-cli-remark-static` as v2
-* Migrate firebase config from v1
 * Add component demo
-* Publish documentation website
-* Publish to npm
 
 # amateurinmotion
 
