@@ -10,7 +10,7 @@ module.exports = function (defaults) {
         'app/components'
       ]
     },
-    'ember-remark': {
+    remark: {
       collections: {
         content: '../content'
       }

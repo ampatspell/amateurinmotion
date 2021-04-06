@@ -1,3 +1,3 @@
-import ModelsService from 'ember-remark/services/models';
+import ModelsService from 'remark/services/models';
 
 export default ModelsService;

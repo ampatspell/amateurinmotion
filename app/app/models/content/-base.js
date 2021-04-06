@@ -1,6 +1,6 @@
 import Model from '../-model';
 import { reads } from "macro-decorators";
-import { remark } from 'ember-remark/util/remark';
+import { remark } from 'remark/decorators';
 
 const file = key => reads(`file.${key}`);
 const attr = key => file(`attributes.${key}`);
