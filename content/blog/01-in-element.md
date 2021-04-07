@@ -206,6 +206,25 @@ let dom = {
 }
 ```
 
+## FastBoot
+
+If you need FastBoot support, [simple-dom](https://github.com/ember-fastboot/simple-dom) works flawlessly:
+
+``` js
+const createDocument = () => {
+  if(typeof document === 'undefined') {
+    // eslint-disable-next-line no-undef
+    let { Document } = FastBoot.require('simple-dom');
+    return new Document();
+  }
+  return document;
+}
+
+let document = createDocument();
+let element = document.createElement(name);
+element.setAttribute('class', 'fancy'); // element.class is not supported by simple-dom
+```
+
 ## Rendering
 
 Now we can render.
@@ -270,9 +289,8 @@ export default class RemarkBlogCounterComponent extends Component {
 
 Here are links to all the moving parts I'm using for this blog:
 
-* [`util/remark.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/util/remark.js)
-  * `toTree` → parses markdown to rehype
-  * `remark` → decorator that creates rehype from string and transforms raw tree nodes
-  * `toDOM` → creates DOM and component mapping from rehype
+* [`toTree`](https://github.com/ampatspell/ember-cli-remark-static/blob/master/addon/util/to-tree.js) → parses markdown to rehype
+* [`remark`](https://github.com/ampatspell/ember-cli-remark-static/blob/master/addon/util/remark.js) → decorator that creates rehype from string and transforms raw tree nodes
+* [`toDOM`](https://github.com/ampatspell/ember-cli-remark-static/blob/master/addon/util/to-dom.js) → creates DOM and component mapping from rehype
+* [`<Block::Remark/>`](https://github.com/ampatspell/ember-cli-remark-static/tree/master/addon/components) → renders DOM and components in placeholders
 * [`blog/post.js`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/models/content/blog/post.js) → example `remark` decorator usage
-* [`<Block::Remark/>`](https://github.com/ampatspell/amateurinmotion/blob/master/app/app/components/block/remark.hbs) → renders DOM and components in placeholders
