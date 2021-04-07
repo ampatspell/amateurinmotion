@@ -20,7 +20,3 @@ slug: todo
 * add background images to projects
 * add `petit` to projects as WIP
 * `pages/index` should list `attributes.public === true` pages
-
-# ember-cli-zuglet
-
-* use new `ember-cli-remark-static` for docs
