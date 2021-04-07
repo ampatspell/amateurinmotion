@@ -22,4 +22,10 @@
       }
     }
   }
+  > .placeholder {
+    padding: 25px 50px;
+    @include mobile() {
+      padding: 20px;
+    }
+  }
 }

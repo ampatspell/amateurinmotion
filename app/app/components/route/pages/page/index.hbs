@@ -2,18 +2,26 @@
 
   <Block::Header/>
 
-  <div class="page">
-    {{#if (or @model.title @model.date)}}
-      <div class="header">
-        {{#if @model.title}}
-        <div class="title">{{widow @model.title}}</div>
-        {{/if}}
-        {{#if @model.date}}
-          <div class="date">{{@model.date}}</div>
-        {{/if}}
-      </div>
-    {{/if}}
-    <Remark class="content" @tree={{@model.tree}}/>
-  </div>
+  {{#if @page}}
+
+    <div class="page">
+      {{#if (or @page.title @model.date)}}
+        <div class="header">
+          {{#if @page.title}}
+          <div class="title">{{widow @page.title}}</div>
+          {{/if}}
+          {{#if @page.date}}
+            <div class="date">{{@page.date}}</div>
+          {{/if}}
+        </div>
+      {{/if}}
+      <Remark class="content" @tree={{@page.tree}}/>
+    </div>
+
+  {{else}}
+
+    <div class="placeholder">Page "{{@slug}}" was not found</div>
+
+  {{/if}}
 
 </div>
