@@ -4,6 +4,7 @@ slug: todo
 
 # ember-cli-konva
 
+* Try to remove `@parent`
 * Documentation in website
 * Make repo public
 * Publish to npm
