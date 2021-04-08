@@ -1,5 +1,6 @@
 ---
 slug: ember-monorepo-notes
+title: Ember.js monorepo with engines
 ---
 
 * [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces)
