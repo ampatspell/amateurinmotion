@@ -6,6 +6,7 @@ export default class Page extends Base {
   @attr('slug') slug;
   @attr('title') title;
   @attr('date') date;
+  @attr('hidden') hidden;
 
   @remark('body')
   tree(node) {

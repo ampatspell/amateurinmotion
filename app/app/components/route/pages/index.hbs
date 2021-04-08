@@ -1,0 +1,11 @@
+<div class="route-pages-index">
+
+  <Block::Header/>
+
+  <Block::Rows @models={{@pages}} as |page|>
+    <LinkTo @route="pages.page" @model={{page.slug}}>
+      <div class="title">{{or page.title page.slug}}</div>
+    </LinkTo>
+  </Block::Rows>
+
+</div>
