@@ -1,5 +1,6 @@
 import Model from '../-model';
 import { inject as service } from "@ember/service";
+import { sortedBy } from '../../util/array';
 
 export default class Projects extends Model {
 
@@ -9,11 +10,11 @@ export default class Projects extends Model {
   all = null;
 
   async load() {
-    this.all = await Promise.all(this.content.filter(file => {
+    this.all = sortedBy(await Promise.all(this.content.filter(file => {
       return file.directory === 'projects' && file.type === 'markdown';
     }).map(file => {
       return this.models.create('content/projects/project', { file }).load();
-    }));
+    })), project => project.position);
     return this;
   }
 

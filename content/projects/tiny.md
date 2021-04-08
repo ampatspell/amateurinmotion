@@ -2,7 +2,7 @@
 slug: tiny
 title: tiny
 website: https://github.com/ampatspell/tiny
-position: 5
+position: 6
 ---
 Sprite and scene editor for Arduboy games. Consists of
 
