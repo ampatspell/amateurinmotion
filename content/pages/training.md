@@ -1,5 +1,6 @@
 ---
 slug: training
+hidden: true
 ---
 
 <Block>
