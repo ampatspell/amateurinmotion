@@ -26,9 +26,9 @@ export default class RouteToolsClockComponent extends Component {
   }
 
   get string() {
-    let milliseconds = Math.round(this.seconds * 10000);
-    let seconds = Math.floor(milliseconds / 10000);
-    let remaining = milliseconds - (seconds * 10000);
+    let milliseconds = Math.round(this.seconds * 1000);
+    let seconds = Math.floor(milliseconds / 1000);
+    let remaining = milliseconds - (seconds * 1000);
     return `00:00:${pad(seconds, 2)}.${remaining}`;
   }
 
