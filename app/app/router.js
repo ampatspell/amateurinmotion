@@ -41,4 +41,8 @@ Router.map(function () {
 
   this.route('training', function() {});
 
+  this.route('tools', function() {
+    this.route('clock');
+  });
+
 });
