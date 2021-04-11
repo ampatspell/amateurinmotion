@@ -1,5 +1,4 @@
 ---
-slug: ember-monorepo-notes
 title: Ember.js monorepo with engines
 ---
 

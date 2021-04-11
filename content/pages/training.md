@@ -1,5 +1,4 @@
 ---
-slug: training
 hidden: true
 ---
 

@@ -1,5 +1,5 @@
 ---
-slug: todo
+slug: TODO
 ---
 
 # ember-cli-konva
