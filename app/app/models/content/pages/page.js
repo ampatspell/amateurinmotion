@@ -3,10 +3,21 @@ import { widow } from '../../../util/string';
 
 export default class Page extends Base {
 
-  @attr('slug') slug;
+  @attr('slug') _slug;
   @attr('title') title;
   @attr('date') date;
   @attr('hidden') hidden;
+
+  get slug() {
+    let { _slug } = this;
+    if(_slug) {
+      return _slug;
+    }
+    let filename = this.file.filename;
+    let components = filename.split('.');
+    components.pop();
+    return components.join('.');
+  }
 
   @remark('body')
   tree(node) {
