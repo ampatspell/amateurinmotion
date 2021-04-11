@@ -72,3 +72,17 @@ let path = require('path');
 
 fs.writeFileSync(path.join(__dirname, 'functions/.npmrc'), content);
 ```
+
+# Multiple packages in a single repo
+
+``` json
+{
+  "name": "@ampatspell/another",
+  "version": "1.0.3",
+  "main": "index.js",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
+  "repository":"https://github.com/ampatspell/thingie"
+}
+```
