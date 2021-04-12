@@ -1,5 +1,5 @@
 ---
-slug: 03-firebase-workspaces
+slug: 03-npm-workspaces
 title: Using npm workspaces
 intro: Tips on using npm workspaces for firebase and Ember.js development with private GitHub packages
 date: 13.04.2021
