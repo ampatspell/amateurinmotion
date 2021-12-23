@@ -45,4 +45,6 @@ Router.map(function () {
     this.route('clock');
   });
 
+  this.route('elza', { path: 'ziemiņš' });
+
 });

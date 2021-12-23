@@ -1,0 +1,9 @@
+<div class={{class "route-elza" playing=this.isPlaying}}>
+  <div class="content">
+    <div class={{class 'icon' (if this.isPlaying 'stop' 'play')}}
+      {{on 'click' this.toggle}}
+      role="button"></div>
+  </div>
+</div>
+
+<audio src="/elzai.mp3" preload="auto" {{did-insert this.didInsertAudio}}/>
