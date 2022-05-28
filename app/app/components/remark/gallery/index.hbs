@@ -1,0 +1,13 @@
+<div class="remark-gallery">
+  {{#if this.isGrid}}
+    <Remark::Gallery::Grid @images={{this.images}} @onSelect={{this.onSelect}}/>
+  {{else}}
+    <Remark::Gallery::Image
+      @images={{this.images}}
+      @image={{this.image}}
+      @onBack={{this.onDeselect}}
+      @onLeft={{this.onPrev}}
+      @onRight={{this.onNext}}
+    />
+  {{/if}}
+</div>

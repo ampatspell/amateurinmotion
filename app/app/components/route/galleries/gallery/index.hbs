@@ -1,0 +1,21 @@
+<div class="route-galleries-gallery-index">
+
+  <Block::Header/>
+
+  {{#if @gallery}}
+
+    <div class="gallery">
+      <div class="header">
+        <div class="title">{{@gallery.title}}</div>
+        <div class="date">{{dt @gallery.datetime}}</div>
+      </div>
+      <Remark class="content" @tree={{@gallery.tree}}/>
+    </div>
+
+  {{else}}
+
+    <div class="placeholder">Gallery "{{@slug}}" was not found</div>
+
+  {{/if}}
+
+</div>

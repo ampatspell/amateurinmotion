@@ -1,0 +1,29 @@
+.remark-gallery-grid {
+  padding: 0 50px 50px 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 25px;
+  > .image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    $s: 150px;
+    width: $s;
+    height: $s;
+    > img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+  @include mobile() {
+    padding: 0;
+    flex-direction: column;
+    gap: 10px;
+    > .image {
+      width: 100%;
+      height: inherit;
+    }
+  }
+}

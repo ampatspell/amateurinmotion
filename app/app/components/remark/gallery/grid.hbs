@@ -1,0 +1,8 @@
+<div class="remark-gallery-grid">
+  {{#each @images as |image|}}
+    {{!-- template-lint-disable require-presentational-children --}}
+    <div class="image" role="button" {{on 'click' (fn @onSelect image)}}>
+      <img src={{image.model.url}} alt={{image.label}}/>
+    </div>
+  {{/each}}
+</div>

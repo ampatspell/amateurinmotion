@@ -39,6 +39,10 @@ Router.map(function () {
     this.route('page', { path: '/:page_id' }, function() {});
   });
 
+  this.route('galleries', function() {
+    this.route('gallery', { path: '/:gallery_id' }, function() {});
+  });
+
   this.route('training', function() {});
 
   this.route('tools', function() {

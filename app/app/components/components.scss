@@ -7,8 +7,12 @@
 @import "route/projects/index";
 @import "route/blog/post/index";
 @import "route/pages/page/index";
+@import "route/galleries/gallery";
 @import "route/training/index";
 @import "route/tools/clock";
 @import "remark/blog/counter";
 @import "remark/pages/block";
+@import "remark/gallery/generate";
+@import "remark/gallery/grid";
+@import "remark/gallery/image";
 @import "route/elza";

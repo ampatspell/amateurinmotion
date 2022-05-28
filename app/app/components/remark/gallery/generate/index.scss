@@ -1,0 +1,8 @@
+.remark-gallery-generate {
+  border: 1px solid fade-out(#000, 0.9);
+  border-radius: 3px;
+  padding: 10px;
+  > .nest {
+    padding-left: 10px;
+  }
+}
