@@ -1,3 +1,6 @@
-<div class="route-index">
-  <Route::Index::-Welcome @hello={{@model.hello}}/>
-</div>
+<Block::Page class="route-index">
+  <div class="header">
+    <Block::Header/>
+  </div>
+  <Remark class="content" @tree={{@model.hello.tree}}/>
+</Block::Page>
