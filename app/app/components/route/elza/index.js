@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
-export default class RouteElzaComponent extends Component {
+export default class RouteElzaIndexComponent extends Component {
 
   @tracked isPlaying = false;
 
