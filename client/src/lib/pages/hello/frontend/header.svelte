@@ -1,8 +1,5 @@
 <script lang="ts">
-  let {
-    title,
-    fontSize,
-  }: { title: string; fontSize: number; } = $props();
+  let { title, fontSize }: { title: string; fontSize: number } = $props();
 </script>
 
 <div class="header">
