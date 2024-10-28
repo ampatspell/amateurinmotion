@@ -1,0 +1,1 @@
+../../../../dummy/client/src/routes/+layout.svelte
