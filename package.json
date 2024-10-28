@@ -1,9 +1,0 @@
-{
-  "name": "amateurinmotion",
-  "private": true,
-  "scripts": {
-    "start": "(cd app && ember s)",
-    "deploy": "(cd app && npm run deploy)",
-    "ci:build": "(cd app && npm ci && npm run build)"
-  }
-}
