@@ -4,9 +4,9 @@
   import { parsePath, type PathWithArgs } from '$dummy/lib/pages/path.svelte';
   import Path from '$dummy/components/frontend/path/path.svelte';
 
-  let { children }: { children: Snippet; path?: PathWithArgs; } = $props();
+  let { children }: { children: Snippet; } = $props();
 
-  let header = parsePath('/header');
+  let header = $derived(parsePath('/header'));
 </script>
 
 <div class="theme">
