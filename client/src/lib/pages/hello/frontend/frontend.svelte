@@ -5,7 +5,7 @@
   import Header from './header.svelte';
 
   let { page }: { page: PageModel } = $props();
-  let settings = page.settings as HelloPageSettingsModel;
+  let settings = $derived(page.settings as HelloPageSettingsModel);
   let title = $derived(settings.title);
   let fontSize = $derived(settings.fontSize ?? 13);
   let imagePadding = $derived(settings.imagePadding ?? 0);
