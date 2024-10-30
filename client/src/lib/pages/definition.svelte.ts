@@ -2,9 +2,12 @@ import { type PageDefinitionModelOptions } from '$dummy/lib/pages/definition/def
 import HeaderBackend from './header/backend/backend.svelte';
 import HeaderFrontend from './header/frontend/frontend.svelte';
 import { HeaderPageSettingsModel, type HeaderPageSettings } from './header/settings.svelte';
-import HelloBackend from './hello/backend/backend.svelte';
-import HelloFrontend from './hello/frontend/frontend.svelte';
-import { HelloPageSettingsModel, type HelloPageSettings } from './hello/settings.svelte';
+import HelloBackend from './gallery/backend/backend.svelte';
+import HelloFrontend from './gallery/frontend/frontend.svelte';
+import {
+  GalleryPageSettingsModel as GalleryPageSettingsModel,
+  type GalleryPageSettings as GalleryPageSettings,
+} from './gallery/settings.svelte';
 import IndexBackend from './index/backend/backend.svelte';
 import IndexFrontend from './index/frontend/frontend.svelte';
 import { IndexPageSettingsModel, type IndexPageSettings } from './index/settings.svelte';
@@ -25,19 +28,21 @@ export const themePageDefinitions = () => {
         name: 'Header',
         frontend: HeaderFrontend,
         backend: HeaderBackend,
-        defaults: {},
+        defaults: {
+          title: 'amateurinmotion.com',
+        },
         settings: (page) => new HeaderPageSettingsModel({ page }),
       } satisfies PageDefinitionModelOptions<HeaderPageSettings>,
       {
-        id: 'hello',
-        name: 'Hello',
+        id: 'gallery',
+        name: 'Gallery',
         frontend: HelloFrontend,
         backend: HelloBackend,
         defaults: {
-          title: 'Untitled hello page',
+          title: 'Untitled gallery',
         },
-        settings: (page) => new HelloPageSettingsModel({ page }),
-      } satisfies PageDefinitionModelOptions<HelloPageSettings>,
+        settings: (page) => new GalleryPageSettingsModel({ page }),
+      } satisfies PageDefinitionModelOptions<GalleryPageSettings>,
     ],
   };
 };

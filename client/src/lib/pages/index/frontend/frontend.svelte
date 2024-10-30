@@ -36,6 +36,7 @@
       display: flex;
       > .content {
         flex: 1;
+        background-color: #333;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;

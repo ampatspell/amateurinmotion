@@ -1,12 +1,12 @@
-import { mapGalleryById } from "$dummy/lib/galleries/gallery.svelte";
-import { PageSettingsModel } from "$dummy/lib/pages/page.svelte";
-import { existing } from "$dummy/lib/utils/existing";
-import { getter } from "$dummy/lib/utils/options";
-import { Properties, Property, type PropertiesOptions } from "$dummy/lib/utils/property.svelte";
+import { mapGalleryById } from '$dummy/lib/galleries/gallery.svelte';
+import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
+import { existing } from '$dummy/lib/utils/existing';
+import { getter } from '$dummy/lib/utils/options';
+import { Properties, Property, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
 
 export type IndexPageSettings = {
   gallery?: string;
-}
+};
 
 export type IndexPageSettingsPropertiesModelOptions = {
   settings: IndexPageSettingsModel;

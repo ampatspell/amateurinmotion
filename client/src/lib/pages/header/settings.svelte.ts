@@ -1,6 +1,6 @@
-import { PageSettingsModel } from "$dummy/lib/pages/page.svelte";
-import { getter } from "$dummy/lib/utils/options";
-import { Properties, Property, type PropertiesOptions } from "$dummy/lib/utils/property.svelte";
+import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
+import { getter } from '$dummy/lib/utils/options';
+import { Properties, Property, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
 
 export type HeaderPageSettings = {
   title: string;

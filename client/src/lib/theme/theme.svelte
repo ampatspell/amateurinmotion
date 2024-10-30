@@ -1,10 +1,10 @@
 <script lang="ts">
   import './theme.scss';
   import type { Snippet } from 'svelte';
-  import { parsePath, type PathWithArgs } from '$dummy/lib/pages/path.svelte';
+  import { parsePath } from '$dummy/lib/pages/path.svelte';
   import Path from '$dummy/components/frontend/path/path.svelte';
 
-  let { children }: { children: Snippet; } = $props();
+  let { children }: { children: Snippet } = $props();
 
   let header = $derived(parsePath('/header'));
 </script>

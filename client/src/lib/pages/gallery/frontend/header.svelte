@@ -1,10 +1,10 @@
 <script lang="ts">
-  let { title, fontSize }: { title: string; fontSize: number } = $props();
+  let { title }: { title: string } = $props();
 </script>
 
 <div class="header">
   <div class="content">
-    <div class="title" style:--font-size="{fontSize}px">
+    <div class="title">
       {title}
     </div>
   </div>
@@ -24,7 +24,7 @@
       justify-content: center;
       gap: 20px;
       > .title {
-        font-size: var(--font-size);
+        font-weight: 600;
       }
     }
   }

@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { GalleryModel } from '$dummy/lib/galleries/gallery.svelte';
 
-  let { gallery, imagePadding }: { gallery: GalleryModel; imagePadding: number } = $props();
+  let { gallery }: { gallery: GalleryModel } = $props();
 </script>
 
-<div class="gallery" style:--image-padding="{imagePadding}px">
+<div class="gallery">
   {#each gallery.images as image}
     <div class="image">
       <!-- svelte-ignore a11y_missing_attribute -->
@@ -19,7 +19,10 @@
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 0;
+    @media (max-width: 768px) {
+      gap: 10px;
+    }
     > .image {
       max-width: 2048px;
       display: flex;
@@ -27,10 +30,19 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      @media (max-width: 768px) {
+        height: auto;
+      }
       > img {
         display: block;
-        width: calc(100% - var(--image-padding));
-        height: calc(100% - var(--image-padding));
+        --w: calc(100% - 50px);
+        --h: var(--w);
+        @media (max-width: 768px) {
+          --w: calc(100% - 10px);
+          --h: 100%;
+        }
+        width: var(--w);
+        height: var(--w);
         object-fit: contain;
       }
     }

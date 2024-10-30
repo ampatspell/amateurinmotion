@@ -1,21 +1,19 @@
 <script lang="ts">
   import type { PageModel } from '$dummy/lib/pages/page.svelte';
-  import type { HelloPageSettingsModel } from '../settings.svelte';
+  import type { GalleryPageSettingsModel } from '../settings.svelte';
   import Gallery from './gallery.svelte';
   import Header from './header.svelte';
 
   let { page }: { page: PageModel } = $props();
-  let settings = $derived(page.settings as HelloPageSettingsModel);
+  let settings = $derived(page.settings as GalleryPageSettingsModel);
   let title = $derived(settings.title);
-  let fontSize = $derived(settings.fontSize ?? 13);
-  let imagePadding = $derived(settings.imagePadding ?? 0);
   let gallery = $derived(settings.gallery);
 </script>
 
 <div class="hello">
-  <Header {title} {fontSize} />
+  <Header {title} />
   {#if gallery}
-    <Gallery {gallery} {imagePadding} />
+    <Gallery {gallery} />
   {/if}
 </div>
 
