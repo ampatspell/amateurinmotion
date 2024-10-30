@@ -10,6 +10,7 @@
   let settings = $derived(page.settings as HeaderPageSettingsModel);
   let properties = $derived(settings.properties);
   let title = $derived(properties.title);
+  let links = $derived(properties.links);
 </script>
 
 <Inspector>
@@ -18,5 +19,6 @@
   </Section>
   <Section>
     <InputRow label="Title" property={title} />
+    <InputRow label="Links" property={links} />
   </Section>
 </Inspector>

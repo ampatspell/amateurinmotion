@@ -14,7 +14,7 @@
 
 <Inspector>
   <Section>
-    <Header title="Gallery" />
+    <Header title="Gallery layout" />
   </Section>
   <Properties {settings} />
   {#if settings.gallery}

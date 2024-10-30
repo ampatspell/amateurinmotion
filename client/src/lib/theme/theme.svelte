@@ -1,12 +1,17 @@
 <script lang="ts">
   import './theme.scss';
   import type { Snippet } from 'svelte';
-  import { parsePath } from '$dummy/lib/pages/path.svelte';
+  import { parsePath, type PathWithArgs } from '$dummy/lib/pages/path.svelte';
   import Path from '$dummy/components/frontend/path/path.svelte';
 
-  let { children }: { children: Snippet } = $props();
+  let { children, path }: { children: Snippet; path?: PathWithArgs } = $props();
 
-  let header = $derived(parsePath('/header'));
+  let isIndex = $derived(path?.path === '/');
+
+  let header = $derived<PathWithArgs>({
+    path: '/header',
+    args: [isIndex ? 'index' : ''],
+  });
 </script>
 
 <div class="theme">

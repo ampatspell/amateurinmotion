@@ -1,15 +1,23 @@
 <script lang="ts">
   import type { PageModel } from '$dummy/lib/pages/page.svelte';
   import type { IndexPageSettingsModel } from '../settings.svelte';
+  import { preloadImage } from '$dummy/lib/utils/image';
 
   let { page }: { page: PageModel } = $props();
 
   let settings = $derived(page.settings as IndexPageSettingsModel);
   let gallery = $derived(settings.gallery);
   let image = $derived(gallery?.images[0].thumbnails['2048x2048'].url);
+
+  let isLoaded = $state(false);
+  $effect(() => {
+    if (image) {
+      preloadImage(image).then(() => (isLoaded = true));
+    }
+  });
 </script>
 
-<div class="index">
+<div class="index" class:is-loading={!isLoaded}>
   <div class="image">
     <div class="content" style:--url="url('{image}')"></div>
   </div>
@@ -26,6 +34,7 @@
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
+    transition: 0.5s ease-in-out opacity;
     > .image {
       position: fixed;
       top: 0;
@@ -56,6 +65,9 @@
       justify-content: center;
       color: #fff;
       text-shadow: 0 1px 10px fade-out(#000, 0.5);
+    }
+    &.is-loading {
+      opacity: 0;
     }
   }
 </style>

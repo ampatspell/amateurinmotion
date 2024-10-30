@@ -30,6 +30,7 @@ export const themePageDefinitions = () => {
         backend: HeaderBackend,
         defaults: {
           title: 'amateurinmotion.com',
+          links: '',
         },
         settings: (page) => new HeaderPageSettingsModel({ page }),
       } satisfies PageDefinitionModelOptions<HeaderPageSettings>,

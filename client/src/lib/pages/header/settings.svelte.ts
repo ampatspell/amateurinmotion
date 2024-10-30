@@ -4,6 +4,7 @@ import { Properties, Property, type PropertiesOptions } from '$dummy/lib/utils/p
 
 export type HeaderPageSettings = {
   title: string;
+  links: string;
 };
 
 export type HeaderPageSettingsPropertiesModelOptions = {
@@ -18,6 +19,12 @@ export class HeaderPageSettingsPropertiesModel extends Properties<HeaderPageSett
     value: getter(() => this.data.title),
     update: (value) => (this.data.title = value),
   });
+
+  links = new Property<string>({
+    delegate: this,
+    value: getter(() => this.data.links),
+    update: (value) => (this.data.links = value),
+  });
 }
 
 export class HeaderPageSettingsModel extends PageSettingsModel<HeaderPageSettings> {
@@ -27,6 +34,7 @@ export class HeaderPageSettingsModel extends PageSettingsModel<HeaderPageSetting
   });
 
   title = $derived(this.data.title);
+  links = $derived(this.data.links);
 
   isLoaded = $state(true);
 }
