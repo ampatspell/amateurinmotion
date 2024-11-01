@@ -34,16 +34,16 @@
         height: auto;
       }
       > img {
-        display: block;
         --w: calc(100% - 50px);
         --h: var(--w);
+        display: block;
+        object-fit: contain;
+        width: var(--w);
+        height: var(--w);
         @media (max-width: 768px) {
           --w: calc(100% - 10px);
           --h: 100%;
         }
-        width: var(--w);
-        height: var(--w);
-        object-fit: contain;
       }
     }
   }

@@ -28,6 +28,7 @@
 </div>
 
 <style lang="scss">
+  @use 'sass:color';
   .index {
     flex: 1;
     display: flex;
@@ -64,7 +65,7 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      text-shadow: 0 1px 10px fade-out(#000, 0.5);
+      text-shadow: 0 1px 10px color.adjust(#000, $alpha: -0.5);
     }
     &.is-loading {
       opacity: 0;
