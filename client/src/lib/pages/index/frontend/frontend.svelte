@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { PageModel } from '$dummy/lib/pages/page.svelte';
   import type { IndexPageSettingsModel } from '../settings.svelte';
   import { preloadImage } from '$dummy/lib/utils/image';
+  import type { PageRuntimeModel } from '$dummy/lib/pages/runtime.svelte';
 
-  let { page }: { page: PageModel } = $props();
+  let { runtime }: { runtime: PageRuntimeModel } = $props();
 
-  let settings = $derived(page.settings as IndexPageSettingsModel);
-  let gallery = $derived(settings.gallery);
+  let settings = $derived(runtime.page?.settingsAs<IndexPageSettingsModel>());
+  let gallery = $derived(settings?.gallery);
   let image = $derived(gallery?.images[0].thumbnails['2048x2048'].url);
 
   let isLoaded = $state(false);

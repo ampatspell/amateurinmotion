@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { PageModel } from '$dummy/lib/pages/page.svelte';
+  import type { PageRuntimeModel } from '$dummy/lib/pages/runtime.svelte';
   import type { GalleryPageSettingsModel } from '../settings.svelte';
   import Gallery from './gallery.svelte';
   import Header from './header.svelte';
 
-  let { page }: { page: PageModel } = $props();
-  let settings = $derived(page.settings as GalleryPageSettingsModel);
-  let title = $derived(settings.title);
-  let gallery = $derived(settings.gallery);
+  let { runtime }: { runtime: PageRuntimeModel } = $props();
+  let settings = $derived(runtime.page?.settingsAs<GalleryPageSettingsModel>());
+  let title = $derived(settings?.title ?? '');
+  let gallery = $derived(settings?.gallery);
 </script>
 
 <div class="hello">
