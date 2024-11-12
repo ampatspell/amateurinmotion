@@ -1,7 +1,6 @@
 import { isLoaded } from '$dummy/lib/firebase/fire/utils.svelte';
-import { mapGalleryById } from '$dummy/lib/galleries/gallery.svelte';
+import { GalleryByIdModel } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
-import { existing } from '$dummy/lib/utils/existing';
 import { getter } from '$dummy/lib/utils/options';
 import { Properties, Property, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
 
@@ -38,13 +37,12 @@ export class GalleryPageSettingsModel extends PageSettingsModel<GalleryPageSetti
 
   readonly title = $derived(this.data.title);
 
-  readonly __gallery = mapGalleryById({
+  readonly _gallery = new GalleryByIdModel({
     id: getter(() => this.data.gallery),
   });
 
-  readonly _gallery = $derived(this.__gallery.content);
-  readonly gallery = $derived(existing(this._gallery));
+  readonly gallery = $derived(this._gallery.existing);
 
-  readonly isLoaded = $derived(isLoaded([this._gallery]));
-  readonly dependencies = [this.__gallery];
+  isLoaded = $derived(isLoaded([this._gallery]));
+  dependencies = [this._gallery];
 }
