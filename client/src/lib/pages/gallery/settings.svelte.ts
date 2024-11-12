@@ -1,3 +1,4 @@
+import { isLoaded } from '$dummy/lib/firebase/fire/utils.svelte';
 import { mapGalleryById } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
 import { existing } from '$dummy/lib/utils/existing';
@@ -14,15 +15,15 @@ export type GalleryPageSettingsPropertiesModelOptions = {
 } & PropertiesOptions;
 
 export class GalleryPageSettingsPropertiesModel extends Properties<GalleryPageSettingsPropertiesModelOptions> {
-  data = $derived(this.options.settings.data);
+  readonly data = $derived(this.options.settings.data);
 
-  title = new Property<string>({
+  readonly title = new Property<string>({
     delegate: this,
     value: getter(() => this.data.title),
     update: (value) => (this.data.title = value),
   });
 
-  gallery = new Property<string | undefined>({
+  readonly gallery = new Property<string | undefined>({
     delegate: this,
     value: getter(() => this.data.gallery),
     update: (value) => (this.data.gallery = value),
@@ -30,20 +31,20 @@ export class GalleryPageSettingsPropertiesModel extends Properties<GalleryPageSe
 }
 
 export class GalleryPageSettingsModel extends PageSettingsModel<GalleryPageSettings> {
-  properties = new GalleryPageSettingsPropertiesModel({
+  readonly properties = new GalleryPageSettingsPropertiesModel({
     settings: this,
     didUpdate: () => this.save(),
   });
 
-  title = $derived(this.data.title);
+  readonly title = $derived(this.data.title);
 
-  _gallery = mapGalleryById({
+  readonly __gallery = mapGalleryById({
     id: getter(() => this.data.gallery),
   });
 
-  gallery = $derived(existing(this._gallery.content));
+  readonly _gallery = $derived(this.__gallery.content);
+  readonly gallery = $derived(existing(this._gallery));
 
-  isLoaded = $derived(this.gallery?.isLoaded ?? true);
-
-  dependencies = [this._gallery];
+  readonly isLoaded = $derived(isLoaded([this._gallery]));
+  readonly dependencies = [this.__gallery];
 }
