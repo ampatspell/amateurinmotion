@@ -15,8 +15,8 @@
 
   let settings = $derived(runtime.layout.settingsAs<DefaultLayoutSettingsModel>());
   let title = $derived(settings.title);
+  let path = $derived(runtime.path!);
 
-  let isIndex = $derived(runtime.path === '/');
   let links: { url: string; name: string }[] = [
     {
       url: '/zins-2',
@@ -31,7 +31,7 @@
 
 <div class="theme">
   <div class="header">
-    <Header {isIndex} {title} {links} />
+    <Header {title} {links} {path} />
   </div>
   <div class="content">
     {@render children()}
@@ -43,9 +43,9 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    font-family: var(--theme-font-family);
-    font-size: var(--theme-font-size);
-    font-weight: var(--theme-font-weight);
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
     cursor: default;
     > .content {
       flex: 1;
