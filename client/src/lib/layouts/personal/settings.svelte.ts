@@ -1,22 +1,22 @@
 import { LayoutSettingsModel } from '$dummy/lib/layouts/layout.svelte';
 import { data, DataModelProperties } from '$dummy/lib/utils/property.svelte';
 
-export class DefaultLayoutSettingsPropertiesModel extends DataModelProperties<DefaultLayoutSettings> {
-  title = data(this, 'title');
-  pages = data(this, 'pages');
-}
-
 export type DefaultLayoutSettings = {
   title: string;
   pages: string[];
 };
 
+export class DefaultLayoutSettingsPropertiesModel extends DataModelProperties<DefaultLayoutSettings> {
+  readonly title = data(this, 'title');
+  readonly pages = data(this, 'pages');
+}
+
 export class DefaultLayoutSettingsModel extends LayoutSettingsModel<DefaultLayoutSettings> {
-  properties = new DefaultLayoutSettingsPropertiesModel({
+  readonly properties = new DefaultLayoutSettingsPropertiesModel({
     model: this,
   });
 
-  title = $derived(this.data.title);
+  readonly title = $derived(this.data.title);
 
-  isLoaded = true;
+  readonly isLoaded = true;
 }

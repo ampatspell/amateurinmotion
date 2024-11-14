@@ -27,6 +27,6 @@ export class GalleryPageSettingsModel extends PageSettingsModel<GalleryPageSetti
 
   readonly gallery = $derived(this._gallery.existing);
 
-  isLoaded = $derived(isLoaded([this._gallery]));
-  dependencies = [this._gallery];
+  readonly isLoaded = $derived(isLoaded([this._gallery]));
+  readonly dependencies = [this._gallery];
 }
