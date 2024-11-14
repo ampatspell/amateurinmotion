@@ -22,10 +22,6 @@
       url: '/zins-2',
       name: 'Zīns #2',
     },
-    {
-      url: '/early-works',
-      name: 'Early works',
-    },
   ];
 </script>
 
