@@ -1,25 +1,19 @@
 import { GalleryByIdModel } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
 import { getter } from '$dummy/lib/utils/options';
-import { Properties, data, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
+import { data, DataModelProperties } from '$dummy/lib/utils/property.svelte';
 
 export type IndexPageSettings = {
   gallery?: string;
 };
 
-export type IndexPageSettingsPropertiesModelOptions = {
-  settings: IndexPageSettingsModel;
-} & PropertiesOptions;
-
-export class IndexPageSettingsPropertiesModel extends Properties<IndexPageSettingsPropertiesModelOptions> {
-  data = $derived(this.options.settings.data);
+export class IndexPageSettingsPropertiesModel extends DataModelProperties<IndexPageSettings> {
   gallery = data(this, 'gallery');
 }
 
 export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings> {
   properties = new IndexPageSettingsPropertiesModel({
-    settings: this,
-    didUpdate: () => this.save(),
+    model: this,
   });
 
   _gallery = new GalleryByIdModel({
