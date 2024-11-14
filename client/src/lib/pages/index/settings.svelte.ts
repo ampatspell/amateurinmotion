@@ -1,8 +1,7 @@
-import { mapGalleryById } from '$dummy/lib/galleries/gallery.svelte';
+import { GalleryByIdModel } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
-import { existing } from '$dummy/lib/utils/existing';
 import { getter } from '$dummy/lib/utils/options';
-import { Properties, Property, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
+import { Properties, data, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
 
 export type IndexPageSettings = {
   gallery?: string;
@@ -14,12 +13,7 @@ export type IndexPageSettingsPropertiesModelOptions = {
 
 export class IndexPageSettingsPropertiesModel extends Properties<IndexPageSettingsPropertiesModelOptions> {
   data = $derived(this.options.settings.data);
-
-  gallery = new Property<string | undefined>({
-    delegate: this,
-    value: getter(() => this.data.gallery),
-    update: (value) => (this.data.gallery = value),
-  });
+  gallery = data(this, 'gallery');
 }
 
 export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings> {
@@ -28,13 +22,12 @@ export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings>
     didUpdate: () => this.save(),
   });
 
-  _gallery = mapGalleryById({
+  _gallery = new GalleryByIdModel({
     id: getter(() => this.data.gallery),
   });
 
-  gallery = $derived(existing(this._gallery.content));
+  gallery = $derived(this._gallery.existing);
 
-  isLoaded = $derived(this.gallery?.isLoaded ?? true);
-
+  isLoaded = $derived(this._gallery.isLoaded);
   dependencies = [this._gallery];
 }

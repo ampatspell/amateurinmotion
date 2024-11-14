@@ -1,6 +1,5 @@
 import { LayoutSettingsModel } from '$dummy/lib/layouts/layout.svelte';
-import { getter } from '$dummy/lib/utils/options';
-import { Properties, type PropertiesOptions, Property } from '$dummy/lib/utils/property.svelte';
+import { Properties, type PropertiesOptions, data } from '$dummy/lib/utils/property.svelte';
 
 export type DefaultLayoutSettingsPropertiesModelOptions = {
   settings: DefaultLayoutSettingsModel;
@@ -9,15 +8,13 @@ export type DefaultLayoutSettingsPropertiesModelOptions = {
 export class DefaultLayoutSettingsPropertiesModel extends Properties<DefaultLayoutSettingsPropertiesModelOptions> {
   data = $derived(this.options.settings.data);
 
-  title = new Property<string>({
-    delegate: this,
-    value: getter(() => this.data.title),
-    update: (value) => (this.data.title = value),
-  });
+  title = data(this, 'title');
+  pages = data(this, 'pages');
 }
 
 export type DefaultLayoutSettings = {
   title: string;
+  pages: string[];
 };
 
 export class DefaultLayoutSettingsModel extends LayoutSettingsModel<DefaultLayoutSettings> {

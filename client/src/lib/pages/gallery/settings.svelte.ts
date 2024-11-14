@@ -2,7 +2,7 @@ import { isLoaded } from '$dummy/lib/firebase/fire/utils.svelte';
 import { GalleryByIdModel } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
 import { getter } from '$dummy/lib/utils/options';
-import { Properties, Property, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
+import { Properties, data, type PropertiesOptions } from '$dummy/lib/utils/property.svelte';
 
 export type GalleryPageSettings = {
   title: string;
@@ -15,18 +15,8 @@ export type GalleryPageSettingsPropertiesModelOptions = {
 
 export class GalleryPageSettingsPropertiesModel extends Properties<GalleryPageSettingsPropertiesModelOptions> {
   readonly data = $derived(this.options.settings.data);
-
-  readonly title = new Property<string>({
-    delegate: this,
-    value: getter(() => this.data.title),
-    update: (value) => (this.data.title = value),
-  });
-
-  readonly gallery = new Property<string | undefined>({
-    delegate: this,
-    value: getter(() => this.data.gallery),
-    update: (value) => (this.data.gallery = value),
-  });
+  readonly title = data(this, 'title');
+  readonly gallery = data(this, 'gallery');
 }
 
 export class GalleryPageSettingsModel extends PageSettingsModel<GalleryPageSettings> {
