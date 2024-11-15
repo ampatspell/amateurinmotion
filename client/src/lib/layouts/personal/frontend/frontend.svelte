@@ -45,8 +45,6 @@
     font-family: 'Raleway', sans-serif;
     font-size: 13px;
     font-weight: 400;
-    max-width: 1920px;
-    margin: 0 auto;
     cursor: default;
     > .content {
       flex: 1;
