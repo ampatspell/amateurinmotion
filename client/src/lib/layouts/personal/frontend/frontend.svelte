@@ -14,7 +14,8 @@
   } = $props();
 
   let settings = $derived(runtime.layout.settingsAs<DefaultLayoutSettingsModel>());
-  let title = $derived(settings.title);
+  let page = $derived(runtime.page);
+  let layoutTitle = $derived(settings.title);
   let pages = $derived(settings.pages);
   let path = $derived(runtime.path!);
 
@@ -26,11 +27,29 @@
       };
     }),
   );
+
+  let title = $derived.by(() => {
+    if(path === '/') {
+      return layoutTitle;
+    } else {
+      let pageTitle = page?.name ?? runtime.path;
+      if (pageTitle === layoutTitle) {
+        return layoutTitle;
+      }
+      return `${layoutTitle} • ${pageTitle}`;
+    }
+  });
 </script>
+
+<svelte:head>
+  {#if title}
+    <title>{title}</title>
+  {/if}
+</svelte:head>
 
 <div class="theme">
   <div class="header">
-    <Header {title} {links} {path} />
+    <Header title={layoutTitle} {links} {path} />
   </div>
   <div class="content">
     {@render children()}
