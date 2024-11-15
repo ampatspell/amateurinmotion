@@ -4,7 +4,7 @@
   import Inspector from '$dummy/components/dark/inspector/inspector.svelte';
   import Section from '$dummy/components/dark/inspector/section.svelte';
   import { subscribe } from '$dummy/lib/firebase/fire/subscriber.svelte';
-  import { buildGalleriesModel } from '$dummy/lib/galleries/galleries.svelte';
+  import { GalleriesModel } from '$dummy/lib/galleries/galleries.svelte';
   import type { PageModel } from '$dummy/lib/pages/page.svelte';
   import type { IndexPageSettingsModel } from '../settings.svelte';
 
@@ -13,7 +13,7 @@
   let properties = $derived(settings.properties);
   let gallery = $derived(properties.gallery);
 
-  let galleries = buildGalleriesModel();
+  let galleries = new GalleriesModel({});
   $effect(() => subscribe(galleries));
 </script>
 
