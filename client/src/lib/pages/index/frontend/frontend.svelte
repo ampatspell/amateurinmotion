@@ -33,7 +33,7 @@
     position: relative;
     > .image {
       position: fixed;
-      --offset: -10px;
+      --offset: -15px;
       top: var(--offset);
       left: var(--offset);
       right: var(--offset);

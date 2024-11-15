@@ -29,7 +29,7 @@
   );
 
   let title = $derived.by(() => {
-    if(path === '/') {
+    if (path === '/') {
       return layoutTitle;
     } else {
       let pageTitle = page?.name ?? runtime.path;
@@ -39,7 +39,17 @@
       return `${layoutTitle} • ${pageTitle}`;
     }
   });
+
+  let scrollY = $state<number>();
+
+  let opacity = $derived.by(() => {
+    let max = 300;
+    let y = Math.min(scrollY ?? 0, max);
+    return 1 - y / max;
+  });
 </script>
+
+<svelte:window bind:scrollY />
 
 <svelte:head>
   {#if title}
@@ -48,7 +58,7 @@
 </svelte:head>
 
 <div class="theme">
-  <div class="header">
+  <div class="header" style:--opacity={opacity}>
     <Header title={layoutTitle} {links} {path} />
   </div>
   <div class="content">
@@ -65,6 +75,11 @@
     font-size: 13px;
     font-weight: 400;
     cursor: default;
+    > .header {
+      --height: 80px;
+      padding-bottom: var(--height);
+      opacity: var(--opacity);
+    }
     > .content {
       flex: 1;
       display: flex;

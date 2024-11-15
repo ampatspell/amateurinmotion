@@ -27,7 +27,7 @@
   let lightbox: LightboxOptions = options({
     height: getter(() => {
       if (innerHeight) {
-        return innerHeight - 220;
+        return innerHeight - 215;
       }
     }),
     captions: false,

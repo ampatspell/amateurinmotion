@@ -26,20 +26,27 @@
 
 <style lang="scss">
   .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     flex: 1;
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-    padding: 30px;
+    align-items: center;
+    height: var(--height);
+    padding: 0 30px;
+    gap: 10px;
     > .title {
       font-size: 21px;
       font-weight: 500;
       text-decoration: none;
-      flex: 1;
     }
     > .links {
+      flex: 1;
       display: flex;
       flex-direction: row;
+      justify-content: flex-end;
       gap: 10px;
       > a {
         text-decoration: none;
