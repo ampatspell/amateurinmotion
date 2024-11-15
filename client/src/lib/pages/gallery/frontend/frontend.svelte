@@ -52,7 +52,11 @@
       <Lightbox {gallery} {selected} options={lightbox} {onSelect} />
     </div>
     <div class="description">
-      <div class="title">{title} / {selected?.name}</div>
+      <div class="title">{title}</div>
+      {#if selected?.name}
+        <div class="delimiter">/</div>
+        <div class="name">{selected?.name}</div>
+      {/if}
     </div>
     <div class="grid">
       <Grid {gallery} options={grid} {onSelect} />
@@ -71,6 +75,15 @@
     }
     > .description {
       padding: 0 30px;
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      > .title {
+        font-weight: 500;
+      }
+      > .delimiter {
+        font-weight: 200;
+      }
     }
     > .grid {
       padding: 0 30px;
