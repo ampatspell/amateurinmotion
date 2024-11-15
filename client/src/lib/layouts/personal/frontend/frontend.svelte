@@ -15,14 +15,17 @@
 
   let settings = $derived(runtime.layout.settingsAs<DefaultLayoutSettingsModel>());
   let title = $derived(settings.title);
+  let pages = $derived(settings.pages);
   let path = $derived(runtime.path!);
 
-  let links: { url: string; name: string }[] = [
-    {
-      url: '/zins-2',
-      name: 'Zīns #2',
-    },
-  ];
+  let links = $derived(
+    pages.map((page) => {
+      return {
+        url: page.url!,
+        name: page.name!,
+      };
+    }),
+  );
 </script>
 
 <div class="theme">
@@ -42,6 +45,8 @@
     font-family: 'Raleway', sans-serif;
     font-size: 13px;
     font-weight: 400;
+    max-width: 1920px;
+    margin: 0 auto;
     cursor: default;
     > .content {
       flex: 1;
