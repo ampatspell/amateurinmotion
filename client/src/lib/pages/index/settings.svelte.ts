@@ -1,14 +1,18 @@
+import { isLoaded } from '$dummy/lib/firebase/fire/utils.svelte';
 import { GalleryByIdModel } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
+import { BasePagesByIdsModel } from '$dummy/lib/pages/pages.svelte';
 import { getter } from '$dummy/lib/utils/options';
 import { data, DataModelProperties } from '$dummy/lib/utils/property.svelte';
 
 export type IndexPageSettings = {
   gallery?: string;
+  pages: string[];
 };
 
 export class IndexPageSettingsPropertiesModel extends DataModelProperties<IndexPageSettings> {
-  gallery = data(this, 'gallery');
+  readonly gallery = data(this, 'gallery');
+  readonly pages = data(this, 'pages');
 }
 
 export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings> {
@@ -20,8 +24,13 @@ export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings>
     id: getter(() => this.data.gallery),
   });
 
-  gallery = $derived(this._gallery.existing);
+  _pages = new BasePagesByIdsModel({
+    ids: getter(() => this.data.pages),
+  });
 
-  isLoaded = $derived(this._gallery.isLoaded);
-  dependencies = [this._gallery];
+  gallery = $derived(this._gallery.existing);
+  pages = $derived(this._pages.existing);
+
+  isLoaded = $derived(isLoaded([this._gallery, this._pages]));
+  dependencies = [this._gallery, this._pages];
 }

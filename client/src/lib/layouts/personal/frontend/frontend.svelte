@@ -16,17 +16,7 @@
   let settings = $derived(runtime.layout.settingsAs<DefaultLayoutSettingsModel>());
   let page = $derived(runtime.page);
   let layoutTitle = $derived(settings.title);
-  let pages = $derived(settings.pages);
   let path = $derived(runtime.path!);
-
-  let links = $derived(
-    pages.map((page) => {
-      return {
-        url: page.url!,
-        name: page.name!,
-      };
-    }),
-  );
 
   let title = $derived.by(() => {
     if (path === '/') {
@@ -59,7 +49,7 @@
 
 <div class="theme">
   <div class="header" style:--opacity={opacity}>
-    <Header title={layoutTitle} {links} {path} />
+    <Header title={layoutTitle} {path} />
   </div>
   <div class="content">
     {@render children()}

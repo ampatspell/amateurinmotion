@@ -1,6 +1,5 @@
 <script lang="ts">
   import InputRow from '$dummy/components/dark/inspector/input-row.svelte';
-  import PagesRow from '$dummy/components/dark/inspector/pages-row.svelte';
   import type { LayoutModel } from '$dummy/lib/layouts/layout.svelte';
   import { DefaultLayoutSettingsModel } from './settings.svelte';
 
@@ -10,4 +9,3 @@
 </script>
 
 <InputRow label="Title" property={properties.title} />
-<PagesRow label="Pages" property={properties.pages} />

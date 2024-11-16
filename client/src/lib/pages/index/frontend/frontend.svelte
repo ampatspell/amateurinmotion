@@ -2,11 +2,13 @@
   import type { IndexPageSettingsModel } from '../settings.svelte';
   import { preloadImage } from '$dummy/lib/utils/image';
   import type { PageRuntimeModel } from '$dummy/lib/pages/runtime.svelte';
+  import Links from './links.svelte';
 
   let { runtime }: { runtime: PageRuntimeModel } = $props();
 
   let settings = $derived(runtime.page?.settingsAs<IndexPageSettingsModel>());
   let gallery = $derived(settings?.gallery);
+  let pages = $derived(settings?.pages!);
   let image = $derived(gallery?.images[0].thumbnails['2048x2048'].url);
 
   let isLoaded = $state(false);
@@ -21,6 +23,9 @@
   <div class="image">
     <div class="content" style:--url="url('{image}')"></div>
   </div>
+  <div class="links">
+    <Links {pages} />
+  </div>
 </div>
 
 <style lang="scss">
@@ -29,7 +34,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     position: relative;
     > .image {
       position: fixed;
@@ -49,6 +53,9 @@
         background-image: var(--url);
         transition: 0.5s ease-in-out opacity;
       }
+    }
+    > .links {
+      padding: 0 0 0 30px;
     }
     &.is-loading {
       > .image {

@@ -2,6 +2,7 @@
   import GalleryRow from '$dummy/components/dark/inspector/gallery-row.svelte';
   import Header from '$dummy/components/dark/inspector/header.svelte';
   import Inspector from '$dummy/components/dark/inspector/inspector.svelte';
+  import PagesRow from '$dummy/components/dark/inspector/pages-row.svelte';
   import Section from '$dummy/components/dark/inspector/section.svelte';
   import { subscribe } from '$dummy/lib/firebase/fire/subscriber.svelte';
   import { GalleriesModel } from '$dummy/lib/galleries/galleries.svelte';
@@ -12,6 +13,7 @@
   let settings = $derived(page.settings as IndexPageSettingsModel);
   let properties = $derived(settings.properties);
   let gallery = $derived(properties.gallery);
+  let pages = $derived(properties.pages);
 
   let galleries = new GalleriesModel({});
   $effect(() => subscribe(galleries));
@@ -23,5 +25,6 @@
   </Section>
   <Section>
     <GalleryRow label="Gallery" property={gallery} {galleries} />
+    <PagesRow label="Pages" property={pages} />
   </Section>
 </Inspector>
