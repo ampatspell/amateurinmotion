@@ -3,7 +3,11 @@ import { personal } from './layouts/personal/definition.svelte';
 import { index } from './pages/index/definition.svelte';
 import { gallery } from './pages/gallery/definition.svelte';
 
-export const definition = buildSiteDefinition(({ layout, page }) => {
+export const definition = buildSiteDefinition(({ layout, page, site }) => {
+  site({
+    name: 'amateurinmotion',
+  });
+
   layout(
     personal({
       id: 'personal-1',
