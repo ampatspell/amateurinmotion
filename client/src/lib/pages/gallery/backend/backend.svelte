@@ -6,7 +6,7 @@
   import type { PageModel } from '$dummy/lib/pages/page.svelte';
   import type { GalleryPageSettingsModel } from '../settings.svelte';
   import Properties from './properties.svelte';
-  import Grid from '$dummy/components/backend/routes/assets/asset/grid/grid.svelte';
+  import FolderGrid from '$dummy/components/backend/assets/grid/folder-grid.svelte';
 
   let { page }: { page: PageModel } = $props();
 
@@ -22,7 +22,7 @@
   {#if folder}
     <Section>
       <Row>
-        <Grid {folder} isEditing={false} />
+        <FolderGrid {folder} isEditing={false} />
       </Row>
     </Section>
   {/if}
