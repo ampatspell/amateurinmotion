@@ -1,5 +1,5 @@
+import { FolderByIdModel } from '$dummy/lib/assets/folder.svelte';
 import { isLoaded } from '$dummy/lib/firebase/fire/utils.svelte';
-import { GalleryByIdModel } from '$dummy/lib/galleries/gallery.svelte';
 import { PageSettingsModel } from '$dummy/lib/pages/page.svelte';
 import { BasePagesByIdsModel } from '$dummy/lib/pages/pages.svelte';
 import { getter } from '$dummy/lib/utils/options';
@@ -20,7 +20,7 @@ export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings>
     model: this,
   });
 
-  _gallery = new GalleryByIdModel({
+  _folder = new FolderByIdModel({
     id: getter(() => this.data.gallery),
   });
 
@@ -28,9 +28,9 @@ export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings>
     ids: getter(() => this.data.pages),
   });
 
-  gallery = $derived(this._gallery.existing);
+  folder = $derived(this._folder.existing);
   pages = $derived(this._pages.existing);
 
-  isLoaded = $derived(isLoaded([this._gallery, this._pages]));
-  dependencies = [this._gallery, this._pages];
+  isLoaded = $derived(isLoaded([this._folder, this._pages]));
+  dependencies = [this._folder, this._pages];
 }

@@ -13,7 +13,6 @@ export const personal = (opts: Pick<Definition, 'id' | 'name'>): Definition => {
     settings: (layout) => new DefaultLayoutSettingsModel({ layout }),
     defaults: {
       title: 'amateurinmotion.com',
-      pages: [],
     },
   };
 };

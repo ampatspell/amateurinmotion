@@ -12,7 +12,9 @@ export const index = (opts: Pick<Definition, 'id' | 'name'>): Definition => {
       frontend: Frontend,
       backend: Backend,
       settings: (page) => new IndexPageSettingsModel({ page }),
-      defaults: {},
+      defaults: {
+        pages: [],
+      },
     },
   };
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Grid, { type GridOptions } from '$dummy/components/frontend/blocks/galleries/grid/grid.svelte';
   import Lightbox, { type LightboxOptions } from '$dummy/components/frontend/blocks/galleries/lightbox/lightbox.svelte';
-  import { GalleryImageModel } from '$dummy/lib/galleries/image.svelte';
+  import type { FileModel } from '$dummy/lib/assets/file.svelte';
   import type { PageRuntimeModel } from '$dummy/lib/pages/runtime.svelte';
   import { aspectRatioValues } from '$dummy/lib/utils/aspect-ratio';
   import { getter, options } from '$dummy/lib/utils/options';
@@ -10,14 +10,14 @@
   let { runtime }: { runtime: PageRuntimeModel } = $props();
   let settings = $derived(runtime.page?.settingsAs<GalleryPageSettingsModel>());
   let title = $derived(settings?.title ?? '');
-  let gallery = $derived(settings?.gallery);
+  let folder = $derived(settings?.folder);
 
-  let selected = $state<GalleryImageModel>();
+  let selected = $state<FileModel>();
   $effect(() => {
-    selected = gallery?.images[0];
+    selected = folder?.files[0];
   });
 
-  let onSelect = (image: GalleryImageModel) => {
+  let onSelect = (image: FileModel) => {
     selected = image;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -46,10 +46,10 @@
 
 <svelte:window bind:innerHeight />
 
-{#if gallery}
+{#if folder}
   <div class="gallery">
     <div class="lightbox">
-      <Lightbox {gallery} {selected} options={lightbox} {onSelect} />
+      <Lightbox {folder} {selected} options={lightbox} {onSelect} />
     </div>
     <div class="description">
       <div class="title">{title}</div>
@@ -59,7 +59,7 @@
       {/if}
     </div>
     <div class="grid">
-      <Grid {gallery} options={grid} {onSelect} />
+      <Grid {folder} options={grid} {onSelect} />
     </div>
   </div>
 {/if}

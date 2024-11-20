@@ -7,9 +7,9 @@
   let { runtime }: { runtime: PageRuntimeModel } = $props();
 
   let settings = $derived(runtime.page?.settingsAs<IndexPageSettingsModel>());
-  let gallery = $derived(settings?.gallery);
-  let pages = $derived(settings?.pages!);
-  let image = $derived(gallery?.images[0].thumbnails['2048x2048'].url);
+  let gallery = $derived(settings?.folder);
+  let pages = $derived(settings?.pages);
+  let image = $derived(gallery?.files[0].thumbnails?.['2048x2048'].url);
 
   let isLoaded = $state(false);
   $effect(() => {
@@ -23,9 +23,11 @@
   <div class="image">
     <div class="content" style:--url="url('{image}')"></div>
   </div>
-  <div class="links">
-    <Links {pages} />
-  </div>
+  {#if pages}
+    <div class="links">
+      <Links {pages} />
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
