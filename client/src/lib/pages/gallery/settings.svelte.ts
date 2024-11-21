@@ -29,4 +29,8 @@ export class GalleryPageSettingsModel extends PageSettingsModel<GalleryPageSetti
 
   readonly isLoaded = $derived(isLoaded([this._folder]));
   readonly dependencies = [this._folder];
+
+  async load() {
+    await this._folder.load();
+  }
 }

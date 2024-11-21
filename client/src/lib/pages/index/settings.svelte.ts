@@ -33,4 +33,8 @@ export class IndexPageSettingsModel extends PageSettingsModel<IndexPageSettings>
 
   isLoaded = $derived(isLoaded([this._folder, this._pages]));
   dependencies = [this._folder, this._pages];
+
+  async load() {
+    await Promise.all([this._folder.load(), this._pages.load()]);
+  }
 }

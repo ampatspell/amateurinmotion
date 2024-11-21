@@ -17,4 +17,5 @@ export class DefaultLayoutSettingsModel extends LayoutSettingsModel<DefaultLayou
   readonly title = $derived(this.data.title);
 
   isLoaded = true;
+  async load() {}
 }
