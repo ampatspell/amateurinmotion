@@ -11,7 +11,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
-    "lint": "prettier --check . && eslint ."
+    "lint": "prettier --check . && eslint .",
+    "cli": "(cd ../d2 && npm run cli)"
   },
   "dependencies": {
     "@firebase/auth": "^1.8.1",
@@ -32,6 +33,7 @@
     "globals": "^16.0.0",
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",
+    "p-limit": "^6.2.0",
     "sass-embedded": "^1.88.0",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
