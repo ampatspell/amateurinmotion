@@ -1,16 +1,20 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import type { PageData } from './$types';
+  import Background from '$lib/components/background.svelte';
 
   let { data }: { data: PageData } = $props();
 
   let index = $derived(data.index.node);
   let background = $derived(index?.details.background?.thumbnails['2048x2048'].url);
+  let offset = $derived(index?.details.offset ?? 0);
 </script>
 
 <div class="page" transition:fade={{ duration: 200 }}>
   {#if background}
-    <div class="background" style:--background="url({background})" transition:fade={{ duration: 200 }}></div>
+    <div class="background" style:--offset="{-offset}px">
+      <Background url={background} />
+    </div>
   {/if}
   <div class="links">
     <a href="/foo">foo</a>
@@ -26,16 +30,13 @@
     bottom: 0;
     background: #222;
     > .background {
-      --offset: -15px;
       position: absolute;
       top: var(--offset);
       left: var(--offset);
       bottom: var(--offset);
       right: var(--offset);
-      background-image: var(--background);
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      display: flex;
+      flex-direction: column;
     }
     > .links {
       position: fixed;

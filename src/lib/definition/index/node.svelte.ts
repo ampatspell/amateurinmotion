@@ -9,6 +9,7 @@ import { NodeDetailsModel, NodeModel, NodePropertiesModel } from '$d2/lib/nodes/
 export class IndexNodePropertiesModel extends NodePropertiesModel<'index'> {
   readonly title = data(this, 'title');
   readonly background = data(this, 'background');
+  readonly offset = data(this, 'offset');
 
   readonly paths = [this.background];
 }
@@ -20,6 +21,8 @@ export class IndexNodeDetailsModel extends NodeDetailsModel<'index'> {
   });
 
   readonly background = $derived(this._background.node?.asImage);
+
+  readonly offset = $derived(this.data.properties.offset);
 
   readonly isLoaded = $derived(isLoaded([this._background]));
   readonly dependencies = [this._background];

@@ -5,6 +5,7 @@ import { IndexNodeModel } from './node.svelte';
 export type IndexNodeProperties = {
   title: string;
   background?: string;
+  offset?: number;
 };
 
 export const index = () => {
