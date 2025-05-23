@@ -1,21 +1,16 @@
 <script lang="ts">
-  import { subscribe } from '$d2/lib/base/model/subscriber.svelte';
   import { fade } from 'svelte/transition';
   import type { PageData } from './$types';
-  import { getter } from '$d2/lib/base/utils/options';
-  import { Preload } from '$lib/utils/preload.svelte';
 
   let { data }: { data: PageData } = $props();
 
   let index = $derived(data.index.node);
-
-  let background = new Preload({ url: getter(() => index?.details.background?.thumbnails['2048x2048'].url) });
-  $effect(() => subscribe(background));
+  let background = $derived(index?.details.background?.thumbnails['2048x2048'].url);
 </script>
 
 <div class="page" transition:fade={{ duration: 200 }}>
-  {#if background.isLoaded}
-    <div class="background" style:--background="url({background.url})" transition:fade={{ duration: 200 }}></div>
+  {#if background}
+    <div class="background" style:--background="url({background})" transition:fade={{ duration: 200 }}></div>
   {/if}
   <div class="links">
     <a href="/foo">foo</a>
