@@ -17,7 +17,7 @@
     </div>
   {/if}
   <div class="links">
-    <a href="/foo">foo</a>
+    <a href="/galleries/random">Random</a>
   </div>
 </div>
 

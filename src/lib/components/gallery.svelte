@@ -28,9 +28,9 @@
 
   let height = $derived.by(() => {
     if (innerHeight) {
-      let base = innerHeight - 210;
+      let base = innerHeight - 180;
       if (isMobile) {
-        return base + 20;
+        return base + 70;
       }
       return base;
     }
@@ -98,10 +98,6 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 30px 0 0 0;
-    @media (max-width: 768px) {
-      padding: 15px 0 0 0;
-    }
     > .lightbox {
       display: flex;
       flex-direction: column;
@@ -118,15 +114,16 @@
       > .caption {
         display: flex;
         flex-direction: row;
+        align-items: baseline;
         gap: 20px;
         > .title {
           font-weight: 600;
         }
         > .introduction {
-          font-weight: 400;
+          flex: 1;
         }
         > .name {
-          font-weight: 200;
+          font-size: 11px;
         }
         @media (max-width: 768px) {
           flex-direction: column;
