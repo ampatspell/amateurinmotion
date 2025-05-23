@@ -13,7 +13,7 @@
 
   $effect(() => {
     if (!isLoaded) {
-      params = { duration: 500 };
+      params = { duration: 300 };
     }
   });
 </script>

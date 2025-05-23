@@ -1,8 +1,8 @@
 import { node } from '$d2/lib/nodes/loader.svelte';
 import { GalleryNodeModel } from '$lib/definition/gallery/node.svelte';
-import type { PageLoad } from './$types';
+import type { LayoutLoad } from './$types';
 
-export const load: PageLoad = async (event) => {
+export const load: LayoutLoad = async (event) => {
   const identifier = event.params.identifier;
   return {
     gallery: await node

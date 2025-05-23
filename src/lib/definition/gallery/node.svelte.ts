@@ -23,6 +23,10 @@ export class GalleryNodeDetailsModel extends NodeDetailsModel<'gallery'> {
 
   readonly images = $derived(this._images.nodes);
 
+  imageByIdentifier(identifier: string | undefined) {
+    return this.images.find((image) => image.identifier === identifier);
+  }
+
   readonly dependencies = [this._images];
   readonly isLoaded = $derived(isLoaded([this._images]));
 

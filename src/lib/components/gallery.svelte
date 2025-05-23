@@ -8,15 +8,23 @@
   import type { FileNodeModel } from '$d2/lib/definition/file/node.svelte';
   import type { GalleryNodeModel } from '$lib/definition/gallery/node.svelte';
 
-  let { gallery }: { gallery: GalleryNodeModel } = $props();
+  let {
+    gallery,
+    selected: _selected,
+    onSelect: _onSelect,
+  }: {
+    gallery: GalleryNodeModel;
+    selected: FileNodeModel | undefined;
+    onSelect: (node: FileNodeModel) => void;
+  } = $props();
 
   let title = $derived(gallery.title);
   let introduction = $derived(gallery.introduction);
   let files = $derived(gallery.details.images);
 
-  let selected = $state<FileNodeModel>();
+  let selected = $derived(_selected ?? gallery.details.images[0]);
   let onSelect = (node: FileNodeModel) => {
-    selected = node;
+    _onSelect(node);
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -53,9 +61,8 @@
 
   let ogImage = $derived(files?.[0]?.asImage?.thumbnails['2048x2048'].url);
 
-  let isLoaded = $state(false);
+  let isLoaded = $derived(false);
   $effect(() => {
-    selected = files?.[0];
     isLoaded = true;
   });
 </script>
