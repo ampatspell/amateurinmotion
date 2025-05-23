@@ -1,15 +1,22 @@
 <script lang="ts">
+  import { subscribe } from '$d2/lib/base/model/subscriber.svelte';
   import { fade } from 'svelte/transition';
   import type { PageData } from './$types';
+  import { getter } from '$d2/lib/base/utils/options';
+  import { Preload } from '$lib/utils/preload.svelte';
 
   let { data }: { data: PageData } = $props();
 
   let index = $derived(data.index.node);
-  let url = $derived(index?.details.background?.thumbnails['2048x2048'].url);
+
+  let background = new Preload({ url: getter(() => index?.details.background?.thumbnails['2048x2048'].url) });
+  $effect(() => subscribe(background));
 </script>
 
 <div class="page" transition:fade={{ duration: 200 }}>
-  <div class="background" style:--background="url({url})"></div>
+  {#if background.isLoaded}
+    <div class="background" style:--background="url({background.url})" transition:fade={{ duration: 200 }}></div>
+  {/if}
   <div class="links">
     <a href="/foo">foo</a>
   </div>
@@ -22,6 +29,7 @@
     left: 0;
     right: 0;
     bottom: 0;
+    background: #222;
     > .background {
       --offset: -15px;
       position: absolute;
@@ -29,7 +37,6 @@
       left: var(--offset);
       bottom: var(--offset);
       right: var(--offset);
-      background: #333;
       background-image: var(--background);
       background-position: center center;
       background-repeat: no-repeat;
