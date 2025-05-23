@@ -1,25 +1,52 @@
 <script lang="ts">
-  import { PUBLIC_FIREBASE, PUBLIC_APP_NAME } from '$env/static/public';
-  let config = JSON.parse(PUBLIC_FIREBASE);
+  import { fade } from 'svelte/transition';
+  import type { PageData } from './$types';
+
+  let { data }: { data: PageData } = $props();
+
+  let index = $derived(data.index.node);
+  let url = $derived(index?.details.background?.thumbnails['2048x2048'].url);
 </script>
 
-<div class="page">
-  <div class="row">
-    {PUBLIC_APP_NAME} / {config.projectId}
-  </div>
-  <div class="row">
-    <a href="/backend">backend</a>
+<div class="page" transition:fade={{ duration: 200 }}>
+  <div class="background" style:--background="url({url})"></div>
+  <div class="links">
+    <a href="/foo">foo</a>
   </div>
 </div>
 
 <style lang="scss">
   .page {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    > .background {
+      --offset: -15px;
+      position: absolute;
+      top: var(--offset);
+      left: var(--offset);
+      bottom: var(--offset);
+      right: var(--offset);
+      background: #333;
+      background-image: var(--background);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    > .links {
+      position: fixed;
+      top: var(--header-height);
+      left: var(--padding);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      > a {
+        font-size: 16px;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
   }
 </style>
