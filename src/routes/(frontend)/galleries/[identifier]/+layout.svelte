@@ -23,16 +23,9 @@
   };
 </script>
 
-<svelte:head>
-  <title>{gallery?.title}</title>
-  <meta content="amateurinmotion.com" property="og:title" />
-  <meta content={gallery?.name} property="og:description" />
-  <meta content={selected?.asImage?.thumbnails['2048x2048'].url} property="og:image" />
-</svelte:head>
-
 {#if gallery}
-  <Gallery {gallery} {selected} {onSelect} />
   {@render children()}
+  <Gallery {gallery} {selected} {onSelect} />
 {:else}
   <Dark>
     <Placeholder icon={LucideImages} label="Gallery not found" />
