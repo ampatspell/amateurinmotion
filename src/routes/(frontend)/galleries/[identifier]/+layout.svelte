@@ -18,7 +18,7 @@
   let selected = $derived(gallery?.details.imageByIdentifier(page.params.selected));
   let onSelect = (node: FileNodeModel) => {
     if (gallery) {
-      goto(`/galleries/${gallery.identifier}/${node.identifier}`, { replaceState: true });
+      goto(`/galleries/${gallery.identifier}/${node.identifier}`, { replaceState: true, noScroll: true });
     }
   };
 </script>

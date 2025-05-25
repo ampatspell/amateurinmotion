@@ -23,7 +23,7 @@
   let files = $derived(gallery.details.images);
 
   let selected = $derived(_selected ?? gallery.details.images[0]);
-  let onSelect = (node: FileNodeModel) => {
+  let onSelect = async (node: FileNodeModel) => {
     _onSelect(node);
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
