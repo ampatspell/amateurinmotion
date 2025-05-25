@@ -38,7 +38,7 @@
     if (innerHeight) {
       let base = innerHeight - 180;
       if (isMobile) {
-        return base + 70;
+        return base + 110;
       }
       return base;
     }
@@ -125,9 +125,6 @@
         gap: 20px;
         > .title {
           font-weight: 600;
-        }
-        > .introduction {
-          flex: 1;
         }
         > .name {
           font-size: 11px;

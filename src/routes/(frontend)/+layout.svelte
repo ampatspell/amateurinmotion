@@ -27,6 +27,10 @@
   .frontend {
     --header-height: 80px;
     --padding: 30px;
+    @media (max-width: 768px) {
+      --padding: 15px;
+      --header-height: 50px;
+    }
     flex: 1;
     display: flex;
     flex-direction: column;
