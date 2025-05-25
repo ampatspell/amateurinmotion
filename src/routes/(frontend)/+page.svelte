@@ -7,7 +7,8 @@
 
   let index = $derived(data.index.node);
   let background = $derived(index?.details.background?.thumbnails['2048x2048'].url);
-  let offset = $derived(index?.details.offset ?? 0);
+  let offset = $derived(index?.offset ?? 0);
+  let links = $derived(index?.links ?? []);
 </script>
 
 <div class="page" transition:fade={{ duration: 200 }}>
@@ -17,7 +18,9 @@
     </div>
   {/if}
   <div class="links">
-    <a href="/galleries/random">Random</a>
+    {#each links as link (link)}
+      <a href={link.path}>{link.label}</a>
+    {/each}
   </div>
 </div>
 
