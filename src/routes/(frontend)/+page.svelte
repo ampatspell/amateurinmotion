@@ -11,6 +11,13 @@
   let links = $derived(index?.links ?? []);
 </script>
 
+<svelte:head>
+  <title>amateurinmotion.com</title>
+  <meta content="amateurinmotion.com" property="og:title" />
+  <meta content="Photography" property="og:description" />
+  <meta content={background} property="og:image" />
+</svelte:head>
+
 <div class="page" transition:fade={{ duration: 200 }}>
   {#if background}
     <div class="background" style:--offset="{-offset}px">
