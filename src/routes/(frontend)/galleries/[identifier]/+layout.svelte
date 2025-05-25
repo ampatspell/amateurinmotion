@@ -7,9 +7,10 @@
   import { subscribe } from '$d2/lib/base/model/subscriber.svelte';
   import type { FileNodeModel } from '$d2/lib/definition/file/node.svelte';
   import Gallery from '$lib/components/gallery.svelte';
+  import type { Snippet } from 'svelte';
   import type { LayoutData } from './$types';
 
-  let { data }: { data: LayoutData } = $props();
+  let { data, children }: { data: LayoutData; children: Snippet } = $props();
 
   $effect(() => subscribe(data.gallery));
 
@@ -24,6 +25,7 @@
 
 {#if gallery}
   <Gallery {gallery} {selected} {onSelect} />
+  {@render children()}
 {:else}
   <Dark>
     <Placeholder icon={LucideImages} label="Gallery not found" />

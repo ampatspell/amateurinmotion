@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { images } from '$lib/utils/image.svelte';
+  import { images } from '$d2/lib/base/utils/images.svelte';
   import { fade, type FadeParams } from 'svelte/transition';
 
   let { url }: { url: string } = $props();
