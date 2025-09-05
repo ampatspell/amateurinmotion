@@ -3,7 +3,7 @@
   import Header from '$lib/components/header.svelte';
   import type { Snippet } from 'svelte';
   import type { LayoutData } from './$types';
-  import { subscribe } from '$d2/lib/base/model/subscriber.svelte';
+  import { subscribe } from '$d2/lib/base/model/subscribable.svelte';
 
   let { data, children }: { data: LayoutData; children: Snippet } = $props();
 
