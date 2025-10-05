@@ -1,13 +1,22 @@
 <script lang="ts">
+  import Index from '$lib/pages/index/index.svelte';
+
   let { data } = $props();
   let index = $derived(data.index);
 </script>
 
-<div class="hello">{index.title}</div>
+<div class="page">
+  <Index {index} />
+</div>
 
 <style lang="scss">
-  .hello {
-    padding: 50px;
-    font-family: monospace;
+  .page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
   }
 </style>

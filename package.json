@@ -45,6 +45,7 @@
     "directus-sdk-typegen": "^0.2.1",
     "dotenv": "^17.2.3",
     "p-queue": "^9.0.0",
-    "tsx": "^4.20.6"
+    "tsx": "^4.20.6",
+    "valibot": "^1.1.0"
   }
 }
