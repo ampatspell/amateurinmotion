@@ -8,7 +8,7 @@
   let background = $derived.by(() => {
     const id = index.backgroundImage;
     if (typeof id === 'string') {
-      return resolveImageThumbnailURL(id, '1280x1280');
+      return resolveImageThumbnailURL(id, '2048x2048');
     }
   });
 
