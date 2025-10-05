@@ -4,6 +4,8 @@
 
   let { data, children } = $props();
   let index = $derived(data.index);
+  $inspect(index.links);
+
 </script>
 
 <svelte:head>

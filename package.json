@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "flc": "npm run check && npm run format && npm run lint",
-    "generate": "tsx ./src/lib/directus/generate.ts"
+    "generate": "tsx ./src/lib/directus/generate.ts",
+    "snapshot": "tsx ./src/lib/directus/snapshot.ts"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
