@@ -1,9 +1,9 @@
 <script lang="ts">
   let { data } = $props();
-  let hello = $derived(data.hello);
+  let index = $derived(data.index);
 </script>
 
-<div class="hello">{hello.message}</div>
+<div class="hello">{index.title}</div>
 
 <style lang="scss">
   .hello {
