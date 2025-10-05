@@ -1,11 +1,21 @@
 <script lang="ts">
-  import favicon from '$lib/assets/favicon.svg';
+  import './global.scss';
+  import Layout from '$lib/layout/layout.svelte';
 
-  let { children } = $props();
+  let { data, children } = $props();
+  let index = $derived(data.index);
 </script>
 
 <svelte:head>
-  <link rel="icon" href={favicon} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
 </svelte:head>
 
-{@render children?.()}
+<Layout {index}>
+  {@render children?.()}
+</Layout>
