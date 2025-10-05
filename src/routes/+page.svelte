@@ -7,6 +7,7 @@
 
 <style lang="scss">
   .hello {
+    padding: 50px;
     font-family: monospace;
   }
 </style>
