@@ -2,6 +2,7 @@
   import type { Index } from '$lib/directus/schema';
   import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
   import Background from './background.svelte';
+  import Links from './links.svelte';
 
   let { index }: { index: Index } = $props();
 
@@ -20,6 +21,9 @@
     <div class="background" style:--offset="{-offset}px">
       <Background url={background} />
     </div>
+    <div class="links">
+      <Links {index} />
+    </div>
   {/if}
 </div>
 
@@ -36,6 +40,13 @@
       right: var(--offset);
       display: flex;
       flex-direction: column;
+    }
+    > .links {
+      position: absolute;
+      top: var(--header-height);
+      left: var(--padding);
+      bottom: 0;
+      right: 0;
     }
   }
 </style>
