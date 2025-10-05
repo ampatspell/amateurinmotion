@@ -12,7 +12,8 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
-    "flc": "npm run check && npm run format && npm run lint"
+    "flc": "npm run check && npm run format && npm run lint",
+    "generate": "tsx ./src/lib/directus/generate.ts"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
@@ -37,5 +38,13 @@
   },
   "engines": {
     "node": "22"
+  },
+  "dependencies": {
+    "@directus/sdk": "^20.1.0",
+    "@directus/visual-editing": "^1.1.0",
+    "directus-sdk-typegen": "^0.2.1",
+    "dotenv": "^17.2.3",
+    "p-queue": "^9.0.0",
+    "tsx": "^4.20.6"
   }
 }
