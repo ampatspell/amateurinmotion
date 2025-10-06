@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Gallery, GalleryFile } from '$lib/directus/schema';
   import { innerHeight, innerWidth } from 'svelte/reactivity/window';
   import Carousel from './carousel.svelte';
   import Description from './description.svelte';
   import Grid, { type GridOptions } from './grid/grid.svelte';
   import { options } from '$lib/utils/options';
   import { aspectRatio } from '$lib/utils/aspect-ratio';
+  import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
 
-  let { gallery }: { gallery: Gallery } = $props();
+  let { gallery }: { gallery: GalleryModel } = $props();
 
   innerHeight;
   innerWidth;
@@ -24,12 +24,12 @@
     if (images) {
       let image = images[0];
       if (image) {
-        return image as GalleryFile;
+        return image as GalleryFileModel;
       }
     }
   });
 
-  let onSelect = (file: GalleryFile) => {};
+  let onSelect = (file: GalleryFileModel) => {};
 </script>
 
 <div class="gallery">

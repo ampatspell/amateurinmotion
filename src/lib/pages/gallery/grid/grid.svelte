@@ -17,6 +17,7 @@
 
 <script lang="ts">
   import type { Gallery, GalleryFile } from '$lib/directus/schema';
+  import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
 
   import Image from './image.svelte';
 
@@ -25,9 +26,9 @@
     options,
     onSelect: _onSelect,
   }: {
-    gallery: Gallery;
+    gallery: GalleryModel;
     options: GridOptions;
-    onSelect: (file: GalleryFile) => void;
+    onSelect: (file: GalleryFileModel) => void;
   } = $props();
 
   let gap = $derived(options.gap);
@@ -52,8 +53,8 @@
     }
   });
 
-  let onSelect = (image: GalleryFile) => () => _onSelect(image);
-  let images = $derived(gallery.images as GalleryFile[]);
+  let onSelect = (image: GalleryFileModel) => () => _onSelect(image);
+  let images = $derived(gallery.images);
 </script>
 
 {#if images.length > 0}

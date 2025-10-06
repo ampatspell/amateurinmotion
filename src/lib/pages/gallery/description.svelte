@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Gallery, GalleryFile } from '$lib/directus/schema';
+  import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
 
-  let { gallery, selected }: { gallery: Gallery; selected: GalleryFile } = $props();
+  let { gallery, selected }: { gallery: GalleryModel; selected: GalleryFileModel } = $props();
 </script>
 
 <div class="carousel">

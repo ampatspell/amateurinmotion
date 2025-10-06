@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { DirectusFile, GalleryFile } from '$lib/directus/schema';
+  import type { GalleryFileModel } from '$lib/models/galleries.svelte';
   import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
   import type { GridOptions } from './grid.svelte';
 
@@ -8,13 +9,13 @@
     options,
     onClick,
   }: {
-    file: GalleryFile;
+    file: GalleryFileModel;
     options: GridOptions;
     onClick: () => void;
   } = $props();
 
   let alignment = $derived(options.alignment);
-  let url = $derived(resolveImageThumbnailURL((file.directus_files_id as DirectusFile).id, '400x400'));
+  let url = $derived(file.thumbnails.grid);
   let onclick = () => onClick();
 </script>
 

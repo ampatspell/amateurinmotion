@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { Gallery, GalleryFile } from '$lib/directus/schema';
+  import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
 
   let {
     gallery,
     selected,
     onSelect: _onSelect,
   }: {
-    gallery: Gallery;
-    selected: GalleryFile | undefined;
-    onSelect: (file: GalleryFile) => void;
+    gallery: GalleryModel;
+    selected: GalleryFileModel;
+    onSelect: (file: GalleryFileModel) => void;
   } = $props();
 </script>
 
