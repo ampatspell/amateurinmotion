@@ -36,7 +36,7 @@
       });
       glide.on('move', () => {
         let image = gallery.imageByIndex(glide.index);
-        if (image) {
+        if (image && image !== selected) {
           onSelect(image);
         }
       });
