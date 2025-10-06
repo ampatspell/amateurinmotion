@@ -1,16 +1,33 @@
 <script lang="ts">
-  import { innerHeight, innerWidth } from 'svelte/reactivity/window';
-  import Carousel from './carousel.svelte';
+  import Carousel, { type CarouselOptions } from './carousel.svelte';
   import Description from './description.svelte';
   import Grid, { type GridOptions } from './grid/grid.svelte';
-  import { options } from '$lib/utils/options';
+  import { getter, options } from '$lib/utils/options';
   import { aspectRatio } from '$lib/utils/aspect-ratio';
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
+  import { createInnerHeight, createInnerWith } from '$lib/utils/reactivity';
 
   let { gallery }: { gallery: GalleryModel } = $props();
 
-  innerHeight;
-  innerWidth;
+  let innerWidth = createInnerWith(Infinity);
+  let innerHeight = createInnerHeight(0);
+
+  let isMobile = $derived(innerWidth.current <= 768);
+
+  let height = $derived.by(() => {
+    if (innerHeight) {
+      let base = innerHeight.current - 180;
+      if (isMobile) {
+        return base + 110;
+      }
+      return base;
+    }
+  });
+
+  let lightboxOptions: CarouselOptions = options({
+    height: getter(() => height),
+    thumbnail: '2048x2048',
+  });
 
   let gridOptions: GridOptions = options({
     gap: 15,
@@ -20,22 +37,26 @@
   });
 
   let selected = $derived.by(() => {
-    let images = gallery.images;
-    if (images) {
-      let image = images[0];
-      if (image) {
-        return image as GalleryFileModel;
-      }
-    }
+    return gallery.images[0]!;
   });
 
-  let onSelect = (file: GalleryFileModel) => {};
+  let onSelect = (node: GalleryFileModel) => {
+    // _onSelect(node);
+    // requestAnimationFrame(() => {
+    //   window.scrollTo({ top: 0, behavior: 'smooth' });
+    // });
+  };
+
+  let isLoaded = $state(false);
+  $effect(() => {
+    isLoaded = true;
+  });
 </script>
 
-<div class="gallery">
+<div class="gallery" class:loaded={isLoaded}>
   {#if selected}
     <div class="lightbox">
-      <Carousel {gallery} {selected} {onSelect} />
+      <Carousel {gallery} {selected} {onSelect} options={lightboxOptions} />
     </div>
     <div class="details">
       <Description {gallery} {selected} />
@@ -47,5 +68,26 @@
 <style lang="scss">
   .gallery {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    opacity: 0;
+    &.loaded {
+      opacity: 1;
+    }
+    > .lightbox {
+      display: flex;
+      flex-direction: column;
+    }
+    > .details {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      border-top: 1px solid #eee;
+      padding: 30px;
+      @media (max-width: 768px) {
+        padding: 15px;
+      }
+    }
   }
 </style>
