@@ -16,7 +16,6 @@
 </script>
 
 <script lang="ts">
-  import type { Gallery, GalleryFile } from '$lib/directus/schema';
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
 
   import Image from './image.svelte';

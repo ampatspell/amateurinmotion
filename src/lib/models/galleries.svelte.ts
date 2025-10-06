@@ -23,7 +23,7 @@ export const readGalleryByPermalink = async (
           images: [
             '*',
             {
-              // directus_files_id: ['*'],
+              directus_files_id: ['*'],
             },
           ],
         },
@@ -50,6 +50,8 @@ export class GalleryFileModel extends Model<{ data: GalleryFile }> {
       grid: resolve('400x400'),
     };
   });
+
+  readonly identifier = $derived(this.file.filename_download);
 }
 
 export class GalleryModel extends Model<{ data: Gallery }> {
