@@ -8,6 +8,7 @@
 <div class="links">
   {#each links.all as link (link.id)}
     {#if link.props}
+      <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
       <a class="link" href={link.props.href}>{link.props.label}</a>
     {/if}
   {/each}

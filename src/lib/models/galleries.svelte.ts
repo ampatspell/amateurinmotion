@@ -48,6 +48,7 @@ export class GalleryFileModel extends Model<{ data: GalleryFile }> {
     };
     return {
       grid: resolve('400x400'),
+      carousel: resolve('2048x2048'),
     };
   });
 
@@ -66,6 +67,10 @@ export class GalleryModel extends Model<{ data: Gallery }> {
     if (identifier) {
       return this.images.find((image) => image.identifier === identifier);
     }
+  }
+
+  imageByIndex(index: number) {
+    return this.images[index];
   }
 
   static build(data: Gallery) {
