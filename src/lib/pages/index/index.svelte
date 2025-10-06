@@ -1,25 +1,15 @@
 <script lang="ts">
-  import type { Index } from '$lib/directus/schema';
-  import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
+  import type { IndexModel } from '$lib/models/index.svelte';
   import Background from './background.svelte';
   import Links from './links.svelte';
 
-  let { index }: { index: Index } = $props();
-
-  let background = $derived.by(() => {
-    const id = index.backgroundImage;
-    if (typeof id === 'string') {
-      return resolveImageThumbnailURL(id, '2048x2048');
-    }
-  });
-
-  let offset = $derived(index.backgroundInset ?? 0);
+  let { index }: { index: IndexModel } = $props();
 </script>
 
 <div class="index">
-  {#if background}
-    <div class="background" style:--offset="{-offset}px">
-      <Background url={background} />
+  {#if index.background.url}
+    <div class="background" style:--offset="{-index.background.inset}px">
+      <Background url={index.background.url} />
     </div>
     <div class="links">
       <Links {index} />

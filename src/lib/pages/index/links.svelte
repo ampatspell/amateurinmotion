@@ -1,15 +1,16 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import type { Gallery, Index, IndexLink } from '$lib/directus/schema';
+  import type { Gallery } from '$lib/directus/schema';
+  import type { IndexModel } from '$lib/models/index.svelte';
 
-  let { index }: { index: Index } = $props();
-  let links = $derived(index.links as IndexLink[]);
+  let { index }: { index: IndexModel } = $props();
+  let links = $derived(index.links);
 </script>
 
 <div class="links">
-  {#each links as link (link.id)}
-    {#if link.collection === 'gallery'}
-      <a class="link" href={resolve('/')}>{(link.item as Gallery).title}</a>
+  {#each links.all as link (link.id)}
+    {#if link.props}
+      <a class="link" href={link.props.href}>{link.props.label}</a>
     {/if}
   {/each}
 </div>
