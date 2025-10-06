@@ -51,7 +51,7 @@ export class GalleryFileModel extends Model<{ data: GalleryFile }> {
     };
   });
 
-  readonly identifier = $derived(this.file.filename_download);
+  readonly identifier = $derived(asString(this.file.filename_download));
 }
 
 export class GalleryModel extends Model<{ data: Gallery }> {
@@ -61,6 +61,12 @@ export class GalleryModel extends Model<{ data: Gallery }> {
   readonly permalink = $derived(asString(this.data.permalink));
 
   readonly images = $derived(asObjectArray(this.data.images).map((data) => new GalleryFileModel({ data })));
+
+  imageByIdentifier(identifier: string | undefined) {
+    if (identifier) {
+      return this.images.find((image) => image.identifier === identifier);
+    }
+  }
 
   static build(data: Gallery) {
     return new this({ data });

@@ -6,8 +6,17 @@
   import { aspectRatio } from '$lib/utils/aspect-ratio';
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
   import { createInnerHeight, createInnerWith } from '$lib/utils/reactivity';
+  import { onMount } from 'svelte';
 
-  let { gallery }: { gallery: GalleryModel } = $props();
+  let {
+    gallery,
+    selected: _selected,
+    onSelect: _onSelect,
+  }: {
+    gallery: GalleryModel;
+    selected: GalleryFileModel;
+    onSelect: (file: GalleryFileModel) => Promise<void>;
+  } = $props();
 
   let innerWidth = createInnerWith(Infinity);
   let innerHeight = createInnerHeight(0);
@@ -36,19 +45,18 @@
     aspectRatio: aspectRatio('3x2'),
   });
 
-  let selected = $derived.by(() => {
-    return gallery.images[0]!;
-  });
+  let selected = $derived(_selected ?? gallery.images[0]!);
 
-  let onSelect = (node: GalleryFileModel) => {
-    // _onSelect(node);
-    // requestAnimationFrame(() => {
-    //   window.scrollTo({ top: 0, behavior: 'smooth' });
-    // });
+  let onSelect = async (node: GalleryFileModel) => {
+    await _onSelect(node);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   };
 
   let isLoaded = $state(false);
-  $effect(() => {
+
+  onMount(() => {
     isLoaded = true;
   });
 </script>

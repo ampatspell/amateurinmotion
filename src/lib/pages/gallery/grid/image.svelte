@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { DirectusFile, GalleryFile } from '$lib/directus/schema';
   import type { GalleryFileModel } from '$lib/models/galleries.svelte';
-  import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
   import type { GridOptions } from './grid.svelte';
 
   let {

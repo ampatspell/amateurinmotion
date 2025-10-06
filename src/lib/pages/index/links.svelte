@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { resolve } from '$app/paths';
-  import type { Gallery } from '$lib/directus/schema';
   import type { IndexModel } from '$lib/models/index.svelte';
 
   let { index }: { index: IndexModel } = $props();
