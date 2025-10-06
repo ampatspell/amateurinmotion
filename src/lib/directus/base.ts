@@ -25,3 +25,5 @@ export const getDirectusInternal = (fetch: Function, url: string, token: string)
     .with(staticToken(token))
     .with(rest());
 };
+
+export type Directus = ReturnType<typeof getDirectusInternal>;
