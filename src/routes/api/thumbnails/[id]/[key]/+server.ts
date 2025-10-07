@@ -7,39 +7,33 @@ export const GET: RequestHandler = async ({ fetch, request, params: { id, key } 
   const href = directus.url.href;
   const url = `${href}assets/${id}/?access_token=${token}&key=${key}`;
 
-  // TODO: replace accept only with gzip
+  // remove `zstd` which is not supported by fetch decoder
+  request.headers.set('accept-encoding', 'gzip, deflate, br');
 
-  const { body, headers, status, statusText } = await fetch(url, {
+  const response = await fetch(url, {
     body: request.body,
     method: request.method,
     headers: request.headers,
   });
 
-  // TODO: then gzip body again
-
-  let workaround;
-  if(headers.get('content-encoding') !== 'zstd') {
-    workaround = omitHeaders(headers, ['content-encoding']);
-  } else {
-    workaround = headers;
-  }
-
-  return new Response(body, {
-    headers: workaround,
-    status,
-    statusText,
+  return new Response(response.body, {
+    headers: replaceHeaders(response.headers, {
+      'content-encoding': undefined,
+    }),
+    status: response.status,
+    statusText: response.statusText,
   });
 };
 
-const omitHeaders = (headers: Headers, omit: string[]) => {
-  const ret = new Headers();
-  for(const key of headers.keys()) {
-    if(!omit.includes(key.toLowerCase())) {
-      const value = headers.get(key);
-      if(value) {
-        ret.append(key, value);
-      }
+const replaceHeaders = (headers: Headers, replace: Record<string, string | undefined>) => {
+  const ret = new Headers(headers);
+  for (const key in replace) {
+    const value = replace[key];
+    if (value !== undefined) {
+      ret.set(key, value);
+    } else {
+      ret.delete(key);
     }
   }
   return ret;
-}
+};
