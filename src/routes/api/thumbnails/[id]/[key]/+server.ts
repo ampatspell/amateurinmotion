@@ -1,8 +1,8 @@
 import { getDirectus } from '$lib/directus/directus';
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ fetch, request, params: { id, key } }) => {
-  const directus = getDirectus(fetch);
+export const GET: RequestHandler = async ({ request, params: { id, key } }) => {
+  const directus = getDirectus();
   const token = await directus.getToken();
   const href = directus.url.href;
   const url = `${href}assets/${id}/?access_token=${token}&key=${key}`;

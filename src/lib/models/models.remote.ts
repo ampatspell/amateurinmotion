@@ -1,14 +1,9 @@
 import * as v from 'valibot';
-import { getRequestEvent, query } from '$app/server';
-import { getDirectus as _getDirectus } from '$lib/directus/directus';
+import { query } from '$app/server';
+import { getDirectus } from '$lib/directus/directus';
 import { CollectionNames, type Gallery, type Index } from '$lib/directus/schema';
 import { readItems, readSingleton } from '@directus/sdk';
 import { error } from '@sveltejs/kit';
-
-const getDirectus = () => {
-  const { fetch } = getRequestEvent();
-  return _getDirectus(fetch);
-};
 
 export const getIndex = query(async () => {
   const directus = getDirectus();
