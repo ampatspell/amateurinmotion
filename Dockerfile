@@ -24,3 +24,10 @@ EXPOSE 3000
 
 ENV NODE_ENV=production
 CMD [ "node", "build" ]
+
+HEALTHCHECK \
+  --interval=1m \
+  --timeout=10s \
+  --start-period=5s \
+  --retries=10 \
+  CMD curl -f http://localhost:3000 || exit 1
