@@ -7,11 +7,15 @@ export const GET: RequestHandler = async ({ fetch, request, params: { id, key } 
   const href = directus.url.href;
   const url = `${href}assets/${id}/?access_token=${token}&key=${key}`;
 
+  // TODO: replace accept only with gzip
+
   const { body, headers, status, statusText } = await fetch(url, {
     body: request.body,
     method: request.method,
     headers: request.headers,
   });
+
+  // TODO: then gzip body again
 
   let workaround;
   if(headers.get('content-encoding') !== 'zstd') {
@@ -20,7 +24,6 @@ export const GET: RequestHandler = async ({ fetch, request, params: { id, key } 
     workaround = headers;
   }
 
-  // TODO: gzip body again
   return new Response(body, {
     headers: workaround,
     status,
