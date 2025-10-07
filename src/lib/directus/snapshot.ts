@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 config();
 
 const root = dirname(fileURLToPath(import.meta.url));
-const url = process.env.PUBLIC_DIRECTUS_URL as string;
+const url = process.env.PRIVATE_DIRECTUS_URL as string;
 const token = process.env.PRIVATE_DIRECTUS_ADMIN_TOKEN as string;
 
 const directus = getDirectusInternal(fetch, url, token);

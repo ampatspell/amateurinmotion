@@ -1,9 +1,11 @@
 <script lang="ts">
   import './global.scss';
   import Layout from '$lib/layout/layout.svelte';
+  import { IndexModel } from '$lib/models/index.svelte';
 
-  let { data, children } = $props();
-  let index = $derived(data.index);
+  let { children } = $props();
+
+  let index = $derived(await IndexModel.load());
 </script>
 
 <svelte:head>

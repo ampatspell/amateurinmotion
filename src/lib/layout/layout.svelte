@@ -1,31 +1,16 @@
 <script lang="ts">
-  import type { Index } from '$lib/directus/schema';
   import type { Snippet } from 'svelte';
   import Header from './header.svelte';
   import { page } from '$app/state';
+  import type { IndexModel } from '$lib/models/index.svelte';
 
-  let { index, children }: { index: Index; children: Snippet } = $props();
+  let { index, children }: { index: IndexModel; children: Snippet } = $props();
   let isIndex = $derived(page.url.pathname === '/');
-
-  let colors = $derived.by(() => {
-    let background;
-    let color;
-    if (isIndex) {
-      background = index.indexBackgroundColor;
-      color = index.indexTitleColor;
-    } else {
-      background = index.defaultBackgroundColor;
-      color = index.defaultTitleColor;
-    }
-    return {
-      background,
-      color,
-    };
-  });
+  let colors = $derived(isIndex ? index.colors.index : index.colors.default);
 </script>
 
 <div class="layout" style:--background={colors.background} style:--color={colors.color}>
-  <Header {index} {isIndex} />
+  <Header index={index.data} {isIndex} />
   <div class="content">
     {@render children()}
   </div>

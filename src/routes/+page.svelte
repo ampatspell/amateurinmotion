@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { IndexModel } from '$lib/models/index.svelte.js';
+  import { IndexModel } from '$lib/models/index.svelte';
   import Index from '$lib/pages/index/index.svelte';
 
-  let { data } = $props();
-  let index = $derived(IndexModel.build(data.index));
+  let index = $derived(await IndexModel.load());
 </script>
 
 <div class="page">

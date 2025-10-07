@@ -1,16 +1,5 @@
-import { PUBLIC_DIRECTUS_URL } from '$env/static/public';
 import { page } from '$app/state';
 import { setAttr as baseSetAttr } from '@directus/visual-editing';
-import type { DirectusFile } from './schema';
-
-export function resolveAssetURL(fileOrString: DirectusFile | string | null | undefined): string {
-  if (!fileOrString) {
-    return '';
-  } else if (typeof fileOrString === 'string') {
-    return `${PUBLIC_DIRECTUS_URL}/assets/${fileOrString}`;
-  }
-  return `${PUBLIC_DIRECTUS_URL}/assets/${fileOrString.id}`;
-}
 
 interface SetAttrOptions {
   collection: string;

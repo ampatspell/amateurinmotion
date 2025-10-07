@@ -1,41 +1,8 @@
-import type { Directus } from '$lib/directus/base';
-import { CollectionNames, type Gallery, type GalleryFile } from '$lib/directus/schema';
+import { type Gallery, type GalleryFile } from '$lib/directus/schema';
 import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
 import { Model } from '$lib/utils/model.svelte';
 import { asObject, asObjectArray, asString } from '$lib/utils/validate';
-import { readItems } from '@directus/sdk';
-
-export const readGalleryByPermalink = async (
-  directus: Directus,
-  permalink: string | undefined,
-): Promise<Gallery | undefined> => {
-  permalink = (permalink ?? '').trim();
-  if (permalink) {
-    const query = {
-      filter: {
-        permalink: {
-          _eq: permalink,
-        },
-      },
-      fields: [
-        '*',
-        {
-          images: [
-            '*',
-            {
-              directus_files_id: ['*'],
-            },
-          ],
-        },
-      ],
-      limit: 1,
-    } as const;
-    const [gallery] = await directus.request(readItems(CollectionNames.gallery, query));
-    if (gallery) {
-      return gallery as Gallery;
-    }
-  }
-};
+import { getGalleryByPermalink } from './models.remote';
 
 export class GalleryFileModel extends Model<{ data: GalleryFile }> {
   readonly data = $derived(this.options.data);
@@ -75,5 +42,9 @@ export class GalleryModel extends Model<{ data: Gallery }> {
 
   static build(data: Gallery) {
     return new this({ data });
+  }
+
+  static async load(permalink: string) {
+    return this.build(await getGalleryByPermalink({ permalink }));
   }
 }

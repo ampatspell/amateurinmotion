@@ -1,30 +1,9 @@
 import { resolve } from '$app/paths';
-import type { Directus } from '$lib/directus/base';
-import { CollectionNames, type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
+import { type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
 import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
 import { Model } from '$lib/utils/model.svelte';
 import { asObject, asObjectArray, asOptionalString, asString } from '$lib/utils/validate';
-import { readSingleton } from '@directus/sdk';
-
-const query = {
-  fields: [
-    '*',
-    {
-      links: [
-        '*',
-        {
-          item: {
-            gallery: ['*'],
-          },
-        },
-      ],
-    },
-  ],
-} as const;
-
-export const loadIndex = async (directus: Directus) => {
-  return await directus.request(readSingleton(CollectionNames.index, query));
-};
+import { getIndex } from './models.remote';
 
 export class BackgroundModel extends Model<{ data: Index }> {
   readonly data = $derived(this.options.data);
@@ -74,7 +53,24 @@ export class IndexModel extends Model<{ data: Index }> {
   readonly background = $derived(new BackgroundModel({ data: this.data }));
   readonly links = $derived(new LinksModel({ data: this.data }));
 
+  readonly colors = $derived.by(() => {
+    return {
+      index: {
+        background: this.data.indexBackgroundColor,
+        color: this.data.indexTitleColor,
+      },
+      default: {
+        background: this.data.defaultBackgroundColor,
+        color: this.data.defaultTitleColor,
+      },
+    };
+  });
+
   static build(data: Index) {
     return new this({ data });
+  }
+
+  static async load() {
+    return this.build(await getIndex());
   }
 }
