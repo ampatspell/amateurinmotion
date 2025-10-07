@@ -3,9 +3,9 @@
   import Layout from '$lib/layout/layout.svelte';
   import { IndexModel } from '$lib/models/index.svelte';
 
-  let { children } = $props();
+  let { data, children } = $props();
 
-  let index = $derived(await IndexModel.load());
+  let index = $derived(IndexModel.build(data.index));
 </script>
 
 <svelte:head>

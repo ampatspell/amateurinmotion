@@ -2,7 +2,9 @@
   import { IndexModel } from '$lib/models/index.svelte';
   import Index from '$lib/pages/index/index.svelte';
 
-  let index = $derived(await IndexModel.load());
+  let { data } = $props();
+
+  let index = $derived(IndexModel.build(data.index));
 </script>
 
 <div class="page">

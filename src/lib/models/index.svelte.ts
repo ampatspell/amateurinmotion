@@ -1,9 +1,33 @@
 import { resolve } from '$app/paths';
-import { type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
+import { CollectionNames, type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
 import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
 import { Model } from '$lib/utils/model.svelte';
 import { asObject, asObjectArray, asOptionalString, asString } from '$lib/utils/validate';
-import { getIndex } from './models.remote';
+import { readSingleton } from '@directus/sdk';
+import { type Directus } from '$lib/directus/base';
+
+export const loadIndex = async (directus: Directus) => {
+  const data = await directus.request(
+    readSingleton(CollectionNames.index, {
+      fields: [
+        '*',
+        {
+          links: [
+            '*',
+            {
+              item: {
+                gallery: ['*'],
+              },
+            },
+          ],
+        },
+      ],
+    } as const),
+  );
+  if (data) {
+    return data as Index;
+  }
+};
 
 export class BackgroundModel extends Model<{ data: Index }> {
   readonly data = $derived(this.options.data);
@@ -68,9 +92,5 @@ export class IndexModel extends Model<{ data: Index }> {
 
   static build(data: Index) {
     return new this({ data });
-  }
-
-  static async load() {
-    return this.build(await getIndex());
   }
 }

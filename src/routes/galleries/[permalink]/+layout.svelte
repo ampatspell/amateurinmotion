@@ -5,9 +5,9 @@
   import { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte.js';
   import Gallery from '$lib/pages/gallery/gallery.svelte';
 
-  let { children } = $props();
+  let { data, children } = $props();
 
-  let gallery = $derived(await GalleryModel.load(page.params.permalink!));
+  let gallery = $derived(GalleryModel.build(data.gallery));
   let permalink = $derived(gallery.permalink);
 
   let identifier = $derived(page.params.identifier);

@@ -58,7 +58,12 @@
 
 {#if images.length > 0}
   <div class="grid" bind:clientWidth={gridWidth}>
-    <div class="images" style:--gap="{gap}px" style:--width="{size?.width ?? 0}px" style:--height="{size?.height ?? 0}px">
+    <div
+      class="images"
+      style:--gap="{gap}px"
+      style:--width="{size?.width ?? 0}px"
+      style:--height="{size?.height ?? 0}px"
+    >
       {#each images as file (file)}
         <Image {file} {options} onClick={onSelect(file)} />
       {/each}
