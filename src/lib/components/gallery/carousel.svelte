@@ -8,7 +8,7 @@
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
   import { untrack } from 'svelte';
   import Swiper from 'swiper';
-  import { Keyboard } from 'swiper/modules';
+  import { Keyboard, Mousewheel } from 'swiper/modules';
   import 'swiper/css';
 
   let {
@@ -31,11 +31,17 @@
     if (element) {
       let initialSlide = untrack(() => gallery.images.indexOf(selected));
       let swiper = new Swiper(element, {
-        modules: [Keyboard],
+        modules: [Keyboard, Mousewheel],
         initialSlide,
+        mousewheel: {
+          forceToAxis: true,
+        },
         keyboard: {
           enabled: true,
         },
+      });
+      swiper.on('slideChangeTransitionStart', () => {
+        quiet = true;
       });
       swiper.on('slideChangeTransitionEnd', () => {
         let index = swiper.realIndex;
