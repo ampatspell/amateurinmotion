@@ -9,7 +9,6 @@
   import { untrack } from 'svelte';
   import Swiper from 'swiper';
   import { Keyboard } from 'swiper/modules';
-
   import 'swiper/css';
 
   let {
