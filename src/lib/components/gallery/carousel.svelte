@@ -49,9 +49,15 @@
   });
 
   let images = $derived(gallery.images);
+
+  let quiet = $state(false);
+  let onkeydown = () => quiet = true;
+  let onmousemove = () => quiet = false;
 </script>
 
-<div class="carousel" style:--height="{height}px">
+<svelte:window {onkeydown} {onmousemove} />
+
+<div class="carousel" class:quiet={quiet} style:--height="{height}px">
   <div class="swiper" bind:this={element}>
     <div class="swiper-wrapper">
       {#each images as image (image.identifier)}
@@ -82,6 +88,9 @@
           }
         }
       }
+    }
+    &.quiet {
+      cursor: none;
     }
   }
 </style>
