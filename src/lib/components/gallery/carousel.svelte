@@ -34,7 +34,7 @@
         gap: 0,
         animationDuration: 500,
       });
-      glide.on('move', () => {
+      glide.on('move.after', () => {
         let image = gallery.imageByIndex(glide.index);
         if (image && image !== selected) {
           onSelect(image);
