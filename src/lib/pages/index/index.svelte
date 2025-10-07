@@ -1,18 +1,9 @@
 <script lang="ts">
-    import { getDirectus } from '$lib/directus/directus';
-  import { loadIndex, type IndexModel } from '$lib/models/index.svelte';
+  import { type IndexModel } from '$lib/models/index.svelte';
   import Background from './background.svelte';
   import Links from './links.svelte';
 
   let { index }: { index: IndexModel } = $props();
-
-  $effect(() => {
-    let run = async () => {
-      let res = await loadIndex(getDirectus(fetch));
-      console.log(res);
-    };
-    run();
-  })
 </script>
 
 <div class="index">
