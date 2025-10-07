@@ -13,9 +13,16 @@ export const GET: RequestHandler = async ({ fetch, request, params: { id, key } 
     headers: request.headers,
   });
 
+  let workaround;
+  if(headers.get('content-encoding') !== 'zstd') {
+    workaround = omitHeaders(headers, ['content-encoding']);
+  } else {
+    workaround = headers;
+  }
+
   // TODO: gzip body again
   return new Response(body, {
-    headers: omitHeaders(headers, ['content-encoding']),
+    headers: workaround,
     status,
     statusText,
   });
