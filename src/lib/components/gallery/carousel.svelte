@@ -40,7 +40,7 @@
       if (swiper) {
         let idx = gallery.images.indexOf(selected);
         if (idx !== swiper.realIndex) {
-          swiper.slideTo(idx, 2000);
+          swiper.slideTo(idx, 0);
         }
       }
     });
@@ -98,6 +98,7 @@
   .carousel {
     position: relative;
     height: var(--height);
+    cursor: grab;
     > .swiper {
       height: 100%;
       > .swiper-wrapper {
