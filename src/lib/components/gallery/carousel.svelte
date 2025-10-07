@@ -27,10 +27,29 @@
 
   let element = $state<HTMLElement>();
 
+  let quiet = $state(false);
+  let onkeydown = () => (quiet = true);
+  let onmousemove = () => (quiet = false);
+
+  let swiper: Swiper | undefined;
+
+  $effect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    selected;
+    untrack(() => {
+      if (swiper) {
+        let idx = gallery.images.indexOf(selected);
+        if (idx !== swiper.realIndex) {
+          swiper.slideTo(idx, 2000);
+        }
+      }
+    });
+  });
+
   $effect(() => {
     if (element) {
       let initialSlide = untrack(() => gallery.images.indexOf(selected));
-      let swiper = new Swiper(element, {
+      let instance = new Swiper(element, {
         modules: [Keyboard, Mousewheel],
         initialSlide,
         mousewheel: {
@@ -40,30 +59,30 @@
           enabled: true,
         },
       });
-      swiper.on('slideChangeTransitionStart', () => {
+      instance.on('slideChangeTransitionStart', () => {
         quiet = true;
       });
-      swiper.on('slideChangeTransitionEnd', () => {
-        let index = swiper.realIndex;
+      instance.on('slideChangeTransitionEnd', () => {
+        let index = instance.realIndex;
         let image = gallery.imageByIndex(index);
         if (image && image !== selected) {
           onSelect(image);
         }
       });
-      return () => swiper.destroy();
+      swiper = instance;
+      return () => {
+        instance.destroy();
+        swiper = undefined;
+      };
     }
   });
 
   let images = $derived(gallery.images);
-
-  let quiet = $state(false);
-  let onkeydown = () => quiet = true;
-  let onmousemove = () => quiet = false;
 </script>
 
 <svelte:window {onkeydown} {onmousemove} />
 
-<div class="carousel" class:quiet={quiet} style:--height="{height}px">
+<div class="carousel" class:quiet style:--height="{height}px">
   <div class="swiper" bind:this={element}>
     <div class="swiper-wrapper">
       {#each images as image (image.identifier)}
