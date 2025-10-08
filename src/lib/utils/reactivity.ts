@@ -1,4 +1,4 @@
-import { innerHeight as _innerHeight, innerWidth as _innerWidth } from 'svelte/reactivity/window';
+import { innerHeight as _innerHeight, innerWidth as _innerWidth, scrollY } from 'svelte/reactivity/window';
 import { getter, options } from './options';
 
 export type ReactiveValue<T> = {
@@ -18,4 +18,13 @@ export const createInnerWith = (fallback: number) => {
 
 export const createInnerHeight = (fallback: number) => {
   return createReactiveValueWithFallback(_innerHeight, fallback);
+};
+
+export const createOpacity = (max = 300) => {
+  return options({
+    current: getter(() => {
+      const y = Math.min(scrollY.current ?? 0, max);
+      return 1 - y / max;
+    }),
+  });
 };

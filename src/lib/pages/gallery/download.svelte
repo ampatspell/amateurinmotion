@@ -2,6 +2,7 @@
   import LucideCloudDownload from '$lib/components/icons/lucide--cloud-download.svelte';
   import type { GalleryModel } from '$lib/models/galleries.svelte';
   import { formatBytes } from '$lib/utils/number';
+  import { createOpacity } from '$lib/utils/reactivity';
 
   let { gallery }: { gallery: GalleryModel } = $props();
 
@@ -12,12 +13,15 @@
       window.location.href = download.url;
     }
   };
+
+  let opacity = $derived(createOpacity());
+  let disabled = $derived(opacity.current === 0);
 </script>
 
 {#if download}
   <!-- svelte-ignore a11y_interactive_supports_focus -->
   <!-- svelte-ignore a11y_click_events_have_key_events -->
-  <div class="download" role="button" {onclick}>
+  <div class={['download', disabled && 'disabled']} role="button" {onclick} style:--opacity={opacity.current}>
     <div class="info">
       <div class="filename">{download.filename}</div>
       <div class="size">{formatBytes(download.size)}</div>
@@ -39,6 +43,7 @@
     padding: 10px 15px;
     border: 1px solid transparent;
     transition: 0.3s ease-in-out all;
+    opacity: var(--opacity);
     cursor: pointer;
     > .info {
       display: flex;
@@ -71,6 +76,9 @@
       > .info {
         opacity: 1;
       }
+    }
+    &.disabled {
+      display: none;
     }
   }
 </style>

@@ -1,18 +1,13 @@
 <script lang="ts">
   import type { Index } from '$lib/directus/schema';
   import { resolve } from '$app/paths';
-  import { scrollY } from 'svelte/reactivity/window';
+  import { createOpacity } from '$lib/utils/reactivity';
 
   let { index }: { index: Index } = $props();
-
-  let opacity = $derived.by(() => {
-    let max = 300;
-    let y = Math.min(scrollY.current ?? 0, max);
-    return 1 - y / max;
-  });
+  let opacity = $derived(createOpacity());
 </script>
 
-<div class="header" style:--opacity={opacity}>
+<div class="header" style:--opacity={opacity.current}>
   <a class="title" href={resolve('/')}>{index.title}</a>
 </div>
 
