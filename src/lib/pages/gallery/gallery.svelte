@@ -8,6 +8,7 @@
   import { onMount } from 'svelte';
   import type { GridOptions } from '$lib/components/gallery/grid/grid.svelte';
   import Grid from '$lib/components/gallery/grid/grid.svelte';
+  import Download from './download.svelte';
 
   let {
     gallery,
@@ -63,6 +64,11 @@
 </script>
 
 <div class="gallery" class:loaded={isLoaded}>
+  {#if gallery.download}
+    <div class="download">
+      <Download {gallery} />
+    </div>
+  {/if}
   {#if selected}
     <div class="lightbox">
       <Carousel {gallery} {selected} {onSelect} options={lightboxOptions} />
@@ -79,7 +85,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: var(--padding);
     opacity: 0;
     &.loaded {
       opacity: 1;
@@ -91,12 +97,18 @@
     > .details {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: var(--padding);
       border-top: 1px solid #eee;
-      padding: 30px;
+      padding: var(--padding);
       @media (max-width: 768px) {
         padding: 15px;
       }
+    }
+    > .download {
+      position: fixed;
+      top: 15px;
+      right: var(--padding);
+      z-index: 2;
     }
   }
 </style>

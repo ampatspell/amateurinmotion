@@ -1,19 +1,18 @@
 <script lang="ts">
   import type { Index } from '$lib/directus/schema';
   import { resolve } from '$app/paths';
+  import { scrollY } from 'svelte/reactivity/window';
 
-  let { index, isIndex }: { index: Index; isIndex: boolean } = $props();
-
-  let scrollY = $state<number>();
+  let { index }: { index: Index } = $props();
 
   let opacity = $derived.by(() => {
     let max = 300;
-    let y = Math.min(scrollY ?? 0, max);
+    let y = Math.min(scrollY.current ?? 0, max);
     return 1 - y / max;
   });
 </script>
 
-<div class={['header', isIndex && 'index']} style:--opacity={opacity}>
+<div class="header" style:--opacity={opacity}>
   <a class="title" href={resolve('/')}>{index.title}</a>
 </div>
 
@@ -30,14 +29,12 @@
     align-items: center;
     padding: 0 var(--padding);
     opacity: var(--opacity);
-    transition: 0.2s ease-in-out color;
     > .title {
       font-size: 21px;
       font-weight: 500;
       text-decoration: none;
-    }
-    &.index {
-      color: #fff;
+      color: var(--color);
+      transition: 0.3s ease-in-out color;
     }
   }
 </style>

@@ -20,6 +20,13 @@ export const asOptionalString = (arg: unknown): string | undefined => {
   return fail(arg, 'Not an optional string');
 };
 
+export const asNumber = (arg: unknown): number => {
+  if (typeof arg === 'number' && !isNaN(arg) && arg !== Infinity) {
+    return arg as number;
+  }
+  return fail(arg, 'Not a number');
+};
+
 export const asObjectArray = <T>(arg: T[] | string[] | null | undefined): T[] => {
   if (Array.isArray(arg)) {
     return arg as T[];
@@ -32,4 +39,15 @@ export const asObject = <T>(arg: T | string | null | undefined): T => {
     return arg;
   }
   return fail(arg, 'Not an object');
+};
+
+export const asOptionalObject = <T>(arg: T | string | null | undefined): T | undefined => {
+  const type = typeof arg;
+  if (type === 'object' || type === 'undefined' || arg === null) {
+    if (arg === null) {
+      return undefined;
+    }
+    return arg as T | undefined;
+  }
+  return fail(arg, 'Not an optional object');
 };
