@@ -2,8 +2,10 @@ import { createDirectus, rest, staticToken } from '@directus/sdk';
 import Queue from 'p-queue';
 import type { Schema } from './schema';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type, @typescript-eslint/no-explicit-any
-const fetchRetry = async (fetch: Function, count: number, ...args: any[]) => {
+export type Fetch = typeof fetch;
+export type Directus = ReturnType<typeof getDirectusInternal>;
+
+const fetchRetry = async (fetch: Fetch, count: number, ...args: Parameters<Fetch>) => {
   const response = await fetch(...args);
   if (count > 2 || response.status !== 429) {
     return response;
@@ -15,8 +17,7 @@ const fetchRetry = async (fetch: Function, count: number, ...args: any[]) => {
 
 const queue = new Queue({ intervalCap: 10, interval: 500, carryoverIntervalCount: true });
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-export const getDirectusInternal = (fetch: Function, url: string, token: string) => {
+export const getDirectusInternal = (fetch: Fetch, url: string, token: string) => {
   return createDirectus<Schema>(url, {
     globals: {
       fetch: (...args) => queue.add(() => fetchRetry(fetch, 0, ...args)),
@@ -25,5 +26,3 @@ export const getDirectusInternal = (fetch: Function, url: string, token: string)
     .with(staticToken(token))
     .with(rest());
 };
-
-export type Directus = ReturnType<typeof getDirectusInternal>;

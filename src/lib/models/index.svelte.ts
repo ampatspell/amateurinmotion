@@ -1,10 +1,10 @@
 import { resolve } from '$app/paths';
 import { CollectionNames, type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
-import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
 import { Model } from '$lib/utils/model.svelte';
 import { asObject, asObjectArray, asOptionalString, asString } from '$lib/utils/validate';
 import { readSingleton } from '@directus/sdk';
 import { type Directus } from '$lib/directus/base';
+import { resolveImagePreset } from '$lib/directus/utils';
 
 export const loadIndex = async (directus: Directus) => {
   const data = await directus.request(
@@ -36,7 +36,7 @@ export class BackgroundModel extends Model<{ data: Index }> {
   readonly url = $derived.by(() => {
     const { id } = this;
     if (typeof id === 'string') {
-      return resolveImageThumbnailURL(id, '2048x2048');
+      return resolveImagePreset(id, '2048x2048');
     }
   });
 

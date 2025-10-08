@@ -1,6 +1,6 @@
 import { type Directus } from '$lib/directus/base';
 import { CollectionNames, type Gallery, type GalleryFile } from '$lib/directus/schema';
-import { resolveImageThumbnailURL } from '$lib/utils/api.svelte';
+import { resolveImagePreset } from '$lib/directus/utils';
 import { Model } from '$lib/utils/model.svelte';
 import { asObject, asObjectArray, asString } from '$lib/utils/validate';
 import { readItems } from '@directus/sdk';
@@ -39,7 +39,7 @@ export class GalleryFileModel extends Model<{ data: GalleryFile }> {
   readonly thumbnails = $derived.by(() => {
     const id = this.file.id;
     const resolve = (key: string) => {
-      return resolveImageThumbnailURL(id, key);
+      return resolveImagePreset(id, key);
     };
     return {
       grid: resolve('400x400'),
