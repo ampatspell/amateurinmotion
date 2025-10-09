@@ -25,6 +25,9 @@ COPY package.json .
 
 EXPOSE 3000
 
+ARG PRIVATE_DIRECTUS_ADMIN_TOKEN
+ARG PUBLIC_DIRECTUS_URL
+
 ENV NODE_ENV=production
 CMD [ "node", "build" ]
 
