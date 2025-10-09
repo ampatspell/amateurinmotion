@@ -19,6 +19,11 @@ config({ quiet: true });
 
 const url = process.env.PUBLIC_DIRECTUS_URL as string;
 const token = process.env.PRIVATE_DIRECTUS_ADMIN_TOKEN as string;
+
+if(!url || !token) {
+  throw new Error('PUBLIC_DIRECTUS_URL and PRIVATE_DIRECTUS_ADMIN_TOKEN is required');
+}
+
 const root = dirname(fileURLToPath(import.meta.url));
 const SNAPSHOT_JSON = join(root, 'snapshot.json');
 const DIFF_JSON = join(root, 'diff.json');
@@ -51,8 +56,8 @@ if (!tool) {
 if (tool === 'generate') {
   await generateDirectusTypes({
     outputPath: SCHEMA_TS,
-    directusUrl: process.env.PUBLIC_DIRECTUS_URL,
-    directusToken: process.env.PRIVATE_DIRECTUS_ADMIN_TOKEN,
+    directusUrl: url,
+    directusToken: token,
   });
 } else if (tool === 'snapshot') {
   const snapshot = await directus.request(schemaSnapshot());
