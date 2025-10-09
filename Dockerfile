@@ -6,6 +6,9 @@ COPY package*.json .
 RUN npm ci
 COPY . .
 
+ENV PRIVATE_DIRECTUS_ADMIN_TOKEN=$PRIVATE_DIRECTUS_ADMIN_TOKEN
+ENV PUBLIC_DIRECTUS_URL=$PUBLIC_DIRECTUS_URL
+
 RUN npm run generate
 RUN npm run build
 RUN npm prune --production
