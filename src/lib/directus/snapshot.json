@@ -597,7 +597,7 @@
       "meta": {
         "collection": "gallery",
         "conditions": null,
-        "display": null,
+        "display": "file",
         "display_options": null,
         "field": "download",
         "group": null,

@@ -20,7 +20,7 @@ config({ quiet: true });
 const url = process.env.PUBLIC_DIRECTUS_URL as string;
 const token = process.env.PRIVATE_DIRECTUS_ADMIN_TOKEN as string;
 
-if(!url || !token) {
+if (!url || !token) {
   throw new Error('PUBLIC_DIRECTUS_URL and PRIVATE_DIRECTUS_ADMIN_TOKEN is required');
 }
 
