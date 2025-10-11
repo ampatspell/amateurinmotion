@@ -98,14 +98,14 @@
         "collection": "index_links",
         "color": null,
         "display_template": null,
-        "group": null,
+        "group": "index",
         "hidden": true,
         "icon": "import_export",
         "item_duplication_fields": null,
         "note": null,
         "preview_url": null,
         "singleton": false,
-        "sort": null,
+        "sort": 1,
         "sort_field": null,
         "translations": null,
         "unarchive_value": null,
@@ -552,7 +552,7 @@
         "interface": "files",
         "note": null,
         "options": {
-          "enableSelect": false,
+          "enableCreate": false,
           "folder": "6b66b45a-b262-4e80-ae1e-99a0342b3cbc",
           "limit": 200
         },
@@ -1421,7 +1421,7 @@
         "one_allowed_collections": null,
         "one_collection": "directus_files",
         "one_collection_field": null,
-        "one_deselect_action": "nullify",
+        "one_deselect_action": "delete",
         "one_field": "gallery",
         "sort_field": null
       },
@@ -1512,7 +1512,7 @@
         "one_allowed_collections": null,
         "one_collection": "index",
         "one_collection_field": null,
-        "one_deselect_action": "nullify",
+        "one_deselect_action": "delete",
         "one_field": "links",
         "sort_field": "sort"
       },
@@ -1523,7 +1523,7 @@
         "foreign_key_column": "id",
         "constraint_name": null,
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     }
   ]

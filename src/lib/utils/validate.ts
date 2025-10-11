@@ -2,14 +2,14 @@ const fail = (value: unknown, message: string): never => {
   throw new Error(`${message} (${value})`);
 };
 
-export const asString = (arg: unknown): string => {
+export const asString = (arg: string | null | undefined): string => {
   if (typeof arg === 'string') {
     return arg as string;
   }
   return fail(arg, 'Not a string');
 };
 
-export const asOptionalString = (arg: unknown): string | undefined => {
+export const asOptionalString = <T>(arg: string | null | T | undefined): string | undefined => {
   const type = typeof arg;
   if (type === 'string' || type === 'undefined' || arg === null) {
     if (arg === null) {
@@ -20,7 +20,7 @@ export const asOptionalString = (arg: unknown): string | undefined => {
   return fail(arg, 'Not an optional string');
 };
 
-export const asNumber = (arg: unknown): number => {
+export const asNumber = (arg: number | null | undefined): number => {
   if (typeof arg === 'number' && !isNaN(arg) && arg !== Infinity) {
     return arg as number;
   }
