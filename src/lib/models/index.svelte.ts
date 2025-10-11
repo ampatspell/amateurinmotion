@@ -5,6 +5,7 @@ import { asObject, asObjectArray, asOptionalString, asString } from '$lib/utils/
 import { readSingleton } from '@directus/sdk';
 import { type Directus } from '$lib/directus/base';
 import { resolveImagePreset, withErrorHandling } from '$lib/directus/utils';
+import { SeoModel } from './seo.svelte';
 
 export const loadIndex = async (directus: Directus) => {
   return withErrorHandling(async () => {
@@ -78,6 +79,7 @@ export class IndexModel extends Model<{ data: Index }> {
 
   readonly background = $derived(new BackgroundModel({ data: this.data }));
   readonly links = $derived(new LinksModel({ data: this.data }));
+  readonly seo = $derived(new SeoModel({ data: this.data }));
 
   readonly colors = $derived.by(() => {
     return {

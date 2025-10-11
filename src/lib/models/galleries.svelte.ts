@@ -4,6 +4,8 @@ import { resolveAsset, resolveImagePreset, withErrorHandling } from '$lib/direct
 import { Model } from '$lib/utils/model.svelte';
 import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '$lib/utils/validate';
 import { readItems } from '@directus/sdk';
+import { SeoModel } from './seo.svelte';
+import { isTruthy } from '$lib/utils/arrray';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
   return withErrorHandling(async () => {
@@ -75,6 +77,21 @@ export class GalleryModel extends Model<{ data: Gallery }> {
       return new GalleryDownloadModel({ data });
     }
   });
+
+  readonly seo = $derived(new SeoModel({ data: this.data }));
+
+  seoFor(selected: GalleryFileModel): SeoModel {
+    const { seo } = this;
+    return new SeoModel({
+      data: {
+        seo: {
+          title: selected.identifier,
+          meta_description: [seo.title, seo.metaDescription].filter(isTruthy).join(', '),
+          og_image: selected.file.id,
+        },
+      },
+    });
+  }
 
   imageByIdentifier(identifier: string | undefined) {
     if (identifier) {

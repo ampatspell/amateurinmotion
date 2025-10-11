@@ -1,10 +1,13 @@
 <script lang="ts">
+  import Seo from '$lib/components/seo.svelte';
   import { type IndexModel } from '$lib/models/index.svelte';
   import Background from './background.svelte';
   import Links from './links.svelte';
 
   let { index }: { index: IndexModel } = $props();
 </script>
+
+<Seo seo={index.seo} />
 
 <div class="index">
   {#if index.background.url}

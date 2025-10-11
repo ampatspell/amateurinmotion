@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
+  import Seo from '$lib/components/seo.svelte';
   import { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte.js';
   import Gallery from '$lib/pages/gallery/gallery.svelte';
 
@@ -24,6 +25,8 @@
     });
   };
 </script>
+
+<Seo seo={gallery.seoFor(selected)} />
 
 <Gallery {gallery} {selected} {onSelect} />
 
