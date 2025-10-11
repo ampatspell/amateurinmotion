@@ -4,30 +4,31 @@ import { Model } from '$lib/utils/model.svelte';
 import { asObject, asObjectArray, asOptionalString, asString } from '$lib/utils/validate';
 import { readSingleton } from '@directus/sdk';
 import { type Directus } from '$lib/directus/base';
-import { resolveImagePreset } from '$lib/directus/utils';
+import { resolveImagePreset, withLogging } from '$lib/directus/utils';
 
-export const loadIndex = async (directus: Directus) => {
-  const data = await directus.request(
-    readSingleton(CollectionNames.index, {
-      fields: [
-        '*',
-        {
-          links: [
-            '*',
-            {
-              item: {
-                gallery: ['*'],
+export const loadIndex = async (directus: Directus) =>
+  withLogging(async () => {
+    const data = await directus.request(
+      readSingleton(CollectionNames.index, {
+        fields: [
+          '*',
+          {
+            links: [
+              '*',
+              {
+                item: {
+                  gallery: ['*'],
+                },
               },
-            },
-          ],
-        },
-      ],
-    } as const),
-  );
-  if (data) {
-    return data as Index;
-  }
-};
+            ],
+          },
+        ],
+      } as const),
+    );
+    if (data) {
+      return data as Index;
+    }
+  });
 
 export class BackgroundModel extends Model<{ data: Index }> {
   readonly data = $derived(this.options.data);

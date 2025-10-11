@@ -1,37 +1,38 @@
 import { type Directus } from '$lib/directus/base';
 import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } from '$lib/directus/schema';
-import { resolveAsset, resolveImagePreset } from '$lib/directus/utils';
+import { resolveAsset, resolveImagePreset, withLogging } from '$lib/directus/utils';
 import { Model } from '$lib/utils/model.svelte';
 import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '$lib/utils/validate';
 import { readItems } from '@directus/sdk';
 
-export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
-  const [data] = await directus.request(
-    readItems(CollectionNames.gallery, {
-      filter: {
-        permalink: {
-          _eq: permalink.trim(),
+export const loadGalleryByPermalink = async (directus: Directus, permalink: string) =>
+  withLogging(async () => {
+    const [data] = await directus.request(
+      readItems(CollectionNames.gallery, {
+        filter: {
+          permalink: {
+            _eq: permalink.trim(),
+          },
         },
-      },
-      fields: [
-        '*',
-        {
-          images: [
-            '*',
-            {
-              directus_files_id: ['*'],
-            },
-          ],
-          download: ['*'],
-        },
-      ],
-      limit: 1,
-    }),
-  );
-  if (data) {
-    return data as Gallery;
-  }
-};
+        fields: [
+          '*',
+          {
+            images: [
+              '*',
+              {
+                directus_files_id: ['*'],
+              },
+            ],
+            download: ['*'],
+          },
+        ],
+        limit: 1,
+      }),
+    );
+    if (data) {
+      return data as Gallery;
+    }
+  });
 
 export class GalleryFileModel extends Model<{ data: GalleryFile }> {
   readonly data = $derived(this.options.data);

@@ -35,3 +35,12 @@ export const resolveAsset = (id: string, params: Record<string, unknown>) => {
 };
 
 export const resolveImagePreset = (id: string, key: string) => resolveAsset(id, { key });
+
+export const withLogging = async <T>(cb: () => Promise<T>) => {
+  try {
+    return await cb();
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
