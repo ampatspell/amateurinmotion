@@ -27,9 +27,21 @@
 
   let element = $state<HTMLElement>();
 
+  let position = $state<'prev' | 'next'>();
   let quiet = $state(false);
   let onkeydown = () => (quiet = true);
-  let onmousemove = () => (quiet = false);
+  let onmousemove = (e: MouseEvent) => {
+    quiet = false;
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      let x = e.clientX;
+      if (x > rect.width / 2) {
+        position = 'next';
+      } else {
+        position = 'prev';
+      }
+    }
+  };
 
   let swiper: Swiper | undefined;
 
@@ -77,13 +89,28 @@
     }
   });
 
+  let onclick = () => {
+    let image;
+    if (position === 'next') {
+      image = gallery.nextImage(selected);
+    } else if (position === 'prev') {
+      image = gallery.previousImage(selected);
+    }
+    quiet = true;
+    if (image) {
+      onSelect(image);
+    }
+  };
+
   let images = $derived(gallery.images);
 </script>
 
 <svelte:window {onkeydown} {onmousemove} />
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div class="carousel" class:quiet style:--height="{height}px">
-  <div class="swiper" bind:this={element}>
+  <div class={['swiper', `position-${position}`]} bind:this={element} {onclick}>
     <div class="swiper-wrapper">
       {#each images as image (image.identifier)}
         <div class="swiper-slide">
@@ -98,8 +125,8 @@
   .carousel {
     position: relative;
     height: var(--height);
-    cursor: grab;
     > .swiper {
+      cursor: grab;
       height: 100%;
       > .swiper-wrapper {
         > .swiper-slide {
@@ -114,9 +141,21 @@
           }
         }
       }
+      &.position-prev {
+        cursor:
+          url('/icons/lucide--chevron-left.svg') 13 16,
+          auto;
+      }
+      &.position-next {
+        cursor:
+          url('/icons/lucide--chevron-right.svg') 20 16,
+          auto;
+      }
     }
     &.quiet {
-      cursor: none;
+      > .swiper {
+        cursor: none;
+      }
     }
   }
 </style>

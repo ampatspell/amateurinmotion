@@ -5,7 +5,7 @@ import { Model } from '$lib/utils/model.svelte';
 import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '$lib/utils/validate';
 import { readItems } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
-import { isTruthy } from '$lib/utils/arrray';
+import { isTruthy, nextObject, prevObject } from '$lib/utils/arrray';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
   return withErrorHandling(async () => {
@@ -101,6 +101,14 @@ export class GalleryModel extends Model<{ data: Gallery }> {
 
   imageByIndex(index: number) {
     return this.images[index];
+  }
+
+  previousImage(selected: GalleryFileModel) {
+    return prevObject(this.images, selected);
+  }
+
+  nextImage(selected: GalleryFileModel) {
+    return nextObject(this.images, selected);
   }
 
   static build(data: Gallery) {
