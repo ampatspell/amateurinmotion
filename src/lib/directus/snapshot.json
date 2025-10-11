@@ -567,6 +567,52 @@
       }
     },
     {
+      "collection": "gallery",
+      "field": "seo",
+      "type": "json",
+      "meta": {
+        "collection": "gallery",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo",
+        "group": null,
+        "hidden": false,
+        "interface": "seo-interface",
+        "note": null,
+        "options": {
+          "showOgImage": true,
+          "titleTemplate": "{{title}} | amateurinmotion.com"
+        },
+        "readonly": false,
+        "required": false,
+        "sort": 11,
+        "special": ["cast-json"],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "seo",
+        "table": "gallery",
+        "data_type": "json",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
       "collection": "gallery_files",
       "field": "id",
       "type": "integer",
@@ -1116,6 +1162,51 @@
         "validation": null,
         "validation_message": null,
         "width": "full"
+      }
+    },
+    {
+      "collection": "index",
+      "field": "seo",
+      "type": "json",
+      "meta": {
+        "collection": "index",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo",
+        "group": null,
+        "hidden": false,
+        "interface": "seo-interface",
+        "note": null,
+        "options": {
+          "showOgImage": true
+        },
+        "readonly": false,
+        "required": false,
+        "sort": 10,
+        "special": ["cast-json"],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "seo",
+        "table": "index",
+        "data_type": "json",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
       }
     },
     {
