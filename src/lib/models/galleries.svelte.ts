@@ -1,12 +1,12 @@
 import { type Directus } from '$lib/directus/base';
 import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } from '$lib/directus/schema';
-import { resolveAsset, resolveImagePreset, withLogging } from '$lib/directus/utils';
+import { resolveAsset, resolveImagePreset, withErrorHandling } from '$lib/directus/utils';
 import { Model } from '$lib/utils/model.svelte';
 import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '$lib/utils/validate';
 import { readItems } from '@directus/sdk';
 
-export const loadGalleryByPermalink = async (directus: Directus, permalink: string) =>
-  withLogging(async () => {
+export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
+  return withErrorHandling(async () => {
     const [data] = await directus.request(
       readItems(CollectionNames.gallery, {
         filter: {
@@ -17,7 +17,7 @@ export const loadGalleryByPermalink = async (directus: Directus, permalink: stri
         fields: [
           '*',
           {
-            images: [
+            files: [
               '*',
               {
                 directus_files_id: ['*'],
@@ -33,6 +33,7 @@ export const loadGalleryByPermalink = async (directus: Directus, permalink: stri
       return data as Gallery;
     }
   });
+};
 
 export class GalleryFileModel extends Model<{ data: GalleryFile }> {
   readonly data = $derived(this.options.data);
@@ -67,7 +68,7 @@ export class GalleryModel extends Model<{ data: Gallery }> {
   readonly title = $derived(this.data.title);
   readonly permalink = $derived(asString(this.data.permalink));
 
-  readonly images = $derived(asObjectArray(this.data.images).map((data) => new GalleryFileModel({ data })));
+  readonly images = $derived(asObjectArray(this.data.files).map((data) => new GalleryFileModel({ data })));
   readonly download = $derived.by(() => {
     const data = asOptionalObject(this.data.download);
     if (data) {
