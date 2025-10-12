@@ -37,10 +37,12 @@
     "vite-plugin-devtools-json": "^1.0.0"
   },
   "dependencies": {
-    "@ampatspell/directus-common": "^0.0.19",
+    "@ampatspell/base": "^1.0.0",
+    "@ampatspell/directus": "^1.0.0",
+    "@ampatspell/grid": "^1.0.0",
+    "@ampatspell/carousel": "^1.0.0",
     "@directus/sdk": "^20.1.0",
-    "@directus/visual-editing": "^1.1.0",
-    "swiper": "^12.0.2"
+    "@directus/visual-editing": "^1.1.0"
   },
   "engines": {
     "node": "24"

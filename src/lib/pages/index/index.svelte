@@ -1,7 +1,7 @@
 <script lang="ts">
   import Seo from '$lib/components/seo.svelte';
   import { type IndexModel } from '$lib/models/index.svelte';
-  import Background from '@ampatspell/directus-common/components/background';
+  import Background from '@ampatspell/base/components/background';
   import Links from './links.svelte';
 
   let { index }: { index: IndexModel } = $props();

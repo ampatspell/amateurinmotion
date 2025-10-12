@@ -3,11 +3,13 @@
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
   import { onMount } from 'svelte';
   import Download from './download.svelte';
-  import { createInnerHeight, createInnerWith } from '@ampatspell/directus-common/utils/reactivity';
-  import { getter, options } from '@ampatspell/directus-common/utils/options';
-  import { aspectRatio } from '@ampatspell/directus-common/utils/aspect-ratio';
-  import Carousel, { type CarouselOptions } from '@ampatspell/directus-common/components/gallery/carousel/carousel';
-  import Grid, { type GridOptions } from '@ampatspell/directus-common/components/gallery/grid/grid';
+  import { createInnerHeight, createInnerWith } from '@ampatspell/base/utils/reactivity';
+  import { getter, options } from '@ampatspell/base/utils/options';
+  import type { CarouselOptions } from '@ampatspell/carousel/components/gallery/carousel/carousel';
+  import type { GridOptions } from '@ampatspell/grid/grid';
+  import { aspectRatio } from '@ampatspell/base/utils/aspect-ratio';
+  import Carousel from '@ampatspell/carousel/components/gallery/carousel/carousel';
+  import Grid from '@ampatspell/grid/grid';
 
   let {
     gallery,

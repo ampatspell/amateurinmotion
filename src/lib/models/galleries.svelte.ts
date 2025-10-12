@@ -1,19 +1,13 @@
 import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } from '$lib/directus/schema';
 import { readItems } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
-import { isTruthy, nextObject, prevObject } from '@ampatspell/directus-common/utils/array';
-import { Model } from '@ampatspell/directus-common/utils/model';
-import {
-  asNumber,
-  asObject,
-  asObjectArray,
-  asOptionalObject,
-  asString,
-} from '@ampatspell/directus-common/utils/validate';
-import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils';
 import type { Directus } from '$lib/directus/directus';
-import { type CarouselImage } from '@ampatspell/directus-common/components/gallery/carousel/carousel';
-import { type GridImage } from '@ampatspell/directus-common/components/gallery/grid/grid';
+import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus/directus/utils';
+import { Model } from '@ampatspell/base/utils/model';
+import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '@ampatspell/base/utils/validate';
+import type { CarouselImage } from '@ampatspell/carousel/components/gallery/carousel/carousel';
+import type { GridImage } from '@ampatspell/grid/grid';
+import { isTruthy } from '@ampatspell/base/utils/array';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
   return withErrorHandling(async () => {
@@ -120,18 +114,6 @@ export class GalleryModel extends Model<{ data: Gallery }> {
     if (identifier) {
       return this.images.find((image) => image.identifier === identifier);
     }
-  }
-
-  imageByIndex(index: number) {
-    return this.images[index];
-  }
-
-  previousImage(selected: GalleryFileModel) {
-    return prevObject(this.images, selected);
-  }
-
-  nextImage(selected: GalleryFileModel) {
-    return nextObject(this.images, selected);
   }
 
   readonly carousel = $derived(this.images.map((image) => image.carousel));

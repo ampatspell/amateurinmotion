@@ -2,10 +2,10 @@ import { resolve } from '$app/paths';
 import { CollectionNames, type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
 import { readSingleton } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
-import { Model } from '@ampatspell/directus-common/utils/model';
-import { asObject, asObjectArray, asOptionalString, asString } from '@ampatspell/directus-common/utils/validate';
 import type { Directus } from '$lib/directus/directus';
-import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils';
+import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus/directus/utils';
+import { Model } from '@ampatspell/base/utils/model';
+import { asObject, asObjectArray, asOptionalString, asString } from '@ampatspell/base/utils/validate';
 
 export const loadIndex = async (directus: Directus) => {
   return withErrorHandling(async () => {
