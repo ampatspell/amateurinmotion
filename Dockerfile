@@ -2,6 +2,9 @@ FROM node:24-alpine AS builder
 
 WORKDIR /app
 
+RUN apk update
+RUN apk add --no-cache coreutils
+
 ARG GITHUB_TOKEN
 
 COPY package*.json .
