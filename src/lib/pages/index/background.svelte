@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { images } from '@ampatspell/directus-common/utils/images.svelte.ts';
+  import { images } from '@ampatspell/directus-common/utils/images';
   import { fade, type FadeParams } from 'svelte/transition';
 
   let { url }: { url: string } = $props();

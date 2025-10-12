@@ -10,7 +10,7 @@ import {
   asOptionalObject,
   asString,
 } from '@ampatspell/directus-common/utils/validate';
-import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils.ts';
+import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils';
 import type { Directus } from '$lib/directus/directus';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {

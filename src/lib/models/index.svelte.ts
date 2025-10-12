@@ -4,8 +4,8 @@ import { readSingleton } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
 import { Model } from '@ampatspell/directus-common/utils/model';
 import { asObject, asObjectArray, asOptionalString, asString } from '@ampatspell/directus-common/utils/validate';
-import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils.ts';
 import type { Directus } from '$lib/directus/directus';
+import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils';
 
 export const loadIndex = async (directus: Directus) => {
   return withErrorHandling(async () => {

@@ -1,5 +1,5 @@
 import type { ExtensionSeoMetadata } from '$lib/directus/schema';
-import { resolveImagePreset } from '@ampatspell/directus-common/directus/utils.ts';
+import { resolveImagePreset } from '@ampatspell/directus-common/directus/utils';
 import { Model } from '@ampatspell/directus-common/utils/model';
 
 export class SeoModel extends Model<{ data: { seo?: ExtensionSeoMetadata | null } }> {
