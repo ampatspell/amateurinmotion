@@ -16,7 +16,6 @@ ARG PRIVATE_DIRECTUS_ADMIN_TOKEN
 ARG PUBLIC_DIRECTUS_URL
 ARG PUBLIC_DIRECTUS_TOKEN
 
-# RUN npm run generate
 RUN npm exec tools generate
 RUN npm run build
 RUN npm prune --production

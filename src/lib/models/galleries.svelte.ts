@@ -12,6 +12,7 @@ import {
 } from '@ampatspell/directus-common/utils/validate';
 import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils';
 import type { Directus } from '$lib/directus/directus';
+import { type CarouselImage } from '@ampatspell/directus-common/components/gallery/carousel';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
   return withErrorHandling(async () => {
@@ -59,6 +60,14 @@ export class GalleryFileModel extends Model<{ data: GalleryFile }> {
   });
 
   readonly identifier = $derived(asString(this.file.filename_download));
+
+  readonly carousel = $derived.by<CarouselImage & { file: GalleryFileModel }>(() => {
+    return {
+      identifier: this.identifier,
+      url: this.thumbnails.carousel,
+      file: this,
+    };
+  });
 }
 
 export class GalleryDownloadModel extends Model<{ data: DirectusFile }> {
@@ -116,6 +125,8 @@ export class GalleryModel extends Model<{ data: Gallery }> {
   nextImage(selected: GalleryFileModel) {
     return nextObject(this.images, selected);
   }
+
+  readonly carousel = $derived(this.images.map((image) => image.carousel));
 
   static build(data: Gallery) {
     return new this({ data });

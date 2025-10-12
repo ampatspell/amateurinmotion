@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Carousel, { type CarouselOptions } from '../../components/gallery/carousel.svelte';
   import Description from './description.svelte';
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
   import { onMount } from 'svelte';
@@ -9,6 +8,7 @@
   import { createInnerHeight, createInnerWith } from '@ampatspell/directus-common/utils/reactivity';
   import { getter, options } from '@ampatspell/directus-common/utils/options';
   import { aspectRatio } from '@ampatspell/directus-common/utils/aspect-ratio';
+  import Carousel, { type CarouselOptions } from '@ampatspell/directus-common/components/gallery/carousel';
 
   let {
     gallery,
@@ -71,7 +71,12 @@
   {/if}
   {#if selected}
     <div class="lightbox">
-      <Carousel {gallery} {selected} {onSelect} options={lightboxOptions} />
+      <Carousel
+        images={gallery.carousel}
+        selected={selected.carousel}
+        onSelect={(image) => onSelect(image.file)}
+        options={lightboxOptions}
+      />
     </div>
     <div class="details">
       <Description {gallery} {selected} />

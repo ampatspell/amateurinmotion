@@ -12,8 +12,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
-    "flc": "npm run check && npm run format && npm run lint",
-    "generate": "tools generate"
+    "flc": "npm run check && npm run format && npm run lint"
   },
   "devDependencies": {
     "@clack/prompts": "^0.11.0",
@@ -41,7 +40,7 @@
   "dependencies": {
     "@directus/sdk": "^20.1.0",
     "@directus/visual-editing": "^1.1.0",
-    "@ampatspell/directus-common": "^0.0.11"
+    "@ampatspell/directus-common": "^0.0.12"
   },
   "engines": {
     "node": "24"
