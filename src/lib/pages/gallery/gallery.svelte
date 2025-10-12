@@ -34,7 +34,7 @@
     }
   });
 
-  let lightboxOptions = options<CarouselOptions>({
+  let carouselOptions = options<CarouselOptions>({
     height: getter(() => height),
   });
 
@@ -72,7 +72,7 @@
         images={gallery.carousel}
         selected={selected.carousel}
         onSelect={(image) => onSelect(image.file)}
-        options={lightboxOptions}
+        options={carouselOptions}
       />
     </div>
     <div class="details">
