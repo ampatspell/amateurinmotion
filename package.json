@@ -13,8 +13,7 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "flc": "npm run check && npm run format && npm run lint",
-    "tools": "tsx ./src/lib/directus/tools.ts",
-    "generate": "npm run tools -- generate"
+    "generate": "tools generate"
   },
   "devDependencies": {
     "@clack/prompts": "^0.11.0",
@@ -42,11 +41,7 @@
   "dependencies": {
     "@directus/sdk": "^20.1.0",
     "@directus/visual-editing": "^1.1.0",
-    "directus-sdk-typegen": "^0.2.1",
-    "dotenv": "^17.2.3",
-    "p-queue": "^9.0.0",
-    "tsx": "^4.20.6",
-    "@ampatspell/directus-common": "^0.0.7"
+    "@ampatspell/directus-common": "^0.0.11"
   },
   "engines": {
     "node": "24"
