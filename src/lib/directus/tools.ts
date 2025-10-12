@@ -11,7 +11,7 @@ import {
   type SchemaSnapshotOutput,
 } from '@directus/sdk';
 import { readFile, writeFile } from 'node:fs/promises';
-import { getDirectusInternal } from './base';
+import { getDirectusInternal } from '@ampatspell/directus-common/directus/directus.ts';
 
 const args = process.argv.slice(2);
 

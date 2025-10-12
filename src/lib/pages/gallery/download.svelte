@@ -1,8 +1,8 @@
 <script lang="ts">
   import LucideCloudDownload from '$lib/components/icons/lucide--cloud-download.svelte';
   import type { GalleryModel } from '$lib/models/galleries.svelte';
-  import { formatBytes } from '$lib/utils/number';
-  import { createOpacity } from '$lib/utils/reactivity';
+  import { formatBytes } from '@ampatspell/directus-common/utils/number';
+  import { createOpacity } from '@ampatspell/directus-common/utils/reactivity';
 
   let { gallery }: { gallery: GalleryModel } = $props();
 

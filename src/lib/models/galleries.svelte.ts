@@ -1,11 +1,17 @@
-import { type Directus } from '$lib/directus/base';
 import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } from '$lib/directus/schema';
-import { resolveAsset, resolveImagePreset, withErrorHandling } from '$lib/directus/utils';
-import { Model } from '$lib/utils/model.svelte';
-import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '$lib/utils/validate';
 import { readItems } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
 import { isTruthy, nextObject, prevObject } from '@ampatspell/directus-common/utils/array';
+import { Model } from '@ampatspell/directus-common/utils/model';
+import {
+  asNumber,
+  asObject,
+  asObjectArray,
+  asOptionalObject,
+  asString,
+} from '@ampatspell/directus-common/utils/validate';
+import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils.ts';
+import type { Directus } from '$lib/directus/directus';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
   return withErrorHandling(async () => {

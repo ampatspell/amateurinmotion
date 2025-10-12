@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Index } from '$lib/directus/schema';
   import { resolve } from '$app/paths';
-  import { createOpacity } from '$lib/utils/reactivity';
+  import { createOpacity } from '@ampatspell/directus-common/utils/reactivity';
 
   let { index }: { index: Index } = $props();
   let opacity = $derived(createOpacity());

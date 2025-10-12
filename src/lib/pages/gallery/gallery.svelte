@@ -1,14 +1,14 @@
 <script lang="ts">
   import Carousel, { type CarouselOptions } from '../../components/gallery/carousel.svelte';
   import Description from './description.svelte';
-  import { getter, options } from '$lib/utils/options';
-  import { aspectRatio } from '$lib/utils/aspect-ratio';
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
-  import { createInnerHeight, createInnerWith } from '$lib/utils/reactivity';
   import { onMount } from 'svelte';
   import type { GridOptions } from '$lib/components/gallery/grid/grid.svelte';
   import Grid from '$lib/components/gallery/grid/grid.svelte';
   import Download from './download.svelte';
+  import { createInnerHeight, createInnerWith } from '@ampatspell/directus-common/utils/reactivity';
+  import { getter, options } from '@ampatspell/directus-common/utils/options';
+  import { aspectRatio } from '@ampatspell/directus-common/utils/aspect-ratio';
 
   let {
     gallery,

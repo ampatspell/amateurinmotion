@@ -1,8 +1,10 @@
-import { PUBLIC_DIRECTUS_URL, PUBLIC_DIRECTUS_TOKEN } from '$env/static/public';
-import { getDirectusInternal, type Directus, type Fetch } from './base';
+import {
+  getDirectus as getBaseDirectus,
+  type Fetch,
+  type Directus as BaseDirectus,
+} from '@ampatspell/directus-common/directus/directus.ts';
+import { type Schema } from './schema';
 
-export { type Directus };
+export type Directus = BaseDirectus<Schema>;
 
-export const getDirectus = (fetch: Fetch) => {
-  return getDirectusInternal(fetch, PUBLIC_DIRECTUS_URL, PUBLIC_DIRECTUS_TOKEN);
-};
+export const getDirectus = (fetch: Fetch) => getBaseDirectus<Schema>(fetch);
