@@ -1,5 +1,5 @@
 import { type Schema } from './schema';
-import { getDirectus as getBaseDirectus, type Fetch } from '@ampatspell/directus/directus/directus';
+import { getBaseDirectus, type Fetch } from '@ampatspell/directus/directus';
 
 export const getDirectus = (fetch: Fetch) => getBaseDirectus<Schema>(fetch);
 

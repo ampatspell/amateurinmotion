@@ -3,9 +3,9 @@ import { CollectionNames, type Gallery, type Index, type IndexLink } from '$lib/
 import { readSingleton } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
 import type { Directus } from '$lib/directus/directus';
-import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus/directus/utils';
+import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
-import { asObject, asObjectArray, asOptionalString, asString } from '@ampatspell/base/utils/validate';
+import { asObject, asObjectArray, asOptionalString, asString } from '@ampatspell/directus/validate';
 
 export const loadIndex = async (directus: Directus) => {
   return withErrorHandling(async () => {

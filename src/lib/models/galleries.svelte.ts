@@ -2,9 +2,9 @@ import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } fr
 import { readItems } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
 import type { Directus } from '$lib/directus/directus';
-import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus/directus/utils';
+import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
-import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '@ampatspell/base/utils/validate';
+import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '@ampatspell/directus/validate';
 import type { CarouselImage } from '@ampatspell/carousel/components/gallery/carousel/carousel';
 import type { GridImage } from '@ampatspell/grid/grid';
 import { isTruthy } from '@ampatspell/base/utils/array';
