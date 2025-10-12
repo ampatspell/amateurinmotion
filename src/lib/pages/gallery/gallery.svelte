@@ -2,13 +2,12 @@
   import Description from './description.svelte';
   import type { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte';
   import { onMount } from 'svelte';
-  import type { GridOptions } from '$lib/components/gallery/grid/grid.svelte';
-  import Grid from '$lib/components/gallery/grid/grid.svelte';
   import Download from './download.svelte';
   import { createInnerHeight, createInnerWith } from '@ampatspell/directus-common/utils/reactivity';
   import { getter, options } from '@ampatspell/directus-common/utils/options';
   import { aspectRatio } from '@ampatspell/directus-common/utils/aspect-ratio';
   import Carousel, { type CarouselOptions } from '@ampatspell/directus-common/components/gallery/carousel';
+  import Grid, { type GridOptions } from '@ampatspell/directus-common/components/gallery/grid/grid';
 
   let {
     gallery,
@@ -35,14 +34,12 @@
     }
   });
 
-  let lightboxOptions: CarouselOptions = options({
+  let lightboxOptions = options<CarouselOptions>({
     height: getter(() => height),
-    thumbnail: '2048x2048',
   });
 
-  let gridOptions: GridOptions = options({
+  let gridOptions = options<GridOptions>({
     gap: 15,
-    thumbnail: '400x400',
     alignment: 'center',
     aspectRatio: aspectRatio('3x2'),
   });
@@ -80,7 +77,7 @@
     </div>
     <div class="details">
       <Description {gallery} {selected} />
-      <Grid {gallery} {onSelect} options={gridOptions} />
+      <Grid images={gallery.grid} onSelect={(image) => onSelect(image.file)} options={gridOptions} />
     </div>
   {/if}
 </div>
