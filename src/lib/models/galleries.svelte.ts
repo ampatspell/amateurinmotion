@@ -12,7 +12,7 @@ import {
 } from '@ampatspell/directus-common/utils/validate';
 import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus-common/directus/utils';
 import type { Directus } from '$lib/directus/directus';
-import { type CarouselImage } from '@ampatspell/directus-common/components/gallery/carousel';
+import { type CarouselImage } from '@ampatspell/directus-common/components/gallery/carousel/carousel';
 import { type GridImage } from '@ampatspell/directus-common/components/gallery/grid/grid';
 
 export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {

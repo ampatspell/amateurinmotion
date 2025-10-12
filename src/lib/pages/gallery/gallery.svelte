@@ -6,7 +6,7 @@
   import { createInnerHeight, createInnerWith } from '@ampatspell/directus-common/utils/reactivity';
   import { getter, options } from '@ampatspell/directus-common/utils/options';
   import { aspectRatio } from '@ampatspell/directus-common/utils/aspect-ratio';
-  import Carousel, { type CarouselOptions } from '@ampatspell/directus-common/components/gallery/carousel';
+  import Carousel, { type CarouselOptions } from '@ampatspell/directus-common/components/gallery/carousel/carousel';
   import Grid, { type GridOptions } from '@ampatspell/directus-common/components/gallery/grid/grid';
 
   let {

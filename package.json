@@ -31,16 +31,16 @@
     "sass-embedded": "^1.93.2",
     "svelte": "^5.39.5",
     "svelte-check": "^4.3.2",
-    "swiper": "^12.0.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
     "vite": "^7.1.7",
     "vite-plugin-devtools-json": "^1.0.0"
   },
   "dependencies": {
+    "@ampatspell/directus-common": "^0.0.19",
     "@directus/sdk": "^20.1.0",
     "@directus/visual-editing": "^1.1.0",
-    "@ampatspell/directus-common": "^0.0.14"
+    "swiper": "^12.0.2"
   },
   "engines": {
     "node": "24"
