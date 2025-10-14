@@ -13,11 +13,11 @@
 
   let {
     gallery,
-    selected: _selected,
+    selected,
     onSelect: _onSelect,
   }: {
     gallery: GalleryModel;
-    selected: GalleryFileModel;
+    selected: GalleryFileModel | undefined;
     onSelect: (file: GalleryFileModel) => Promise<void>;
   } = $props();
 
@@ -45,8 +45,6 @@
     alignment: 'center',
     aspectRatio: aspectRatio('3x2'),
   });
-
-  let selected = $derived(_selected ?? gallery.images[0]!);
 
   let onSelect = async (node: GalleryFileModel) => {
     await _onSelect(node);

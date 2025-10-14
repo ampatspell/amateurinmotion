@@ -13,8 +13,8 @@
 
   let identifier = $derived(page.params.identifier);
 
-  let selected = $derived.by(() => {
-    return gallery.imageByIdentifier(identifier) ?? gallery.images[0]!;
+  let selected = $derived.by<GalleryFileModel | undefined>(() => {
+    return gallery.imageByIdentifier(identifier) ?? gallery.images[0];
   });
 
   let onSelect = async (file: GalleryFileModel) => {
@@ -26,7 +26,9 @@
   };
 </script>
 
-<Seo seo={gallery.seoFor(selected)} />
+{#if selected}
+  <Seo seo={gallery.seoFor(selected)} />
+{/if}
 
 <Gallery {gallery} {selected} {onSelect} />
 
