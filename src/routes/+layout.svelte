@@ -2,7 +2,7 @@
   import './global.scss';
   import Layout from '$lib/layout/layout.svelte';
   import { IndexModel } from '$lib/models/index.svelte';
-    import { dev } from '$app/environment';
+  import { dev } from '$app/environment';
 
   let { data, children } = $props();
 
@@ -18,7 +18,11 @@
     rel="stylesheet"
   />
   {#if !dev}
-    <script defer src="https://umami.app.amateurinmotion.com/script.js" data-website-id="1250982d-012e-4a53-a851-e4ba7429cb7f"></script>
+    <script
+      defer
+      src="https://umami.app.amateurinmotion.com/script.js"
+      data-website-id="1250982d-012e-4a53-a851-e4ba7429cb7f"
+    ></script>
   {/if}
 </svelte:head>
 

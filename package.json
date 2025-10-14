@@ -12,10 +12,11 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
-    "flc": "npm run check && npm run format && npm run lint"
+    "flc": "npm run check && npm run format && npm run lint",
+    "tools": "tools",
+    "generate": "tools generate"
   },
   "devDependencies": {
-    "@clack/prompts": "^0.11.0",
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.36.0",
     "@sveltejs/adapter-node": "^5.3.2",
