@@ -4,12 +4,18 @@
   let { gallery, selected }: { gallery: GalleryModel; selected: GalleryFileModel } = $props();
 
   let title = $derived(gallery.title);
+
+  let regex = /^[0-9]{3}--(.+)$/;
+  let normalize = (input: string) => {
+    const name = regex.exec(input)?.[1];
+    return name ?? input;
+  };
 </script>
 
 <div class="description">
   <div class="title">{title}</div>
   {#if selected}
-    <div class="name">{selected.identifier}</div>
+    <div class="name">{normalize(selected.identifier)}</div>
   {/if}
 </div>
 
