@@ -2,8 +2,7 @@ import { browser } from '$app/environment';
 
 export class Identifier {
   private get key() {
-    const host = document.location.host;
-    return `identifier:${host}`;
+    return `amateurinmotion-identifier`;
   }
 
   private generate() {
