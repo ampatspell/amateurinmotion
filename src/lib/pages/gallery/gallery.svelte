@@ -28,9 +28,9 @@
 
   let height = $derived.by(() => {
     if (innerHeight) {
-      let base = innerHeight.current - 180;
+      let base = innerHeight.current - 200;
       if (isMobile) {
-        return base + 110;
+        return base + 30;
       }
       return base;
     }
