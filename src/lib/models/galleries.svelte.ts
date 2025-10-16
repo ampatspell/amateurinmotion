@@ -1,7 +1,7 @@
 import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } from '$lib/directus/schema';
 import { readItems } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
-import type { Directus } from '$lib/directus/directus';
+import { type Directus } from '$lib/directus/directus';
 import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
 import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '@ampatspell/directus/validate';
@@ -41,6 +41,7 @@ export const loadGalleryByPermalink = async (directus: Directus, permalink: stri
 
 export class GalleryFileModel extends Model<{ data: GalleryFile }> {
   readonly data = $derived(this.options.data);
+  readonly id = $derived(this.data.id);
   readonly file = $derived(asObject(this.data.directus_files_id));
 
   readonly thumbnails = $derived.by(() => {

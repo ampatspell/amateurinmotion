@@ -4,7 +4,9 @@
   import { page } from '$app/state';
   import Seo from '$lib/components/seo.svelte';
   import { GalleryFileModel, GalleryModel } from '$lib/models/galleries.svelte.js';
+  import { setGalleryLikesContext } from '$lib/models/likes.svelte.js';
   import Gallery from '$lib/pages/gallery/gallery.svelte';
+  import { getter, options } from '@ampatspell/base/utils/options';
 
   let { data, children } = $props();
 
@@ -24,6 +26,9 @@
       noScroll: true,
     });
   };
+
+  let likes = $derived(data.likes);
+  setGalleryLikesContext(options({ current: getter(() => likes) }));
 </script>
 
 {#if selected}

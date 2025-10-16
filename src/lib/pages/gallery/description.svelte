@@ -21,7 +21,7 @@
     {/if}
   </div>
   <div class="like">
-    <Like />
+    <Like file={selected} />
   </div>
 </div>
 
