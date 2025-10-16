@@ -3,7 +3,6 @@ import { browser } from '$app/environment';
 export class Identifier {
   private get key() {
     const host = document.location.host;
-    console.log(host);
     return `identifier:${host}`;
   }
 
