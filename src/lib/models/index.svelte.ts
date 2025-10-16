@@ -77,6 +77,7 @@ export class LinksModel extends Model<{ data: Index }> {
 export class IndexModel extends Model<{ data: Index }> {
   readonly data = $derived(this.options.data);
 
+  readonly title = $derived(this.data.title);
   readonly background = $derived(new BackgroundModel({ data: this.data }));
   readonly links = $derived(new LinksModel({ data: this.data }));
   readonly seo = $derived(new SeoModel({ data: this.data }));

@@ -43,7 +43,8 @@
     "@ampatspell/directus": "^1.0.0",
     "@ampatspell/grid": "^1.0.0",
     "@directus/sdk": "^20.1.0",
-    "@directus/visual-editing": "^1.1.0"
+    "@directus/visual-editing": "^1.1.0",
+    "valibot": "^1.1.0"
   },
   "engines": {
     "node": "24"
