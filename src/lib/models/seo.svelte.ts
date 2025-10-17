@@ -1,6 +1,6 @@
 import type { ExtensionSeoMetadata } from '$lib/directus/schema';
 import { Model } from '@ampatspell/base/utils/model';
-import { resolveImagePreset } from '@ampatspell/directus/utils';
+import { resolveImagePreset } from './utils';
 
 export class SeoModel extends Model<{ data: { seo?: ExtensionSeoMetadata | null } }> {
   readonly seo = $derived(this.options.data.seo);

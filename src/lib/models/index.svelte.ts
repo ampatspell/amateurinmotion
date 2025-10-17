@@ -1,8 +1,8 @@
 import { resolve } from '$app/paths';
 import { SeoModel } from './seo.svelte';
-import { resolveImagePreset } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
 import type { IndexData, LinkData } from '$lib/remote/index.remote';
+import { resolveImagePreset } from './utils';
 
 export class BackgroundModel extends Model<{ data: IndexData }> {
   readonly data = $derived(this.options.data);

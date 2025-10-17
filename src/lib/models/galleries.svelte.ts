@@ -1,12 +1,12 @@
 import { type DirectusFile } from '$lib/directus/schema';
 import { SeoModel } from './seo.svelte';
-import { resolveAsset, resolveImagePreset } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
 import type { CarouselImage } from '@ampatspell/carousel/components/gallery/carousel/carousel';
 import type { GridImage } from '@ampatspell/grid/grid';
 import { isTruthy } from '@ampatspell/base/utils/array';
 import type { GalleryData, GalleryFileData } from '$lib/remote/galleries.remote';
 import { asNumber, asObject, asObjectArray, asString } from '@ampatspell/directus/validate';
+import { resolveAsset, resolveImagePreset } from './utils';
 
 export class GalleryFileModel extends Model<{ data: GalleryFileData }> {
   readonly data = $derived(this.options.data);
@@ -48,7 +48,7 @@ export class GalleryDownloadModel extends Model<{ data: DirectusFile }> {
   readonly id = $derived(this.data.id);
   readonly filename = $derived(this.data.filename_download);
   readonly size = $derived(asNumber(this.data.filesize));
-  readonly url = $derived(resolveAsset(this.id, { download: true }));
+  readonly url = $derived(resolveAsset(this.id));
 }
 
 export class GalleryModel extends Model<{ data: GalleryData }> {
