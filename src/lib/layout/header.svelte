@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Index } from '$lib/directus/schema';
   import { resolve } from '$app/paths';
+  import type { IndexModel } from '$lib/models/index.svelte';
   import { createOpacity } from '@ampatspell/base/utils/reactivity';
 
-  let { index }: { index: Index } = $props();
+  let { index }: { index: IndexModel } = $props();
   let opacity = $derived(createOpacity());
 </script>
 

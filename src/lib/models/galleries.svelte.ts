@@ -1,45 +1,14 @@
-import { CollectionNames, type DirectusFile, type Gallery, type GalleryFile } from '$lib/directus/schema';
-import { readItems } from '@directus/sdk';
+import { type DirectusFile } from '$lib/directus/schema';
 import { SeoModel } from './seo.svelte';
-import { type Directus } from '$lib/directus/directus';
-import { resolveAsset, resolveImagePreset, withErrorHandling } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
-import { asNumber, asObject, asObjectArray, asOptionalObject, asString } from '@ampatspell/directus/validate';
 import type { CarouselImage } from '@ampatspell/carousel/components/gallery/carousel/carousel';
 import type { GridImage } from '@ampatspell/grid/grid';
 import { isTruthy } from '@ampatspell/base/utils/array';
+import type { GalleryData, GalleryFileData } from '$lib/remote/galleries.remote';
+import { asNumber, asObject, asObjectArray, asString } from '@ampatspell/directus/validate';
+import { resolveAsset, resolveImagePreset } from './utils';
 
-export const loadGalleryByPermalink = async (directus: Directus, permalink: string) => {
-  return withErrorHandling(async () => {
-    const [data] = await directus.request(
-      readItems(CollectionNames.gallery, {
-        filter: {
-          permalink: {
-            _eq: permalink.trim(),
-          },
-        },
-        fields: [
-          '*',
-          {
-            files: [
-              '*',
-              {
-                directus_files_id: ['*'],
-              },
-            ],
-            download: ['*'],
-          },
-        ],
-        limit: 1,
-      }),
-    );
-    if (data) {
-      return data as Gallery;
-    }
-  });
-};
-
-export class GalleryFileModel extends Model<{ data: GalleryFile }> {
+export class GalleryFileModel extends Model<{ data: GalleryFileData }> {
   readonly data = $derived(this.options.data);
   readonly id = $derived(this.data.id);
   readonly file = $derived(asObject(this.data.directus_files_id));
@@ -77,12 +46,12 @@ export class GalleryDownloadModel extends Model<{ data: DirectusFile }> {
   readonly data = $derived(this.options.data);
 
   readonly id = $derived(this.data.id);
-  readonly filename = $derived(asString(this.data.filename_download));
+  readonly filename = $derived(this.data.filename_download);
   readonly size = $derived(asNumber(this.data.filesize));
-  readonly url = $derived(resolveAsset(this.id, { download: true }));
+  readonly url = $derived(resolveAsset(this.id));
 }
 
-export class GalleryModel extends Model<{ data: Gallery }> {
+export class GalleryModel extends Model<{ data: GalleryData }> {
   readonly data = $derived(this.options.data);
 
   readonly title = $derived(this.data.title);
@@ -90,7 +59,7 @@ export class GalleryModel extends Model<{ data: Gallery }> {
 
   readonly images = $derived(asObjectArray(this.data.files).map((data) => new GalleryFileModel({ data })));
   readonly download = $derived.by(() => {
-    const data = asOptionalObject(this.data.download);
+    const data = this.data.download;
     if (data) {
       return new GalleryDownloadModel({ data });
     }
@@ -105,7 +74,7 @@ export class GalleryModel extends Model<{ data: Gallery }> {
         seo: {
           title: selected.identifier,
           meta_description: [seo.title, seo.metaDescription].filter(isTruthy).join(', '),
-          og_image: selected.file.id,
+          og_image: selected.file!.id,
         },
       },
     });
@@ -120,7 +89,7 @@ export class GalleryModel extends Model<{ data: Gallery }> {
   readonly carousel = $derived(this.images.map((image) => image.carousel));
   readonly grid = $derived(this.images.map((image) => image.grid));
 
-  static build(data: Gallery) {
+  static build(data: GalleryData) {
     return new this({ data });
   }
 }

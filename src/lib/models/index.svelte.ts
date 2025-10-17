@@ -1,40 +1,12 @@
 import { resolve } from '$app/paths';
-import { CollectionNames, type Gallery, type Index, type IndexLink } from '$lib/directus/schema';
-import { readSingleton } from '@directus/sdk';
 import { SeoModel } from './seo.svelte';
-import type { Directus } from '$lib/directus/directus';
-import { resolveImagePreset, withErrorHandling } from '@ampatspell/directus/utils';
 import { Model } from '@ampatspell/base/utils/model';
-import { asObject, asObjectArray, asOptionalString, asString } from '@ampatspell/directus/validate';
+import type { IndexData, LinkData } from '$lib/remote/index.remote';
+import { resolveImagePreset } from './utils';
 
-export const loadIndex = async (directus: Directus) => {
-  return withErrorHandling(async () => {
-    const data = await directus.request(
-      readSingleton(CollectionNames.index, {
-        fields: [
-          '*',
-          {
-            links: [
-              '*',
-              {
-                item: {
-                  gallery: ['*'],
-                },
-              },
-            ],
-          },
-        ],
-      } as const),
-    );
-    if (data) {
-      return data as Index;
-    }
-  });
-};
-
-export class BackgroundModel extends Model<{ data: Index }> {
+export class BackgroundModel extends Model<{ data: IndexData }> {
   readonly data = $derived(this.options.data);
-  private readonly id = $derived(asOptionalString(this.data.backgroundImage));
+  private readonly id = $derived(this.data.backgroundImage);
 
   readonly url = $derived.by(() => {
     const { id } = this;
@@ -46,17 +18,18 @@ export class BackgroundModel extends Model<{ data: Index }> {
   readonly inset = $derived(this.data.backgroundInset ?? 0);
 }
 
-export class LinkModel extends Model<{ data: IndexLink }> {
+export class LinkModel extends Model<{ data: LinkData }> {
   readonly data = $derived(this.options.data);
-  readonly item = $derived(asObject(this.data.item));
+  readonly item = $derived(this.data.item);
 
   readonly id = $derived(this.data.id);
   readonly collection = $derived(this.data.collection);
 
   readonly props = $derived.by(() => {
-    if (this.collection === 'gallery') {
-      const gallery = this.item as Gallery;
-      const permalink = asString(gallery.permalink);
+    const data = this.data;
+    if (data.collection === 'gallery') {
+      const gallery = data.item;
+      const permalink = gallery.permalink;
       const title = gallery.title;
       if (permalink && title) {
         return {
@@ -68,15 +41,16 @@ export class LinkModel extends Model<{ data: IndexLink }> {
   });
 }
 
-export class LinksModel extends Model<{ data: Index }> {
+export class LinksModel extends Model<{ data: IndexData }> {
   readonly data = $derived(this.options.data);
 
-  readonly all = $derived(asObjectArray(this.data.links).map((data) => new LinkModel({ data })));
+  readonly all = $derived(this.data.links.map((data) => new LinkModel({ data })));
 }
 
-export class IndexModel extends Model<{ data: Index }> {
+export class IndexModel extends Model<{ data: IndexData }> {
   readonly data = $derived(this.options.data);
 
+  readonly title = $derived(this.data.title);
   readonly background = $derived(new BackgroundModel({ data: this.data }));
   readonly links = $derived(new LinksModel({ data: this.data }));
   readonly seo = $derived(new SeoModel({ data: this.data }));
@@ -94,7 +68,7 @@ export class IndexModel extends Model<{ data: Index }> {
     };
   });
 
-  static build(data: Index) {
+  static build(data: IndexData) {
     return new this({ data });
   }
 }

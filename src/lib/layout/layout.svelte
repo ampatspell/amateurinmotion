@@ -10,7 +10,7 @@
 </script>
 
 <div class="layout" style:--background={colors.background} style:--color={colors.color}>
-  <Header index={index.data} />
+  <Header {index} />
   <div class="content">
     {@render children()}
   </div>
