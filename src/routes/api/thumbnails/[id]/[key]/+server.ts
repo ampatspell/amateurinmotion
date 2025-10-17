@@ -8,8 +8,7 @@ const token = PUBLIC_DIRECTUS_TOKEN;
 export const GET: RequestHandler = async ({ fetch, request: req, params: { id, key } }) => {
   const url = `${href}/assets/${id}?access_token=${token}&key=${key}`;
 
-  // const accept = req.headers.get('accept');
-  // TODO: remove fetch unsupported encodings or just accept only gzip
+  req.headers.set('Accept-Encoding', 'gzip');
 
   const res = await fetch(url, {
     body: req.body,
@@ -22,6 +21,11 @@ export const GET: RequestHandler = async ({ fetch, request: req, params: { id, k
   }
 
   const headers = new Headers(res.headers);
+  headers.delete('Content-Length');
+  headers.delete('Accept-Ranges');
+  headers.delete('Access-Control-Allow-Credentials');
+  headers.delete('Access-Control-Allow-Origin');
+  headers.delete('Access-Control-Expose-Headers')
   headers.set('Content-Encoding', 'gzip')
 
   const gzip = res.body.pipeThrough(new CompressionStream('gzip'));
