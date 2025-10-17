@@ -1,35 +1,31 @@
 import { createContext } from 'svelte';
 import { Model } from '@ampatspell/base/utils/model';
 import { getIdentifier } from './identifier.svelte';
-import { CollectionNames, type Gallery, type GalleryFileLike } from '$lib/directus/schema';
-import type { Fetch } from '@ampatspell/directus/base';
 import { browser } from '$app/environment';
-import { getDirectus } from '$lib/directus/directus';
-import { createItem, deleteItem, readItems } from '@directus/sdk';
 import { addObject, removeObjectAt } from '@ampatspell/base/utils/array';
+import type { GalleryData } from '$lib/remote/galleries.remote';
+import {
+  addGalleryLike,
+  getGalleryLikesByIdentifier,
+  removeGalleryLike,
+  type GalleryLikeData,
+} from '$lib/remote/gallery-likes.remote';
 
-export class GalleryLikes extends Model<{ gallery: Gallery }> {
+export class GalleryLikes extends Model<{ gallery: GalleryData }> {
   private identifier = $derived(getIdentifier().current);
-  private data = $state<GalleryFileLike[]>();
+  private data = $state<GalleryLikeData[]>();
 
-  async load(fetch: Fetch) {
+  async load() {
     if (browser) {
       const identifier = this.identifier;
       if (identifier) {
-        this.data = await getDirectus(fetch).request(
-          readItems(CollectionNames.gallery_file_like, {
-            filter: {
-              identifier: { _eq: identifier },
-            },
-            fields: ['*'],
-          }),
-        );
+        this.data = await getGalleryLikesByIdentifier(identifier);
         return this;
       }
     }
   }
 
-  private witLoaded<T>(cb: (opts: { data: GalleryFileLike[]; identifier: string }) => T | undefined) {
+  private witLoaded<T>(cb: (opts: { data: GalleryLikeData[]; identifier: string }) => T | undefined) {
     const { data, identifier } = this;
     if (data && identifier) {
       return cb({ data, identifier });
@@ -44,16 +40,13 @@ export class GalleryLikes extends Model<{ gallery: Gallery }> {
 
   setLiked(fileId: number, liked: boolean) {
     return this.witLoaded(async ({ data, identifier }) => {
-      const directus = getDirectus(fetch);
       if (liked) {
-        const added = await directus.request(
-          createItem(CollectionNames.gallery_file_like, { gallery_file: String(fileId), identifier: identifier }),
-        );
-        addObject(data, added as GalleryFileLike);
+        const added = await addGalleryLike({ fileId, identifier });
+        addObject(data, added);
       } else {
         const entry = data.find((row) => (row.gallery_file as unknown as number) === fileId);
         if (entry) {
-          await directus.request(deleteItem(CollectionNames.gallery_file_like, entry.id));
+          await removeGalleryLike({ id: entry.id, identifier });
           removeObjectAt(data, data.indexOf(entry));
         }
       }

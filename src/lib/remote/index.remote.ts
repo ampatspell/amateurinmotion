@@ -1,42 +1,13 @@
-import * as v from 'valibot';
 import { query } from '$app/server';
 import { readSingleton } from '@directus/sdk';
-import { getDirectus } from './utils';
+import { getDirectus, type QueryReturnType } from './utils';
 import { CollectionNames } from '$lib/directus/schema';
 
-const SeoSchema = v.strictObject({
-  og_image: v.optional(v.string()),
-  title: v.optional(v.string()),
-  meta_description: v.optional(v.string()),
-});
-
-export type SeoData = v.InferInput<typeof SeoSchema>;
-
-const IndexSchema = v.strictObject({
-  title: v.string(),
-  backgroundImage: v.optional(v.string()),
-  backgroundInset: v.number(),
-  defaultBackgroundColor: v.string(),
-  defaultTitleColor: v.string(),
-  indexBackgroundColor: v.string(),
-  indexTitleColor: v.string(),
-  links: v.array(
-    v.strictObject({
-      collection: v.literal('gallery'),
-      item: v.union([v.strictObject({
-        permalink: v.string(),
-      })]),
-    }),
-  ),
-  seo: SeoSchema,
-});
-
-export type IndexData = v.InferInput<typeof IndexSchema>;
-
 export const getIndex = query(async () => {
-  const data = await getDirectus().request(
+  return await getDirectus().request(
     readSingleton(CollectionNames.index, {
       fields: [
+        'id',
         'title',
         'backgroundImage',
         'backgroundInset',
@@ -46,10 +17,11 @@ export const getIndex = query(async () => {
         'indexTitleColor',
         {
           links: [
+            'id',
             'collection',
             {
               item: {
-                gallery: ['permalink'],
+                gallery: ['title', 'permalink'],
               },
             },
           ],
@@ -58,5 +30,8 @@ export const getIndex = query(async () => {
       ],
     }),
   );
-  return v.parse(IndexSchema, data);
 });
+
+export type IndexData = QueryReturnType<typeof getIndex>;
+export type LinkData = IndexData['links'][number];
+export type SeoData = IndexData['seo'];
