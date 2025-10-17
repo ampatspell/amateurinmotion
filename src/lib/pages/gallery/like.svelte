@@ -11,7 +11,7 @@
   let liked = $derived(likes?.isLiked(id) ?? false);
   let onclick = async () => {
     if (likes) {
-      await likes.setLiked(id, !liked);
+      await likes.setLiked(fetch, id, !liked);
     }
   };
 </script>

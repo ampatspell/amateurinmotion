@@ -1,2 +1,3 @@
-export const resolveAsset = (id: string) => `/api/files/${id}`;
-export const resolveImagePreset = (id: string, key: string) => `/api/files/${id}/${key}`;
+export type AsyncReturnType<T> = T extends (...args: never) => Promise<infer R> ? R : never;
+
+export const maybe = <T>(value: T | undefined): T | undefined => value;
