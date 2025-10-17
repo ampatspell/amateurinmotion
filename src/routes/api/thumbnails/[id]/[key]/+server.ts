@@ -1,6 +1,6 @@
-import { PUBLIC_DIRECTUS_TOKEN, PUBLIC_DIRECTUS_URL } from "$env/static/public";
-import { error } from "@sveltejs/kit";
-import type { RequestHandler } from "./$types";
+import { PUBLIC_DIRECTUS_TOKEN, PUBLIC_DIRECTUS_URL } from '$env/static/public';
+import { error } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
 const href = PUBLIC_DIRECTUS_URL;
 const token = PUBLIC_DIRECTUS_TOKEN;
@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({ fetch, request: req, params: { id, k
     headers: req.headers,
   });
 
-  if(!res.body) {
+  if (!res.body) {
     error(500, 'No body');
   }
 
@@ -25,8 +25,8 @@ export const GET: RequestHandler = async ({ fetch, request: req, params: { id, k
   headers.delete('Accept-Ranges');
   headers.delete('Access-Control-Allow-Credentials');
   headers.delete('Access-Control-Allow-Origin');
-  headers.delete('Access-Control-Expose-Headers')
-  headers.set('Content-Encoding', 'gzip')
+  headers.delete('Access-Control-Expose-Headers');
+  headers.set('Content-Encoding', 'gzip');
 
   const gzip = res.body.pipeThrough(new CompressionStream('gzip'));
 
