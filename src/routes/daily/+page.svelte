@@ -1,0 +1,210 @@
+<script lang="ts">
+  import { innerHeight, innerWidth } from 'svelte/reactivity/window';
+  import { getDailies } from '../../lib/dailies/dailies.remote';
+  import { useFiles } from '@ampatspell/tiny/files';
+  import { isTruthy, sortedBy } from '@ampatspell/tiny/utils/array';
+  import { Temporal } from 'temporal-polyfill';
+
+  let data = $derived(await getDailies({ files: true }));
+  let files = useFiles();
+
+  let type = $derived.by(() => {
+    let w = innerWidth.current;
+    let h = innerHeight.current;
+    return w && h && w > h ? ('landscape' as const) : ('portrait' as const);
+  });
+
+  let blocks = $state<HTMLElement[]>([]);
+
+  let getCurrent = () => {
+    let wy = window.scrollY;
+    let wh = window.innerHeight;
+
+    let visible = blocks
+      .map((el) => {
+        let rect = el.getBoundingClientRect();
+        let ry = rect.y + wy;
+        let rh = rect.height;
+        let a = ry + rh > wy;
+        let b = ry < wy + wh;
+        if (a && b) {
+          let top = Math.max(ry, wy);
+          let bottom = Math.min(ry + rh, wy + wh);
+          let visible = bottom - top;
+          let fraction = visible / rh;
+          return {
+            el,
+            fraction,
+          };
+        }
+      })
+      .filter(isTruthy);
+
+    let sorted = sortedBy(visible, {
+      value: (rec) => rec.fraction,
+      direction: 'desc',
+    });
+
+    return sorted[0]?.el;
+  };
+
+  let scrollIntoView = (e: Event, cb: (current: HTMLElement) => Element | null) => {
+    e.preventDefault();
+    let visible = getCurrent();
+    let next = cb(visible);
+    if (next instanceof HTMLElement) {
+      next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  let onkeydown = (e: KeyboardEvent) => {
+    if (!e.metaKey && !e.altKey && !e.ctrlKey) {
+      if (e.key === 'ArrowUp') {
+        scrollIntoView(e, (curr) => curr.previousElementSibling);
+      } else if (e.key === 'ArrowDown') {
+        scrollIntoView(e, (curr) => curr.nextElementSibling);
+      }
+    }
+  };
+
+  let format = (json: string) => {
+    let date = Temporal.PlainDate.from(json);
+    return date.toLocaleString('lv-lv');
+  };
+</script>
+
+<svelte:window {onkeydown} />
+
+<svelte:head>
+  <title>Daily</title>
+</svelte:head>
+
+{#snippet main()}
+  <div class="main">
+    <div class="title">Daily</div>
+  </div>
+{/snippet}
+
+<div class={['page', `type-${type}`]}>
+  {@render main()}
+  <div class="blocks">
+    {#each data.filter((file) => file.file) as daily, i (daily.id)}
+      <div class="block" bind:this={blocks[i]}>
+        <div class="content">
+          <div class="description">
+            {#if i === 0}
+              {@render main()}
+            {/if}
+            <div class="footer">
+              {format(daily.date)}
+              {daily.caption}
+            </div>
+          </div>
+          <div class="details">
+            <img
+              class="file"
+              draggable="false"
+              alt={daily.caption ?? format(daily.date)}
+              src={files.resolve({ id: daily.file!.id, variant: '2048x2048' })}
+            />
+          </div>
+        </div>
+      </div>
+    {/each}
+  </div>
+</div>
+
+<style lang="scss">
+  .page {
+    display: flex;
+    flex-direction: column;
+    > .blocks {
+      > .block {
+        font-size: var(--tiny-font-size-small);
+      }
+    }
+    &.type-landscape {
+      > .main {
+        display: none;
+      }
+      > .blocks {
+        display: flex;
+        flex-direction: column;
+        > .block {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100vh;
+          > .content {
+            max-height: 100%;
+            padding: 50px;
+            display: flex;
+            flex-direction: row;
+            > .description {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              width: 300px;
+              > .main {
+                flex: 1;
+                > .title {
+                  font-size: var(--tiny-font-size);
+                  font-weight: 700;
+                }
+              }
+            }
+            > .details {
+              flex: 1;
+              height: 100%;
+              > .file {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: right;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.type-portrait {
+      > .main {
+        padding: 25px;
+        > .title {
+          font-size: var(--tiny-font-size);
+          font-weight: 700;
+        }
+      }
+      > .blocks {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        > .block {
+          display: flex;
+          flex-direction: column;
+          font-size: var(--tiny-font-size-small);
+          > .content {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 20px;
+            > .description {
+              > .main {
+                display: none;
+              }
+              padding: 0 20px;
+            }
+            > .details {
+              max-height: calc(100vh - 60px);
+              > .file {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
