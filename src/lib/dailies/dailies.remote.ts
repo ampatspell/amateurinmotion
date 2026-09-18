@@ -55,6 +55,7 @@ export const updateDaily = command(
   v.strictObject({
     id: v.string(),
     caption: v.optional(v.string()),
+    number: v.optional(v.number()),
     date: v.optional(v.string()),
     file: v.optional(v.strictObject({ file: v.optional(v.file()) })),
   }),

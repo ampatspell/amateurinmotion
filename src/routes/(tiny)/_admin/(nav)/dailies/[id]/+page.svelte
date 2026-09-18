@@ -19,8 +19,8 @@
   <Form size="wide">
     <Content>
       <Fields field={model.fields.caption} />
-      <Fields field={model.fields.date} />
       <Fields field={model.fields.file} />
+      <Fields fields={[model.fields.date, model.fields.number]} />
     </Content>
   </Form>
 </Editing>
