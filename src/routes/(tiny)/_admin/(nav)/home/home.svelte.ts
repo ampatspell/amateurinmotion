@@ -37,7 +37,7 @@ export const useHome = (_opts: OptionsInput<{ data: HomeData }>) => {
   };
 
   const title = $derived(data.title);
-  const route = resolve('/');
+  const route = resolve('/(tiny)');
 
   return fields.asEditable({
     save,

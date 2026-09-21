@@ -7,7 +7,6 @@
   import { equals } from '@ampatspell/tiny/backend/navigation/model';
   import Floaters from '@ampatspell/tiny/floating/floaters/floaters';
   import { setFloaters } from '@ampatspell/tiny/floating/floaters/model';
-  import LucideCat from '@ampatspell/tiny/icons/lucide--cat';
   import TablerCloud from '@ampatspell/tiny/icons/tabler--cloud';
   import TablerUser from '@ampatspell/tiny/icons/tabler--user';
   import type { Snippet } from 'svelte';
@@ -19,13 +18,7 @@
       {
         name: 'Public',
         icon: TablerCloud,
-        route: resolve('/'),
-        cmp: equals,
-      },
-      {
-        name: 'Cat',
-        icon: LucideCat,
-        route: resolve('/(tiny)/_admin/(nav)'),
+        route: resolve('/(tiny)'),
         cmp: equals,
       },
       {

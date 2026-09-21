@@ -19,7 +19,7 @@
     selected: getter(() => page.params.id),
     item,
     add: markFunction(add.onAdd),
-    route: resolve('/daily'),
+    route: resolve('/(tiny)/daily'),
   });
 </script>
 

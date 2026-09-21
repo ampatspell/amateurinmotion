@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Tiny from '@ampatspell/tiny/tiny';
-  import { getHome } from './(tiny)/_admin/(nav)/home/home.remote';
+  import { resolve } from '$app/paths';
   import { useFiles } from '@ampatspell/tiny/files';
   import { url } from '@ampatspell/tiny/utils/style';
-  import { resolve } from '$app/paths';
+  import { getHome } from './_admin/(nav)/home/home.remote';
+
   let data = $derived(await getHome());
   let files = useFiles();
   let background = $derived(files.asRemote(data.background));
@@ -13,18 +13,16 @@
   <title>{data.title}</title>
 </svelte:head>
 
-<Tiny>
-  <div class="page" style:--url={url(background?.variant.named('2048x2048').url)}>
-    <div class="content">
-      <div class="title">{data.title}</div>
-      <div class="links">
-        <div class="link">
-          <a href={resolve('/daily')}>daily</a>
-        </div>
+<div class="page" style:--url={url(background?.variant.named('2048x2048').url)}>
+  <div class="content">
+    <div class="title">{data.title}</div>
+    <div class="links">
+      <div class="link">
+        <a href={resolve('/(tiny)/daily')}>daily</a>
       </div>
     </div>
   </div>
-</Tiny>
+</div>
 
 <style lang="scss">
   .page {

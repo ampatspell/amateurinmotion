@@ -1,8 +1,8 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import { validatePrefix } from '@ampatspell/tiny/auth/guard/validate';
-  import Entrypoint from '@ampatspell/tiny/entrypoint/entrypoint';
-  import { setTiny } from '@ampatspell/tiny/entrypoint/tiny';
+  import Hello from '@ampatspell/tiny/hello/hello';
+  import { setTiny } from '@ampatspell/tiny/hello/tiny';
 
   let { children } = $props();
 
@@ -17,6 +17,6 @@
   });
 </script>
 
-<Entrypoint>
+<Hello>
   {@render children()}
-</Entrypoint>
+</Hello>

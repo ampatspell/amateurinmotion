@@ -48,7 +48,6 @@ export const useUserModel = (_opts: OptionsInput<UseUserModelOptions>) => {
 
   return fields.asEditable({
     save,
-    route: null,
     title: getter(() => data.email),
   });
 };

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { innerHeight, innerWidth } from 'svelte/reactivity/window';
-  import { getDailies } from '../../lib/dailies/dailies.remote';
   import { useFiles } from '@ampatspell/tiny/files';
   import { isTruthy, sortedBy } from '@ampatspell/tiny/utils/array';
   import { Temporal } from 'temporal-polyfill';
+  import { getDailies } from '#lib/dailies/dailies.remote.js';
 
   let data = $derived(await getDailies({ files: true }));
   let files = useFiles();
