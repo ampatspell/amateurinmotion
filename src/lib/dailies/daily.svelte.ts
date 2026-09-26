@@ -22,11 +22,11 @@ export const useDaily = (_opts: OptionsInput<{ data: DailyData }>) => {
         file: files.asRemote(opts.data.file),
       };
     }),
-  }).define(({ string, file, number }) => {
+  }).define(({ string, date, file, number }) => {
     return {
       number: number('number'),
       caption: string('caption'),
-      date: string('date'),
+      date: date('date'),
       file: file('file', { accept: images, variant: '1024x1024' }),
     };
   });
