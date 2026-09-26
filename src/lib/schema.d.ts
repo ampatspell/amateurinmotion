@@ -7,6 +7,7 @@ export interface Daily {
 }
 
 export interface File {
+  createdAt: string;
   id: string;
   name: string;
 }

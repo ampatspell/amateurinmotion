@@ -39,7 +39,7 @@
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
-    "@ampatspell/tiny": "^0.15.4",
+    "@ampatspell/tiny": "^0.16.0",
     "better-sqlite3": "^12.11.1",
     "kysely": "^0.29.6",
     "temporal-polyfill": "^1.0.5",
