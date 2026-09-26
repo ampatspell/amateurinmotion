@@ -27,7 +27,7 @@ export const useDaily = (_opts: OptionsInput<{ data: DailyData }>) => {
       number: number('number'),
       caption: string('caption'),
       date: string('date'),
-      file: file('file', { accept: images, variant: '1024x1024', isRequired: true }),
+      file: file('file', { accept: images, variant: '1024x1024' }),
     };
   });
 
