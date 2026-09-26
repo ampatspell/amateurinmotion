@@ -1,4 +1,3 @@
-import { Temporal } from 'temporal-polyfill';
 import { getter, options, type OptionsInput } from '@ampatspell/tiny/utils/options';
 import { addDaily, destroyDaily, updateDaily, type DailyData, type DailySummaryData } from './dailies.remote';
 import { withDataFields } from '@ampatspell/tiny/fields/index';
