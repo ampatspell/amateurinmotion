@@ -6,6 +6,7 @@ import { notBlank } from '@ampatspell/tiny/fields/models/validator';
 import { useFiles } from '@ampatspell/tiny/files';
 import { images } from '@ampatspell/tiny/utils/utils';
 import { useBroadcastChannel } from '@ampatspell/tiny/broadcast';
+import { asAction } from '@ampatspell/tiny/utils/action';
 
 export const useHome = (_opts: OptionsInput<{ data: HomeData }>) => {
   const opts = options(_opts);
@@ -37,7 +38,7 @@ export const useHome = (_opts: OptionsInput<{ data: HomeData }>) => {
   };
 
   const title = $derived(data.title);
-  const route = resolve('/(tiny)');
+  const route = asAction(resolve('/(tiny)'));
 
   return fields.asEditable({
     save,

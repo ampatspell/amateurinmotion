@@ -9,6 +9,7 @@
   import { resolve } from '$app/paths';
   import { getDailies, type DailySummaryData } from '#lib/dailies/dailies.remote.js';
   import { useAddDaily } from '#lib/dailies/daily.svelte.js';
+  import { asAction } from '@ampatspell/tiny/utils/action';
 
   let { children } = $props();
   let data = $derived(await getDailies({ files: false }));
@@ -18,8 +19,8 @@
     models: getter(() => data),
     selected: getter(() => page.params.id),
     item,
-    add: markFunction(add.onAdd),
-    route: resolve('/(tiny)/daily'),
+    add: asAction(markFunction(add.onAdd)),
+    route: asAction(resolve('/(tiny)/daily')),
   });
 </script>
 
