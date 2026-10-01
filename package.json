@@ -39,7 +39,7 @@
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
-    "@ampatspell/tiny": "^0.20.0",
+    "@ampatspell/tiny": "^0.20.2",
     "kysely": "^0.29.6",
     "valibot": "^1.5.0"
   },
