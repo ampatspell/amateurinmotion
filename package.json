@@ -32,14 +32,15 @@
     "svelte-check": "^4.7.6",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.1",
-    "vite": "^8.3.1"
+    "vite": "^8.3.1",
+    "temporal-polyfill": "^1.0.5"
   },
   "imports": {
     "#lib": "./src/lib/index.js",
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
-    "@ampatspell/tiny": "^0.20.2",
+    "@ampatspell/tiny": "^0.21.0",
     "kysely": "^0.29.6",
     "valibot": "^1.5.0"
   },
