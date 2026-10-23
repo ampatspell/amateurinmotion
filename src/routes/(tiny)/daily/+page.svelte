@@ -1,11 +1,11 @@
 <script lang="ts">
   import { innerHeight, innerWidth } from 'svelte/reactivity/window';
-  import { useFiles } from '@ampatspell/tiny/files';
   import { isTruthy, sortedBy } from '@ampatspell/tiny/utils/array';
   import { getDailies } from '#lib/dailies/dailies.remote.js';
+  import { format } from '#lib/dailies/utils.js';
+  import Image from '#lib/dailies/image.svelte';
 
   let data = $derived(await getDailies({ files: true }));
-  let files = useFiles();
 
   let type = $derived.by(() => {
     let w = innerWidth.current;
@@ -65,11 +65,6 @@
       }
     }
   };
-
-  let format = (json: string) => {
-    let date = Temporal.PlainDate.from(json);
-    return date.toLocaleString('lv-lv');
-  };
 </script>
 
 <svelte:window {onkeydown} />
@@ -100,12 +95,7 @@
             </div>
           </div>
           <div class="details">
-            <img
-              class="file"
-              draggable="false"
-              alt={daily.caption ?? format(daily.date)}
-              src={files.resolve({ id: daily.file!.id, variant: '2048x2048' })}
-            />
+            <Image {daily} />
           </div>
         </div>
       </div>
@@ -155,12 +145,7 @@
             > .details {
               flex: 1;
               height: 100%;
-              > .file {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                object-position: right;
-              }
+              --position: right;
             }
           }
         }
@@ -194,12 +179,7 @@
             }
             > .details {
               max-height: calc(100vh - 60px);
-              > .file {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                object-position: center;
-              }
+              --position: center;
             }
           }
         }
